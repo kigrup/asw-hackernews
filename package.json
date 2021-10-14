@@ -1,0 +1,23 @@
+{
+  "name": "asw-hackernews",
+  "version": "1.0.0",
+  "description": "Proyecto de ASW Q1 2021",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kigrup/asw-hackernews.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kigrup/asw-hackernews/issues"
+  },
+  "homepage": "https://github.com/kigrup/asw-hackernews#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "http-status-codes": "^2.1.4"
+  }
+}
