@@ -138,3 +138,7 @@ dist
 # MariaDB
 
 mariadb/dbdata/
+
+# Extensions
+
+.prettierignore
