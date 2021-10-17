@@ -15,7 +15,7 @@ En cualquier momento podemos parar la ejecución con CTRL+C. Una vez acabada pod
 docker-compose down
 ```
 
-> Hay que tener en cuenta que el container se borra pero las imágenes siguen ocupando espacio. Podemos borrar todas las imágenes generadas añadiendo un parámetro al apagar el contenedor tal que así:
+> Hay que tener en cuenta que el container se borra pero las imágenes siguen ocupando espacio (y se van acumulando). Para no acabar con muchas copias de la imágen del servidor (1GB cada una) podemos borrar todas las imágenes generadas añadiendo un parámetro al apagar el contenedor tal que así:
 > ```
 > docker-compose down --rmi 'all'
 > ```
