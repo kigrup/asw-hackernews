@@ -1,23 +1,22 @@
 const express = require('express');
 const app = express();
 
-// Routers
-const index = require('./routes/index.js')
-const login = require('./routes/login.js');
-
-// Routes
-app.use('/', index)
-app.use('/login', login);
+const index = require('./routes/index');
+const login = require('./routes/login');
+const authenticateUser = require('./middlewares/authentication');
 
 // Middlewares
-//app.use(notFoundMiddleware);
-//app.use(errorHandlerMiddleware);
+app.use(express.json());
 
-const port = process.env.PORT || 13373;
+// Routes
+app.use('/', index);
+app.use('/login', login);
+//app.use('/api/posts/', authenticateUser, jobsRouter);
+
+const port = process.env.PORT || 13001;
 
 const start = async () => {
     try {
-        //await connectDB(process.env.MONGO_URI);
         app.listen(port, () =>
             console.log(`Server is listening on port ${port}...`)
         );
