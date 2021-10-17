@@ -1,7 +1,12 @@
-# ASW Hacker News
-Proyecto de ASW Q1 2021
+# ASW Hacker News - Q1 2021
+Miembros:
+- Pere Masip Rispa
+- Xavier Garcia Merino
+- Pau Martin Galindo
+- Raul Plesa
 
-### Instrucciones para ejecutar de forma local
+## Pruebas en local
+### Ejecutar proyecto
 Una vez clonado el repositorio instalamos las dependencias:
 ```
 npm install
@@ -19,3 +24,5 @@ docker-compose down
 > ```
 > docker-compose down --rmi 'all'
 > ```
+### Base de datos
+Para los datos de la base de datos se monta un volumen fuera del contenedor en la carpeta del repo, para ser más exactos en **/mariadb/dbdata**. De esta forma, si queremos reiniciar por completo la base de datos (por ejemplo cuando modificamos el *init.sql*) hay que borrar esta carpeta.
