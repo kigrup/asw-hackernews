@@ -11,18 +11,11 @@ Una vez clonado el repositorio instalamos las dependencias:
 ```
 npm install
 ```
-Y para ejecutarlo todo:
+Y para ejecutar el container:
 ```
-docker-compose up --build
+./run.sh
 ```
-En cualquier momento podemos parar la ejecución con CTRL+C. Una vez acabada podemos apagar y borrar el contenedor con:
+En cualquier momento podemos parar la ejecución cerrando el terminal que se abre. Para apagar todos los contenedors y borrarlos junto a todas las imágenes que hay en el sistema (cuidado si usas Docker para cualquier otra cosa) hacemos:
 ```
-docker-compose down
+./stop.sh
 ```
-
-> Hay que tener en cuenta que el container se borra pero las imágenes siguen ocupando espacio (y se van acumulando). Para no acabar con muchas copias de la imágen del servidor (1GB cada una) podemos borrar todas las imágenes generadas añadiendo un parámetro al apagar el contenedor tal que así:
-> ```
-> docker-compose down --rmi 'all'
-> ```
-### Base de datos
-Para los datos de la base de datos se monta un volumen fuera del contenedor en la carpeta del repo, para ser más exactos en **/mariadb/dbdata**. De esta forma, si queremos reiniciar por completo la base de datos (por ejemplo cuando modificamos el *init.sql*) hay que borrar esta carpeta.
