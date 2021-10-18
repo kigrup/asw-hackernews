@@ -6,4 +6,10 @@ const index = async (req, res) => {
     res.status(StatusCodes.OK);
 };
 
-module.exports = { index };
+const newest = async (req, res) => {
+    res.send('Casa dulce casa /newest');
+
+    res.status(StatusCodes.OK);
+};
+
+module.exports = { index, newest };
