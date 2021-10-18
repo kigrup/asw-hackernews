@@ -1,13 +1,8 @@
-const mariadb = require('mariadb');
+const { Sequelize } = require('sequelize');
 
-const pool = mariadb.createPool({
-    host: 'mariadb',
-    port: 3306,
-    user: 'user',
-    password: 'p4ssw0rd',
-    database: 'hackernews',
-    connectionLimit: 15,
-    acquireTimeout: 300000,
+const sequelize = new Sequelize({
+    dialect: 'sqlite',
+    storage: 'db/database.sqlite',
 });
 
-module.exports = pool;
+module.exports = sequelize;
