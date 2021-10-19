@@ -12,11 +12,12 @@ const login = async (req, res) => {
 };
 
 const apply = async (req, res) => {
-    const { username, password } = req.body;
+    const { username, email, password } = req.body;
     try {
         const user = await User.create({
-            username: 'Raul',
-            email: 'raul.plesa@gmail.com',
+            username: username,
+            email: email,
+            password: password,
         });
         res.send(`username: ${user.username} email: ${user.email}`);
     } catch (e) {
