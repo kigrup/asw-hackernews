@@ -1,5 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
-const Contribution = require('../db/models/User');
+const Contribution = require('../db/models/Contribution');
 const Constants = require('../Constants');
 
 const submit = async (req, res) => {
@@ -14,9 +14,9 @@ const submit = async (req, res) => {
     }
 };
 
-const contribution = async (req, res) => {
-    const { type, title, url, text } = req.body;
+const post = async (req, res) => {
     try {
+        const { type, title, url, text } = req.body;
         const user = await Contribution.create({
             title: title,
             url: url,
@@ -30,4 +30,4 @@ const contribution = async (req, res) => {
     }
 };
 
-module.exports = { submit, contribution };
+module.exports = { submit, post };

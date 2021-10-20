@@ -12,8 +12,8 @@ const login = async (req, res) => {
 };
 
 const apply = async (req, res) => {
-    const { username, email, password } = req.body;
     try {
+        const { username, email, password } = req.body;
         const user = await User.create({
             username: username,
             email: email,

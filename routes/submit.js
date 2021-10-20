@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const { submit, contribution } = require('../controllers/submit.js');
+const { submit, post } = require('../controllers/submit.js');
 
 router.get('/', submit);
-router.post('/contribution', contribution);
+router.post('/post', post);
 
 module.exports = router;
