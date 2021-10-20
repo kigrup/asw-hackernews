@@ -14,7 +14,7 @@ const index = async (req, res) => {
         posts.forEach((post) => {
             response += `${post.title} ${
                 post.text === undefined ? post.url : post.text
-            } \r\n`;
+            } \r\n\r\n`;
         });
 
         res.status(StatusCodes.OK).send(response);
