@@ -5,7 +5,11 @@ const logger = winston.createLogger({
     level: 'http',
     format: winston.format.json(),
     defaultMeta: { service: 'server' },
-    transports: [new winston.transports.File({ filename: moment().format() })],
+    transports: [
+        new winston.transports.File({
+            filename: './logs/' + moment().format() + '.log',
+        }),
+    ],
 });
 
 module.exports = logger;
