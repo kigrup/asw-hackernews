@@ -10,11 +10,7 @@ const myFormat = printf(({ level, message, timestamp, ...metadata }) => {
 });
 
 const logger = winston.createLogger({
-    format: winston.format.combine(
-        winston.format.splat(),
-        winston.format.timestamp(),
-        myFormat
-    ),
+    format: winston.format.json(),
     defaultMeta: { service: 'server' },
     transports: [
         new winston.transports.File({
