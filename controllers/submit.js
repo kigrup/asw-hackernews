@@ -10,7 +10,7 @@ const submit = async (req, res) => {
         );
     } catch (e) {
         logger.info('Error on /submit');
-        logger.info(e);
+        logger.info(e.message);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).send();
     }
 };
@@ -27,7 +27,7 @@ const post = async (req, res) => {
         res.status(StatusCodes.OK).redirect(Constants.BASE_URL);
     } catch (e) {
         logger.info('Error creating contribution');
-        logger.info(e);
+        logger.info(e.message);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).send();
     }
 };

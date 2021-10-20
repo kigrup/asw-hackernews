@@ -18,7 +18,6 @@ const index = async (req, res) => {
         res.status(StatusCodes.OK).send(response);
     } catch (e) {
         logger.info('Issue in index');
-        console.log(e.message);
         logger.info(e.message);
         res.status(StatusCodes.OK).send('Error');
     }

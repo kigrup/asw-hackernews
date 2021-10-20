@@ -7,7 +7,7 @@ const login = async (req, res) => {
         res.status(StatusCodes.OK).send(`You're logged in Captain!!!!`);
     } catch (e) {
         logger.info('Error on /login');
-        logger.info(e);
+        logger.info(e.message);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).send();
     }
 };

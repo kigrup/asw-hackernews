@@ -30,7 +30,7 @@ const start = async () => {
             logger.info(`Server is listening on port ${port}...`)
         );
     } catch (error) {
-        logger.info(error);
+        logger.info(error.message);
     }
 };
 
