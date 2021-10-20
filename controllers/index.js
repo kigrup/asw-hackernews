@@ -1,5 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 const Contribution = require('../db/models/Contribution');
+const logger = require('../utils/logger');
 
 const index = async (req, res) => {
     const response = 'Publications: \n';
@@ -19,7 +20,11 @@ const index = async (req, res) => {
         });
 
         res.status(StatusCodes.OK).send(response);
-    } catch (e) {}
+    } catch (e) {
+        logger.info('Issue in index');
+        logger.info(e);
+        res.status(StatusCodes.OK).send('Error');
+    }
 };
 
 const newest = async (req, res) => {
