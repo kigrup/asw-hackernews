@@ -3,7 +3,7 @@ const Contribution = require('../db/models/Contribution');
 const logger = require('../utils/logger');
 
 const index = async (req, res) => {
-    const response = 'Publications: \n';
+    var response = 'Publications: \n';
     try {
         const posts = await Contribution.findAll({
             where: {
