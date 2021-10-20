@@ -12,7 +12,9 @@ const index = async (req, res) => {
             attributes: ['title', 'text', 'url'],
         });
         posts.forEach((post) => {
-            response += ``;
+            response += `${post.title} ${
+                post.text === undefined ? post.url : post.text
+            } \n`;
         });
 
         res.status(StatusCodes.OK).send(response);
