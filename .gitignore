@@ -135,9 +135,9 @@ dist
 
 .tern-port
 
-# MariaDB
+# Database
 
-mariadb/dbdata/
+db/data
 
 # Extensions
 
