@@ -3,7 +3,7 @@ const User = require('../db/models/User');
 
 const login = async (req, res) => {
     try {
-        res.status(StatusCodes.OK).send(`You're logged in Captain!`);
+        res.status(StatusCodes.OK).send(`You're logged in Captain!!!!`);
     } catch (e) {
         console.log('Error on /login');
         console.log(e);
