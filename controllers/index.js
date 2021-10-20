@@ -18,7 +18,7 @@ const index = async (req, res) => {
                 post.text === undefined ? post.url : post.text
             } \r\n\r\n`;
         });
-        let html = ejs.render('./views/pages/index', posts);
+        let html = ejs.render('pages/index', posts);
 
         res.status(StatusCodes.OK).send(html);
     } catch (e) {
