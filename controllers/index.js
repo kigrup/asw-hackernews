@@ -2,7 +2,7 @@ const { StatusCodes } = require('http-status-codes');
 const Contribution = require('../db/models/Contribution');
 const logger = require('../utils/logger');
 const ejs = require('ejs');
-const indexTemplate = require('../templates/inde');
+const indexTemplate = require('../templates/index');
 
 const index = async (req, res) => {
     var response = 'Publications: \n';
