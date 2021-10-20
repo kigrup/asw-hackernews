@@ -1,6 +1,8 @@
 const { StatusCodes } = require('http-status-codes');
 const Contribution = require('../db/models/Contribution');
 const logger = require('../utils/logger');
+const ejs = require('ejs');
+const indexTemplate = require('../templates/inde');
 
 const index = async (req, res) => {
     var response = 'Publications: \n';
@@ -16,8 +18,9 @@ const index = async (req, res) => {
                 post.text === undefined ? post.url : post.text
             } \r\n\r\n`;
         });
+        let html = ejs.render('./views/pages/index', posts);
 
-        res.status(StatusCodes.OK).send(response);
+        res.status(StatusCodes.OK).send(html);
     } catch (e) {
         logger.info('Issue in index');
         logger.info(e.message);

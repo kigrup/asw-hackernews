@@ -11,6 +11,9 @@ const authenticateUser = require('./middlewares/authentication');
 // Middlewares
 app.use(express.json());
 
+// EJS
+app.set('view engine', 'ejs');
+
 // Routes
 app.use('/', index);
 app.use('/login', login);

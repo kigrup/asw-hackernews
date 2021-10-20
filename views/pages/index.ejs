@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head'); %>
+    </head>
+    <body class="container">
+        <header><%- include('../partials/header'); %></header>
+
+        <main>
+            <div class="jumbotron">
+                <h1>Hackersnews</h1>
+                <p>Contributions:</p>
+            </div>
+            <ul>
+                <% posts.forEach(function(post) { %>
+                <li>
+                    <strong><%= post.title %></strong>
+                    <%= post.text %>
+                </li>
+                <% }); %>
+            </ul>
+        </main>
+
+        <footer><%- include('../partials/footer'); %></footer>
+    </body>
+</html>
