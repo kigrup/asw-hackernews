@@ -1,6 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 const User = require('../db/models/User');
-const logger = require('./utils/logger');
+const logger = require('../utils/logger');
 
 const login = async (req, res) => {
     try {

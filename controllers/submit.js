@@ -1,7 +1,7 @@
 const { StatusCodes } = require('http-status-codes');
 const Contribution = require('../db/models/Contribution');
 const Constants = require('../utils/Constants');
-const logger = require('./utils/logger');
+const logger = require('../utils/logger');
 
 const submit = async (req, res) => {
     try {
