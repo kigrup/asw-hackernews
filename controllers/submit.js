@@ -17,9 +17,9 @@ const submit = async (req, res) => {
 
 const post = async (req, res) => {
     try {
-        const { type, title, url, text } = req.body;
+        const { title, url, text } = req.body;
         const user = await Contribution.create({
-            type: type,
+            type: 'post',
             title: title,
             url: url,
             text: text,
