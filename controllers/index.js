@@ -12,18 +12,14 @@ const index = async (req, res) => {
             attributes: ['title', 'text', 'url'],
         });
         posts.forEach((post) => {
-            response += `${post.title} ${
-                post.text === undefined || post.text == ''
-                    ? post.url
-                    : post.text
-            } \n`;
+            response += ``;
         });
 
         res.status(StatusCodes.OK).send(response);
     } catch (e) {
         logger.info('Issue in index');
-        console.log(e);
-        logger.info(e);
+        console.log(e.message);
+        logger.info(e.message);
         res.status(StatusCodes.OK).send('Error');
     }
 };
