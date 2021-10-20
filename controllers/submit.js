@@ -1,6 +1,7 @@
 const { StatusCodes } = require('http-status-codes');
 const Contribution = require('../db/models/Contribution');
 const Constants = require('../utils/Constants');
+const logger = require('./utils/logger');
 
 const submit = async (req, res) => {
     try {
@@ -8,8 +9,8 @@ const submit = async (req, res) => {
             `What would you like to say to the world?`
         );
     } catch (e) {
-        console.log('Error on /submit');
-        console.log(e);
+        logger.info('Error on /submit');
+        logger.info(e);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).send();
     }
 };
@@ -25,8 +26,8 @@ const post = async (req, res) => {
         });
         res.status(StatusCodes.OK).redirect(Constants.BASE_URL);
     } catch (e) {
-        console.log('Error creating contribution');
-        console.log(e);
+        logger.info('Error creating contribution');
+        logger.info(e);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).send();
     }
 };

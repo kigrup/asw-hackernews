@@ -21,6 +21,7 @@
     "express": "^4.17.1",
     "http-status-codes": "^2.1.4",
     "sequelize": "^6.7.0",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.0.2",
+    "winston": "^3.3.3"
   }
 }
