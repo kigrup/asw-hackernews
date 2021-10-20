@@ -4,6 +4,7 @@ const sequelize = require('./db/connect');
 
 const index = require('./routes/index');
 const login = require('./routes/login');
+const submit = require('./routes/submit');
 const authenticateUser = require('./middlewares/authentication');
 
 // Middlewares
@@ -12,7 +13,7 @@ app.use(express.json());
 // Routes
 app.use('/', index);
 app.use('/login', login);
-//app.use('/api/posts/', authenticateUser, jobsRouter);
+app.use('/submit', authenticateUser, submit);
 
 const port = process.env.PORT || 13001;
 
