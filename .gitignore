@@ -142,3 +142,7 @@ db/data
 # Extensions
 
 .prettierignore
+
+# Logs
+
+.logs/
