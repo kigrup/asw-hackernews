@@ -19,7 +19,8 @@ const post = async (req, res) => {
     try {
         const { title, url, text } = req.body;
         var contentType, content;
-        if (url === 'undefined' || url == '') {
+        //if (url === 'undefined' || url == '') {
+        if (true) {
             contentType = 'post/text';
             content = text;
         } else {
