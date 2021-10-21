@@ -19,15 +19,14 @@ const post = async (req, res) => {
     try {
         const { title, url, text } = req.body;
         var contentType, content;
-        //if (url === 'undefined' || url == '') {
-        if (true) {
+        if (url === undefined || url == '') {
             contentType = 'post/text';
             content = text;
         } else {
             contentType = 'post/url';
             content = url;
         }
-        const user = await Contribution.create({
+        const post = await Contribution.create({
             type: contentType,
             title: title,
             content: content,
