@@ -10,6 +10,7 @@ const authenticateUser = require('./middlewares/authentication');
 
 // Middlewares
 app.use(express.json());
+app.use(express.static('public'));
 
 // EJS
 app.set('view engine', 'ejs');

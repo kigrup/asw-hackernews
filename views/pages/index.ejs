@@ -3,23 +3,46 @@
     <head>
         <%- include('../partials/head'); %>
     </head>
-    <body class="container">
-        <header><%- include('../partials/header'); %></header>
-
-        <main>
-            <div class="jumbotron">
-                <h1>Posts</h1>
-                <ul>
-                    <% posts.forEach(function(post) { %>
-                    <li>
-                        <strong><%= post.title %></strong>
-                        <p><%= post.content %></p>
-                    </li>
-                    <% }); %>
-                </ul>
-            </div>
-        </main>
-
-        <footer><%- include('../partials/footer'); %></footer>
+    <body cz-shortcut-listen="true">
+        <center>
+            <table
+                id="hnmain"
+                border="0"
+                cellpadding="0"
+                cellspacing="0"
+                width="85%"
+                bgcolor="#f6f6ef"
+            >
+                <tbody>
+                    <%- include('../partials/header.ejs'); %>
+                    <tr id="pagespace" title="" style="height: 10px"></tr>
+                    <tr>
+                        <td>
+                            <table
+                                border="0"
+                                cellpadding="0"
+                                cellspacing="0"
+                                class="itemlist"
+                            >
+                                <tbody>
+                                    <% posts.forEach(function(post) { %> <% if
+                                    (post.type == 'post/text') { %> <%-
+                                    include('../partials/textpost.ejs', { post:
+                                    post }); %> <% } else { %> <%-
+                                    include('../partials/urlpost.ejs', { post:
+                                    post }); %> <% } %> <% }); %>
+                                    <tr
+                                        class="morespace"
+                                        style="height: 10px"
+                                    ></tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <%- include('../partials/footer.ejs'); %>
+                </tbody>
+            </table>
+        </center>
+        <script type="text/javascript" src="./data/hn.js.download"></script>
     </body>
 </html>

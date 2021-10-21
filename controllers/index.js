@@ -6,7 +6,7 @@ const ejs = require('ejs');
 const index = async (req, res) => {
     try {
         const posts = await Contribution.findAll({
-            attributes: ['title', 'type', 'content'],
+            attributes: ['id', 'title', 'type', 'content'],
         });
         res.render('pages/index', {
             posts: posts,

@@ -135,14 +135,13 @@ dist
 
 .tern-port
 
-# Database
+# Volumes (database and logs)
 
 db/data
+logs/
 
 # Extensions
 
 .prettierignore
 
-# Logs
-
-.logs/
+/views/pages/inspiration/
