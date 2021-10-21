@@ -11,7 +11,7 @@ const submit = async (req, res) => {
     } catch (e) {
         logger.info('Error on /submit');
         logger.info(e.message);
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send();
+        res.render('pages/submit');
     }
 };
 
