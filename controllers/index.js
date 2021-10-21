@@ -14,7 +14,9 @@ const index = async (req, res) => {
         });
         posts.forEach((post) => {
             response += `${post.title} ${
-                post.text === undefined ? post.url : post.text
+                post.text === undefined || post.text == ''
+                    ? post.url
+                    : post.text
             } \r\n\r\n`;
         });
         res.render('pages/index', {
