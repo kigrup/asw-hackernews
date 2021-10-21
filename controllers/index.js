@@ -17,9 +17,9 @@ const index = async (req, res) => {
                 post.text === undefined ? post.url : post.text
             } \r\n\r\n`;
         });
-        let html = ejs.render('pages/index', posts, { views: ['../views'] });
-
-        res.status(StatusCodes.OK).send(html);
+        res.render('pages/index', {
+            posts: posts,
+        });
     } catch (e) {
         logger.info('Issue in index');
         logger.info(e.message);

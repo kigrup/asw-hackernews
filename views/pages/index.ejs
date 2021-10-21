@@ -8,17 +8,16 @@
 
         <main>
             <div class="jumbotron">
-                <h1>Hackersnews</h1>
-                <p>Contributions:</p>
+                <h1>Posts</h1>
+                <ul>
+                    <% posts.forEach(function(post) { %>
+                    <li>
+                        <strong><%= post.title %></strong>
+                        <%= post.text %>
+                    </li>
+                    <% }); %>
+                </ul>
             </div>
-            <ul>
-                <% posts.forEach(function(post) { %>
-                <li>
-                    <strong><%= post.title %></strong>
-                    <%= post.text %>
-                </li>
-                <% }); %>
-            </ul>
         </main>
 
         <footer><%- include('../partials/footer'); %></footer>
