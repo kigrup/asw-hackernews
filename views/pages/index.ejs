@@ -13,8 +13,7 @@
                     <% posts.forEach(function(post) { %>
                     <li>
                         <strong><%= post.title %></strong>
-                        <% if (post.type == 'post/text') { %> <%= post.text %>
-                        <% } else { %> <%= post.url%> <% } %>
+                        <p><%= post.text %></p>
                     </li>
                     <% }); %>
                 </ul>

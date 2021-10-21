@@ -4,7 +4,6 @@ const logger = require('../utils/logger');
 const ejs = require('ejs');
 
 const index = async (req, res) => {
-    var response = 'Publications: \n';
     try {
         const posts = await Contribution.findAll({
             where: {
