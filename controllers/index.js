@@ -10,14 +10,7 @@ const index = async (req, res) => {
             where: {
                 type: 'post',
             },
-            attributes: ['title', 'text', 'url'],
-        });
-        posts.forEach((post) => {
-            response += `${post.title} ${
-                post.text === undefined || post.text == ''
-                    ? post.url
-                    : post.text
-            } \r\n\r\n`;
+            attributes: ['title', 'type', 'content'],
         });
         res.render('pages/index', {
             posts: posts,

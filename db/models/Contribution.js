@@ -17,10 +17,7 @@ Contribution.init(
         title: {
             type: DataTypes.STRING,
         },
-        url: {
-            type: DataTypes.STRING,
-        },
-        text: {
+        content: {
             type: DataTypes.STRING,
         },
     },

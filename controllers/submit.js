@@ -18,11 +18,18 @@ const submit = async (req, res) => {
 const post = async (req, res) => {
     try {
         const { title, url, text } = req.body;
+        var contentType, content;
+        if (url === 'undefined' || url == '') {
+            contentType = 'post/text';
+            content = text;
+        } else {
+            contentType = 'post/url';
+            content = url;
+        }
         const user = await Contribution.create({
-            type: 'post',
+            type: contentType,
             title: title,
-            url: url,
-            text: text,
+            content: content,
         });
         res.status(StatusCodes.OK).redirect(Constants.BASE_URL);
     } catch (e) {
