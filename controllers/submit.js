@@ -5,13 +5,11 @@ const logger = require('../utils/logger');
 
 const submit = async (req, res) => {
     try {
-        res.status(StatusCodes.OK).send(
-            `What would you like to say to the world?`
-        );
+        res.render('pages/submit');
     } catch (e) {
         logger.info('Error on /submit');
         logger.info(e.message);
-        res.render('pages/submit');
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send();
     }
 };
 
