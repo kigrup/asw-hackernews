@@ -8,6 +8,7 @@ const index = async (req, res) => {
         const posts = await Contribution.findAll({
             attributes: ['title', 'type', 'content'],
         });
+        console.log('posts' + posts);
         res.render('pages/index', {
             posts: posts,
         });
