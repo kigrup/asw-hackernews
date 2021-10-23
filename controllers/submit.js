@@ -19,14 +19,7 @@ const post = async (req, res) => {
     try {
         const { title, url, text } = req.body;
         if (title === undefined || !title) {
-            res.redirect(
-                url.format({
-                    pathname: 'http://hackers.hopto.org:13001/submit',
-                    query: {
-                        invalidTitle: true,
-                    },
-                })
-            );
+            res.redirect('/submit?invalidTitle=true');
             return;
         }
         var contentType, content;
@@ -44,6 +37,7 @@ const post = async (req, res) => {
         });
         res.status(StatusCodes.OK).redirect('/');
     } catch (e) {
+        console.log(e.message);
         logger.info('Error creating contribution');
         logger.info(e.message);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).send();
