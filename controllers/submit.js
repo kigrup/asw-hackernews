@@ -16,6 +16,7 @@ const submit = async (req, res) => {
 const post = async (req, res) => {
     try {
         const { title, url, text } = req.body;
+        console.log(`title ${title} \nurl ${url}\ntext ${text}`);
         var contentType, content;
         if (url === undefined || url == '') {
             contentType = 'post/text';
