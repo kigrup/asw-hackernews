@@ -1,7 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 const db = require('../db/db');
 const Constants = require('../utils/Constants');
-const logger = require('../utils/logger');
 
 const submit = async (req, res) => {
     try {
@@ -9,8 +8,8 @@ const submit = async (req, res) => {
             invalidTitle: req.query.invalidTitle,
         });
     } catch (e) {
-        logger.info('Error on /submit');
-        logger.info(e.message);
+        console.log('Error on /submit');
+        console.log(e.message);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).send();
     }
 };
@@ -39,9 +38,8 @@ const post = async (req, res) => {
         console.log(`published post with id ${post.id}`);
         res.status(StatusCodes.OK).redirect('/');
     } catch (e) {
+        console.log('Error creating contribution');
         console.log(e.message);
-        logger.info('Error creating contribution');
-        logger.info(e.message);
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).send();
     }
 };

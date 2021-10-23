@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
 const db = require('./db/db');
-const logger = require('./utils/logger');
 
 const index = require('./routes/index');
 const login = require('./routes/login');
 const submit = require('./routes/submit');
+const item = require('./routes/item');
+const user = require('./routes/user');
 const authenticateUser = require('./middlewares/authentication');
 
 // Middlewares
@@ -24,22 +25,24 @@ app.set('view engine', 'ejs');
 app.use('/', index);
 app.use('/login', login);
 app.use('/submit', authenticateUser, submit);
+app.use('/item', item);
+app.use('/user', user);
 
 const port = process.env.PORT || 13001;
 
 const start = async () => {
     try {
-        logger.info('Testing database connection...');
+        console.log('Testing database connection...');
         await db.sequelize.authenticate();
-        logger.info('Connection has been established successfully.');
-        logger.info('Syncing database...');
+        console.log('Connection has been established successfully.');
+        console.log('Syncing database...');
         db.sequelize.sync();
-        logger.info('Syncronized database successfull.');
+        console.log('Syncronized database successfull.');
         app.listen(port, () =>
-            logger.info(`Server is listening on port ${port}...`)
+            console.log(`Server is listening on port ${port}...`)
         );
     } catch (error) {
-        logger.info(error.message);
+        console.log(error.message);
     }
 };
 

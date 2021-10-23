@@ -1,6 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
 const db = require('../db/db');
-const logger = require('../utils/logger');
 const ejs = require('ejs');
 const moment = require('moment');
 
@@ -22,14 +21,13 @@ const index = async (req, res) => {
             include: [db.users],
             order: ['upvotes'],
         });
-        console.log(require('util').inspect(posts, false, 5, false));
         res.render('pages/index', {
             posts: posts,
             moment: moment,
         });
     } catch (e) {
-        logger.info('Issue in index');
-        logger.info(e.message);
+        console.log('Issue in index');
+        console.log(e.message);
         res.status(StatusCodes.OK).send('Error');
     }
 };
