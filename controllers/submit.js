@@ -5,7 +5,9 @@ const logger = require('../utils/logger');
 
 const submit = async (req, res) => {
     try {
-        res.render('pages/submit');
+        res.render('pages/submit', {
+            invalidTitle: req.query.invalidTitle,
+        });
     } catch (e) {
         logger.info('Error on /submit');
         logger.info(e.message);
@@ -16,7 +18,17 @@ const submit = async (req, res) => {
 const post = async (req, res) => {
     try {
         const { title, url, text } = req.body;
-        console.log(`title ${title} \nurl ${url}\ntext ${text}`);
+        if (title === undefined || !title) {
+            res.redirect(
+                url.format({
+                    pathname: 'http://hackers.hopto.org:13001/submit',
+                    query: {
+                        invalidTitle: true,
+                    },
+                })
+            );
+            return;
+        }
         var contentType, content;
         if (url === undefined || url == '') {
             contentType = 'post/text';
@@ -30,7 +42,7 @@ const post = async (req, res) => {
             title: title,
             content: content,
         });
-        res.status(StatusCodes.OK).redirect(Constants.BASE_URL);
+        res.status(StatusCodes.OK).redirect('/');
     } catch (e) {
         logger.info('Error creating contribution');
         logger.info(e.message);

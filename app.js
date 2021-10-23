@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const sequelize = require('./db/connect');
 const logger = require('./utils/logger');
+var bodyParser = require('body-parser');
 
 const index = require('./routes/index');
 const login = require('./routes/login');
@@ -10,6 +11,11 @@ const authenticateUser = require('./middlewares/authentication');
 
 // Middlewares
 app.use(express.json());
+app.use(
+    express.urlencoded({
+        extended: true,
+    })
+);
 app.use(express.static('public'));
 
 // EJS

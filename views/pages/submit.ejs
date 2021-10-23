@@ -19,10 +19,10 @@
                     <tr id="pagespace" submit="" style="height: 10px"></tr>
                     <tr>
                         <td>
-                            <form
-                                method="post"
-                                action="http://hackers.hopto.org:13001/submit/post"
-                            >
+                            <% if (invalidTitle) {%> 
+                            <%="That's not a valid title"%>
+                            <% } %>
+                            <form method="post" action="/submit/post">
                                 <input
                                     type="hidden"
                                     name="fnid"
