@@ -1,13 +1,13 @@
-<tr class="athing" id="28942189">
+<tr class="athing" id="<%=post.id%>">
     <td align="right" valign="top" class="title">
         <span class="rank">1.</span>
     </td>
     <td valign="top" class="votelinks">
         <center>
             <a
-                id="up_28942189"
+                id="up_<%=post.id%>"
                 onclick='return vote(event, this, "up")'
-                href="https://news.ycombinator.com/vote?id=28942189&amp;how=up&amp;auth=c55b65207d9174d1520e607763c1d1bbc1aeab1b&amp;goto=news"
+                href="http://hackers.hopto.org:13001/vote?id=<%=post.id%>&amp;how=up"
                 ><div class="votearrow" title="upvote"></div
             ></a>
         </center>
@@ -23,20 +23,20 @@
 <tr>
     <td colspan="2"></td>
     <td class="subtext">
-        <span class="score" id="score_28942189">464 points</span>
+        <span class="score" id="score_<%=post.id%>"><%= post.upvotes %> points</span>
         by
-        <a href="https://news.ycombinator.com/user?id=ZephyrBlu" class="hnuser"
-            >ZephyrBlu</a
+        <a href="http://hackers.hopto.org:13001/user?id=<%= post.author %> " class="hnuser"
+            ><%= post.author %></a
         >
-        <span class="age" title="2021-10-21T09:25:06"
-            ><a href="http://hackers.hopto.org:13001/item?id=<%=post.id%>"
-                >5 hours ago</a
-            ></span
-        >
-        <span id="unv_28942189"></span> |
+        <span class="age" title="<%= post.createdAt %> ">
+            <a href="http://hackers.hopto.org:13001/item?id=<%=post.id%>">
+                <%= moment(new Date(post.createdAt)).fromNow() %> 
+            </a>
+        </span>
+        <span id="unv_<%=post.id%>"></span> |
         <a
-            href="https://news.ycombinator.com/hide?id=28942189&amp;auth=c55b65207d9174d1520e607763c1d1bbc1aeab1b&amp;goto=news"
-            onclick="return hidestory(event, this, 28942189)"
+            href="https://news.ycombinator.com/hide?id=<%=post.id%>"
+            onclick="return hidestory(event, this, <%=post.id%>)"
             >hide</a
         >
         |

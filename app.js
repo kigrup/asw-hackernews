@@ -1,8 +1,7 @@
 const express = require('express');
 const app = express();
-const sequelize = require('./db/connect');
+const db = require('./db/db');
 const logger = require('./utils/logger');
-var bodyParser = require('body-parser');
 
 const index = require('./routes/index');
 const login = require('./routes/login');
@@ -31,10 +30,10 @@ const port = process.env.PORT || 13001;
 const start = async () => {
     try {
         logger.info('Testing database connection...');
-        await sequelize.authenticate();
+        await db.sequelize.authenticate();
         logger.info('Connection has been established successfully.');
         logger.info('Syncing database...');
-        sequelize.sync();
+        db.sequelize.sync();
         logger.info('Syncronized database successfull.');
         app.listen(port, () =>
             logger.info(`Server is listening on port ${port}...`)

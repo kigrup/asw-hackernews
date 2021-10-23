@@ -1,11 +1,14 @@
 const { StatusCodes } = require('http-status-codes');
-const Contribution = require('../db/models/Contribution');
+const db = require('../db/db');
 const logger = require('../utils/logger');
 const ejs = require('ejs');
+const moment = require('moment');
+
+moment.updateLocale('es');
 
 const index = async (req, res) => {
     try {
-        const posts = await Contribution.findAll({
+        const posts = await db.contributions.findAll({
             attributes: [
                 'id',
                 'title',
@@ -14,11 +17,15 @@ const index = async (req, res) => {
                 'upvotes',
                 'comments',
                 'author',
+                'createdAt',
             ],
+            include: [db.users],
             order: ['upvotes'],
         });
+        console.log(require('util').inspect(posts, false, 5, false));
         res.render('pages/index', {
             posts: posts,
+            moment: moment,
         });
     } catch (e) {
         logger.info('Issue in index');

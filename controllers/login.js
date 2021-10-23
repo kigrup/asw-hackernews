@@ -1,5 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
-const User = require('../db/models/User');
+const db = require('../db/db');
 const logger = require('../utils/logger');
 
 const login = async (req, res) => {
@@ -14,13 +14,14 @@ const login = async (req, res) => {
 
 const apply = async (req, res) => {
     try {
-        const { username, email, password } = req.body;
-        const user = await User.create({
+        const { username, email } = req.body;
+        const user = await db.users.create({
             username: username,
             email: email,
-            password: password,
         });
-        res.send(`username: ${user.username} email: ${user.email}`);
+        res.send(
+            `Registered: {username: ${user.username} email: ${user.email}}`
+        );
     } catch (e) {
         logger.info('Error registering user');
         logger.info(e);

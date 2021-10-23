@@ -1,5 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
-const Contribution = require('../db/models/Contribution');
+const db = require('../db/db');
 const Constants = require('../utils/Constants');
 const logger = require('../utils/logger');
 
@@ -30,11 +30,13 @@ const post = async (req, res) => {
             contentType = 'post/url';
             content = url;
         }
-        const post = await Contribution.create({
+        const post = await db.contributions.create({
             type: contentType,
             title: title,
             content: content,
+            author: 'raulplesa',
         });
+        console.log(`published post with id ${post.id}`);
         res.status(StatusCodes.OK).redirect('/');
     } catch (e) {
         console.log(e.message);
