@@ -11,10 +11,20 @@ const item = async (req, res) => {
             where: {
                 id: id,
             },
+            include: [db.contributions],
         });
-        res.send(
-            `post: ${post.id} type: ${post.type} content: ${post.content}`
-        );
+        var comments = {};
+
+        const baseComments = await db.contributions.findAll({
+            where: {
+                id: post.inReplyTo,
+            },
+        });
+        baseComments.forEach((comment) => {});
+        res.render('pages/item', {
+            post: post,
+            comments: baseComments,
+        });
     } catch (e) {
         console.log('Error on /item');
         console.log(e.message);

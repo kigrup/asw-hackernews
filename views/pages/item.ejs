@@ -1,0 +1,82 @@
+<html lang="en" op="item">
+    <head>
+        <title><%= post.title %> | Hacker News</title>
+        <%- include('../partials/head'); %>
+    </head>
+    <body cz-shortcut-listen="true">
+        <center>
+            <table
+                id="hnmain"
+                border="0"
+                cellpadding="0"
+                cellspacing="0"
+                width="85%"
+                bgcolor="#f6f6ef"
+            >
+                <tbody>
+                    <% include('../partials/indexheader.ejs'); %>
+                    <tr
+                        id="pagespace"
+                        title="<%= post.title %> "
+                        style="height: 10px"
+                    ></tr>
+                    <tr>
+                        <td>
+                            <table class="fatitem" border="0">
+                                <tbody>
+                                    <% include('../partials/textpost'); %>
+                                    <tr style="height: 10px"></tr>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td>
+                                            <form
+                                                method="post"
+                                                action="http://hackers.hopto.org/comment"
+                                            >
+                                                <input
+                                                    type="hidden"
+                                                    name="parent"
+                                                    value="<%= post.id %> "
+                                                /><input
+                                                    type="hidden"
+                                                    name="goto"
+                                                    value="item?id=28983859"
+                                                /><input
+                                                    type="hidden"
+                                                    name="hmac"
+                                                    value="315a7a2623fdb0e32ca82ba67223183d42252418"
+                                                /><textarea
+                                                    name="text"
+                                                    rows="6"
+                                                    cols="60"
+                                                ></textarea>
+                                                <br /><br /><input
+                                                    type="submit"
+                                                    value="add comment"
+                                                />
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br /><br />
+                            <table border="0" class="comment-tree">
+                                <tbody>
+                                    <% for( let i = 0; i < comments.length; i++ ) { %>
+                                        <% include('../partials/comment.ejs'); %> 
+                                    <% }; %>
+                                </tbody>
+                            </table>
+                            <br /><br />
+                        </td>
+                    </tr>
+                    <% include('../partials/footer.ejs'); %>
+                </tbody>
+            </table>
+        </center>
+        <script
+            type="text/javascript"
+            src="../data/hn.js.download"
+        ></script>
+    </body>
+</html>
