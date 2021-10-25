@@ -24,6 +24,7 @@ const item = async (req, res) => {
         res.render('pages/item', {
             post: post,
             comments: baseComments,
+            moment: require('moment'),
         });
     } catch (e) {
         console.log('Error on /item');
