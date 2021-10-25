@@ -14,7 +14,7 @@
                 bgcolor="#f6f6ef"
             >
                 <tbody>
-                    <% include('../partials/indexheader.ejs'); %>
+                    <%- include('../partials/indexheader.ejs'); -%>
                     <tr
                         id="pagespace"
                         title="<%= post.title %> "
@@ -63,14 +63,14 @@
                             <table border="0" class="comment-tree">
                                 <tbody>
                                     <% for( let i = 0; i < comments.length; i++ ) { %>
-                                        <% include('../partials/comment.ejs'); %> 
+                                        <%- include('../partials/comment.ejs'); -%> 
                                     <% }; %>
                                 </tbody>
                             </table>
                             <br /><br />
                         </td>
                     </tr>
-                    <% include('../partials/footer.ejs'); %>
+                    <%- include('../partials/footer.ejs'); -%>
                 </tbody>
             </table>
         </center>
