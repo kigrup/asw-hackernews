@@ -17,6 +17,5 @@ db.contributions = require('./models/contributions')(sequelize, Sequelize);
 db.users.hasMany(db.contributions, { foreignKey: 'author' });
 db.contributions.belongsTo(db.users, { foreignKey: 'author' });
 db.contributions.hasMany(db.contributions, { foreignKey: 'inReplyTo' });
-db.contributions.belongsTo(db.contributions, { foreignKey: 'inReplyTo' });
 
 module.exports = db;

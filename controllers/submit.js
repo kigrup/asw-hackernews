@@ -34,6 +34,7 @@ const post = async (req, res) => {
             title: title,
             content: content,
             author: 'raulplesa',
+            deep: 0,
         });
         console.log(`published post with id ${post.id}`);
         res.status(StatusCodes.OK).redirect('/');

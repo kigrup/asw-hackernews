@@ -1,11 +1,14 @@
-<tr class="athing comtr" id="<%= comments[i].id %> ">
+<tr class="athing comtr" id="<%= comment.id %> ">
     <td>
         <table border="0">
             <tbody>
+                <% let  while( let reply = 0; index < array.length; index++ ) { %>
+                
+                <% } %>
                 <tr>
                     <td
                         class="ind"
-                        indent="0"
+                        indent="<%= comment.indent %>"
                     >
                         <img
                             src="s.gif"
@@ -19,9 +22,9 @@
                     >
                         <center>
                             <a
-                                id="up_<%= comments[i].id %>"
+                                id="up_<%= comment.id %>"
                                 onclick='return vote(event, this, "up")'
-                                href="https://news.ycombinator.com/vote?id=<%= comments[i].id %>&amp;how=up"
+                                href="https://news.ycombinator.com/vote?id=<%= comment.id %>&amp;how=up"
                                 ><div
                                     class="
                                         votearrow
@@ -44,27 +47,27 @@
                                 "
                             >
                                 <a
-                                    href="http://hackers.hopto.org:13001/user?id=<%= comments[i].author %> "
+                                    href="http://hackers.hopto.org:13001/user?id=<%= comment.author %> "
                                     class="
                                         hnuser
                                     "
                                     ><font
                                         color="#3c963c"
-                                        ><%= comments[i].author %></font
+                                        ><%= comment.author %></font
                                     ></a
                                 >
                                 <span
                                     class="
                                         age
                                     "
-                                    title="<%= comments[i].createdAt %>"
+                                    title="<%= comment.createdAt %>"
                                     ><a
-                                        href="http://hackers.hopto.org:13001/item?id=<%= comments[i].id %>"
-                                        ><%= moment(new Date(comments[i].createdAt)).fromNow() %> </a
+                                        href="http://hackers.hopto.org:13001/item?id=<%= comment.id %>"
+                                        ><%= moment(new Date(comment.createdAt)).fromNow() %> </a
                                     ></span
                                 >
                                 <span
-                                    id="unv_<%= comments[i].id %>"
+                                    id="unv_<%= comment.id %>"
                                 ></span
                                 ><span
                                     class="
@@ -77,7 +80,7 @@
                                     "
                                     n="1"
                                     href="javascript:void(0)"
-                                    onclick="return toggle(event, 28984620)"
+                                    onclick="return toggle(event, <%= comment.id %>)"
                                     >[–]</a
                                 ><span
                                     class="
@@ -95,7 +98,7 @@
                                     commtext
                                     c00
                                 "
-                                ><%= comments[i].content %> </span
+                                ><%= comment.content %> </span
                             >
                             <div
                                 class="
@@ -108,7 +111,7 @@
                                     >
                                         <u
                                             ><a
-                                                href="http://hackers.hopto.org:13001/reply?id=<%= comments[i].id %>"
+                                                href="http://hackers.hopto.org:13001/reply?id=<%= comment.id %>"
                                                 >reply</a
                                             ></u
                                         >

@@ -18,8 +18,11 @@ const index = async (req, res) => {
                 'author',
                 'createdAt',
             ],
+            where: {
+                type: 'post/url',
+            },
             include: [db.users],
-            order: ['upvotes'],
+            order: [['upvotes', 'DESC']],
         });
         res.render('pages/index', {
             posts: posts,
@@ -33,7 +36,36 @@ const index = async (req, res) => {
 };
 
 const newest = async (req, res) => {
-    res.status(StatusCodes.OK).send('Casa dulce casa /newest');
+    try {
+        const posts = await db.contributions.findAll({
+            attributes: [
+                'id',
+                'title',
+                'type',
+                'content',
+                'upvotes',
+                'comments',
+                'author',
+                'createdAt',
+            ],
+            where: {
+                [db.Sequelize.Op.or]: [
+                    { type: 'post/text' },
+                    { type: 'post/url' },
+                ],
+            },
+            include: [db.users],
+            order: [['createdAt', 'DESC']],
+        });
+        res.render('pages/index', {
+            posts: posts,
+            moment: moment,
+        });
+    } catch (e) {
+        console.log('Issue in index');
+        console.log(e.message);
+        res.status(StatusCodes.OK).send('Error');
+    }
 };
 
 module.exports = { index, newest };

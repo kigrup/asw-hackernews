@@ -33,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
             inReplyTo: {
                 type: DataTypes.INTEGER,
             },
+            deep: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            },
         },
         {
             initialAutoIncrement: 20000,

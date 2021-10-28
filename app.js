@@ -41,6 +41,11 @@ const start = async () => {
         app.listen(port, () =>
             console.log(`Server is listening on port ${port}...`)
         );
+
+        const raulplesa = await db.users.create({
+            username: 'raulplesa',
+            email: 'raul.plesa@gmail.com',
+        });
     } catch (error) {
         console.log(error.message);
     }
