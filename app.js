@@ -1,6 +1,10 @@
 const express = require('express');
+const session = require('express-session');
 const app = express();
 const db = require('./db/db');
+
+const passport = require('passport');
+var userProfile;
 
 const index = require('./routes/index');
 const login = require('./routes/login');
@@ -17,6 +21,15 @@ app.use(
     })
 );
 app.use(express.static('public'));
+app.use(
+    session({
+        resave: false,
+        saveUninitialized: true,
+        secret: 'SECRET',
+    })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 // EJS
 app.set('view engine', 'ejs');
@@ -27,6 +40,52 @@ app.use('/login', login);
 app.use('/submit', authenticateUser, submit);
 app.use('/item', item);
 app.use('/user', user);
+
+// TODO: tidy up
+// Passport
+app.get('/success', (req, res) => res.send(userProfile));
+app.get('/error', (req, res) => res.send('error logging in'));
+
+passport.serializeUser(function (user, cb) {
+    cb(null, user);
+});
+
+passport.deserializeUser(function (obj, cb) {
+    cb(null, obj);
+});
+
+// Google
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const GOOGLE_CLIENT_ID =
+    '461952415109-4d307hnjj5bsf7ps75n49ko1s764io08.apps.googleusercontent.com';
+const GOOGLE_CLIENT_SECRET = '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';
+passport.use(
+    new GoogleStrategy(
+        {
+            clientID: GOOGLE_CLIENT_ID,
+            clientSecret: GOOGLE_CLIENT_SECRET,
+            callbackURL: 'http://hackers.hopto.org:13001/login/google/callback',
+        },
+        function (accessToken, refreshToken, profile, done) {
+            userProfile = profile;
+            return done(null, userProfile);
+        }
+    )
+);
+
+app.get(
+    '/auth/google',
+    passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+app.get(
+    '/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/error' }),
+    function (req, res) {
+        // Successful authentication, redirect success.
+        res.redirect('/success');
+    }
+);
 
 const port = process.env.PORT || 13001;
 
