@@ -84,7 +84,7 @@ app.get(
     passport.authenticate('google', { failureRedirect: '/error' }),
     function (req, res) {
         // Register user if first login
-        authenticateGloggedInUser(req.session.user);
+        authenticateGloggedInUser(req.user);
         // Successful authentication, redirect success.
         res.redirect('/');
     }

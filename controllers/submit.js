@@ -15,7 +15,7 @@ const submit = async (req, res) => {
 };
 
 const post = async (req, res) => {
-    let userId = req.session.user.id;
+    let userId = req.user.id;
     try {
         const { title, url, text } = req.body;
         if (title === undefined || !title) {
