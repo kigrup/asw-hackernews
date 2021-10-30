@@ -15,6 +15,7 @@ const submit = async (req, res) => {
 };
 
 const post = async (req, res) => {
+    let userId = req.session.user.id;
     try {
         const { title, url, text } = req.body;
         if (title === undefined || !title) {
@@ -33,7 +34,7 @@ const post = async (req, res) => {
             type: contentType,
             title: title,
             content: content,
-            author: 'raulplesa',
+            author: userId,
             deep: 0,
         });
         console.log(`published post with id ${post.id}`);
