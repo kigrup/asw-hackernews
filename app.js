@@ -82,6 +82,8 @@ app.get(
     '/login/google/callback',
     passport.authenticate('google', { failureRedirect: '/error' }),
     function (req, res) {
+        console.log('callback body:');
+        console.log(require('util').inspect(req.body, false, 5, false));
         // Successful authentication, redirect success.
         res.redirect('/');
     }
