@@ -12,6 +12,7 @@ const authenticateGloggedInUser = async (user) => {
                 id: user.id,
             },
         });
+        console.log(`user found: ${registeredUser}`);
         if (registeredUser === undefined) {
             console.log(`User is not registered, creating new User...`);
             let email = user.emails[0].value;
