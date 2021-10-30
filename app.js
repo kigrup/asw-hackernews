@@ -12,6 +12,7 @@ const submit = require('./routes/submit');
 const item = require('./routes/item');
 const user = require('./routes/user');
 const authenticateUser = require('./middlewares/authentication');
+const userManagement = require('./db/user-management');
 
 // Middlewares
 app.use(express.json());
@@ -83,11 +84,16 @@ app.get(
     passport.authenticate('google', { failureRedirect: '/error' }),
     function (req, res) {
         // Register user if first login
-
+        userManagement.authenticateGloggedInUser(req.session.user);
         // Successful authentication, redirect success.
         res.redirect('/');
     }
 );
+
+app.get('/logout', function (req, res) {
+    req.logout();
+    res.redirect('/');
+});
 
 const port = process.env.PORT || 13001;
 
