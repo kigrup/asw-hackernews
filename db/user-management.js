@@ -1,7 +1,7 @@
 const db = require('./db');
 const utils = require('../utils/utils');
 
-const authenticateGloggedInUser = (user) => {
+const authenticateGloggedInUser = async (user) => {
     try {
         // See if user is already registered
         const registeredUser = await db.users.findOne({
