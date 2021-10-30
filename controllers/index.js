@@ -24,13 +24,16 @@ const index = async (req, res) => {
             include: [db.users],
             order: [['upvotes', 'DESC']],
         });
-        if (req.isAuthenticated()) {
-            console.log(`user ${req.user} logged in`);
-        }
-        res.render('pages/index', {
+        let renderObject = {
             posts: posts,
             moment: moment,
-        });
+        };
+        if (req.isAuthenticated()) {
+            console.log(require('util').inspect(req.user, false, 5, false));
+            renderObject.loggedIn = req.user;
+            renderObject.user = req.user;
+        }
+        res.render('pages/index', renderObject);
     } catch (e) {
         console.log('Issue in index');
         console.log(e.message);

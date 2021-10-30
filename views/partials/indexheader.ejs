@@ -45,17 +45,25 @@
                     </td>
                     <td style="text-align: right; padding-right: 4px">
                         <span class="pagetop">
-                            <a
-                                id="me"
-                                href="http://hackers.hopto.org:13001/user?name=username"
-                                >username</a
-                            >
-                            (karma) |
-                            <a
-                                id="logout"
-                                href="http://hackers.hopto.org:13001/logout"
-                                >logout</a
-                            >
+                            <% if (loggedIn) { %>
+                                <a
+                                    id="me"
+                                    href="http://hackers.hopto.org:13001/user?id=<%= //user.id %> "
+                                    ><%= 'username'//user.id %> </a
+                                >
+                                (karma) |
+                                <a
+                                    id="logout"
+                                    href="http://hackers.hopto.org:13001/logout"
+                                    >logout</a
+                                >
+                            <% } else { %>
+                                <a
+                                    id="login"
+                                    href="http://hackers.hopto.org:13001/login/google"
+                                    >login</a
+                                >
+                            <% } %>
                         </span>
                     </td>
                 </tr>
