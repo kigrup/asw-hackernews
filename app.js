@@ -74,16 +74,16 @@ passport.use(
 );
 
 app.get(
-    '/auth/google',
+    '/login/google',
     passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 
 app.get(
-    '/auth/google/callback',
+    '/login/google/callback',
     passport.authenticate('google', { failureRedirect: '/error' }),
     function (req, res) {
         // Successful authentication, redirect success.
-        res.redirect('/success');
+        res.redirect('/');
     }
 );
 

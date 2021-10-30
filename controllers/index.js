@@ -24,6 +24,9 @@ const index = async (req, res) => {
             include: [db.users],
             order: [['upvotes', 'DESC']],
         });
+        if (req.isAuthenticated()) {
+            console.log(`user ${req.user} logged in`);
+        }
         res.render('pages/index', {
             posts: posts,
             moment: moment,
