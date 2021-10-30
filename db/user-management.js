@@ -24,4 +24,4 @@ const authenticateGloggedInUser = async (user) => {
     }
 };
 
-module.exports = authenticateGloggedInUser;
+module.exports = { authenticateGloggedInUser };

@@ -12,7 +12,7 @@ const submit = require('./routes/submit');
 const item = require('./routes/item');
 const user = require('./routes/user');
 const authenticateUser = require('./middlewares/authentication');
-const userManagement = require('./db/user-management');
+const { userManagement } = require('./db/user-management');
 
 // Middlewares
 app.use(express.json());
