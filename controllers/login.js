@@ -3,7 +3,7 @@ const db = require('../db/db');
 
 const login = async (req, res) => {
     try {
-        res.status(StatusCodes.OK).send(`You're logged in Captain!!!!`);
+        res.redirect('/login/google');
     } catch (e) {
         console.log('Error on /login');
         console.log(e.message);
