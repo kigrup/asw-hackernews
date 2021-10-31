@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         about: {
             type: DataTypes.STRING,
         },
+        karma: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+        },
     });
     return Users;
 };

@@ -3,16 +3,22 @@ const db = require('../db/db');
 
 const user = async (req, res) => {
     try {
-        const name = req.query.name;
-        if (name === undefined || !name) {
-            res.send('User undefined in query');
+        const id = req.query.id;
+        if (id == undefined || !id) {
+            res.send('User id undefined in query');
         }
         const user = await db.users.findOne({
             where: {
-                username: name,
+                id: id,
             },
         });
-        res.send(`username: ${user.username} email: ${user.email}`);
+        let logged = '';
+        if (req.user && req.user.id == id) {
+            logged = 'Logged';
+        }
+        res.render(`pages/user${logged}`, {
+            user: user,
+        });
     } catch (e) {
         console.log('Error on /user');
         console.log(e.message);
