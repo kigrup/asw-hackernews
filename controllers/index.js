@@ -30,7 +30,6 @@ const index = async (req, res) => {
             loggedIn: false,
         };
         if (req.isAuthenticated()) {
-            console.log(require('util').inspect(req.user, false, 5, false));
             renderObject.loggedIn = true;
             renderObject.user = req.user;
         }
@@ -64,10 +63,16 @@ const newest = async (req, res) => {
             include: [db.users],
             order: [['createdAt', 'DESC']],
         });
-        res.render('pages/index', {
+        let renderObject = {
             posts: posts,
             moment: moment,
-        });
+            loggedIn: false,
+        };
+        if (req.isAuthenticated()) {
+            renderObject.loggedIn = true;
+            renderObject.user = req.user;
+        }
+        res.render('pages/index', renderObject);
     } catch (e) {
         console.log('Issue in index');
         console.log(e.message);
