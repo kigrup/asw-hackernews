@@ -12,7 +12,7 @@ const authenticateGloggedInUser = async (user) => {
                 id: user.id,
             },
         });
-        if (registeredUser === undefined) {
+        if (registeredUser == null || registeredUser == undefined) {
             console.log(`User is not registered, creating new User...`);
             let email = user.emails[0].value;
             const newUser = await db.users.create({

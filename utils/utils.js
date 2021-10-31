@@ -1,5 +1,7 @@
 const emailToUsername = (email) => {
-    return email.match(/.+?(?=@)/);
+    return email.match(/.+?(?=@)/)[0];
 };
 
-module.exports = emailToUsername;
+module.exports = {
+    emailToUsername: emailToUsername
+};
