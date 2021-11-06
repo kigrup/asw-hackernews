@@ -45,11 +45,16 @@ const item = async (req, res) => {
         console.log('INSPECTION:');
         console.log(require('util').inspect(comments, false, 5, false));
 
-        res.render('pages/item', {
+        var renderObject = {
             post: post,
             comments: comments,
             moment: require('moment'),
-        });
+        }
+        if (req.isAuthenticated()) {
+            renderObject.loggedIn = true;
+            renderObject.user = req.user;
+        }
+        res.render('pages/item', renderObject);
     } catch (e) {
         console.log('Error on /item');
         console.log(e.message);
