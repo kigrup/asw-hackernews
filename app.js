@@ -11,6 +11,7 @@ const login = require('./routes/login');
 const submit = require('./routes/submit');
 const item = require('./routes/item');
 const user = require('./routes/user');
+const votes = require ('./routes/vote')
 const authenticateUser = require('./middlewares/authentication');
 const { authenticateGloggedInUser } = require('./db/user-management');
 
@@ -41,6 +42,7 @@ app.use('/login', login);
 app.use('/submit', authenticateUser, submit);
 app.use('/item', item);
 app.use('/user', user);
+app.use('/vote', votes);
 
 // TODO: tidy up
 // Passport
