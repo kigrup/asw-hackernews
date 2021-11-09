@@ -7,19 +7,21 @@ const item = async (req, res) => {
         if (id === undefined || !id || id < 1) {
             res.send('Invalid id in query');
         }
+        // Get first comment
         const post = await db.contributions.findOne({
             where: {
                 id: id,
             },
             include: [db.contributions],
         });
-
+        // Get first level of childs
         let comments = await db.contributions.findAll({
             where: {
                 inReplyTo: id,
             },
             include: [db.contributions],
         });
+        // Recursively get all childs' comments
         const populateComments = (commentsObject) => {
             for (
                 let i = 0;
@@ -64,6 +66,9 @@ const item = async (req, res) => {
 
 const comment = async (req, res) => {
     try {
+        if (!req.user){
+            res.send('/login');
+        }
         const { id, content } = req.body;
         console.log(`starting comment id: ${id} content: ${content}`);
         if (id === undefined || !id) {
@@ -80,7 +85,7 @@ const comment = async (req, res) => {
             type: 'comment',
             content: content,
             inReplyTo: id,
-            author: 'raulplesa',
+            author: req.user.id,
             deep: contribution.deep + 1,
         });
         res.redirect(`/item?id=${id}`);
