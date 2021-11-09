@@ -28,6 +28,7 @@ const index = async (req, res) => {
             posts: posts,
             moment: moment,
             loggedIn: false,
+            baseUrl: require('../utils/Constants').BASE_URL
         };
         if (req.isAuthenticated()) {
             renderObject.loggedIn = true;
@@ -67,6 +68,7 @@ const newest = async (req, res) => {
             posts: posts,
             moment: moment,
             loggedIn: false,
+            baseUrl: require('../utils/Constants').BASE_URL
         };
         if (req.isAuthenticated()) {
             renderObject.loggedIn = true;
