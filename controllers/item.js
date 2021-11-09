@@ -61,7 +61,7 @@ const item = async (req, res) => {
             dataObject.loggedIn = true;
             dataObject.user = req.user;
         }
-        res.render('pages/item');
+        res.render('pages/item', dataObject);
     } catch (e) {
         console.log('Error on /item');
         console.log(e.message);
