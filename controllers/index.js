@@ -82,48 +82,4 @@ const newest = async (req, res) => {
     }
 };
 
-const threads = async (req, res) => {
-    try {
-        const { id, content } = req.body;
-        console.log(`starting comment thread id: ${id} content: ${content}`);
-        if (id === undefined || !id) {
-            res.send('Id undefined in body');
-        } else if (content === undefined || !content) {
-            res.send('Message undefined in body');
-        }
-        const comments = await db.contributions.findAll({
-            attributes: [
-                'id',
-                'title',
-                'type',
-                'content',
-                'upvotes',
-                'comments',
-                'author',
-                'createdAt',
-            ],
-            where: {
-                type: 'comment'
-            },
-            include: [db.users],
-            order: [['createdAt', 'DESC']],
-        });
-        let renderObject = {
-            comments: comments,
-            moment: moment,
-            loggedIn: false,
-            baseUrl: require('../utils/Constants').BASE_URL
-        };
-        if (req.isAuthenticated()) {
-            renderObject.loggedIn = true;
-            renderObject.user = req.user;
-        }
-        res.redirect(`threads?id=${id}`, renderObject);
-    } catch (e) {
-        console.log('Issue in Threads');
-        console.log(e.message);
-        res.status(StatusCodes.OK).send('Error');
-    }
-};
-
-module.exports = { index, newest, threads };
+module.exports = { index, newest };
