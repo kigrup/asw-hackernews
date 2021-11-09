@@ -14,6 +14,10 @@ const item = async (req, res) => {
             include: [db.contributions],
         });
 
+        if (post == undefined) {
+            res.send('Item not found');
+        }
+
         let comments = await db.contributions.findAll({
             where: {
                 inReplyTo: id,
