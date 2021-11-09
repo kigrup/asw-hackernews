@@ -15,6 +15,13 @@ const item = async (req, res) => {
             include: [db.contributions],
         });
         // Get first level of childs
+
+        console.log(require('util').inspect(post, false, 3, false));
+        if (post == undefined) {
+            res.send('Item not found');
+            return;
+        }
+
         let comments = await db.contributions.findAll({
             where: {
                 inReplyTo: id,
@@ -47,16 +54,17 @@ const item = async (req, res) => {
         console.log('INSPECTION:');
         console.log(require('util').inspect(comments, false, 5, false));
 
-        var renderObject = {
+        let dataObject = {
             post: post,
             comments: comments,
             moment: require('moment'),
+            loggedIn: false,
+        };
+        if (req.user) {
+            dataObject.loggedIn = true;
+            dataObject.user = req.user;
         }
-        if (req.isAuthenticated()) {
-            renderObject.loggedIn = true;
-            renderObject.user = req.user;
-        }
-        res.render('pages/item', renderObject);
+        res.render('pages/item', dataObject);
     } catch (e) {
         console.log('Error on /item');
         console.log(e.message);
