@@ -14,18 +14,17 @@ const vote = async (req, res) => {
             include: [db.contributions],
         });
 
-        console.log('INSPECTION:');
-
-        var renderObject = {
-            post: post,
-            comments: comments,
-            moment: require('moment'),
-        }
         if (req.isAuthenticated()) {
             renderObject.loggedIn = true;
             renderObject.user = req.user;
         }
-        res.render('pages/item', renderObject);
+
+        put.upvotes = upvotes+1;
+        await put.save();
+  
+        console.log(`voted`);
+        res.status(StatusCodes.OK).redirect('/newest');
+
     } catch (e) {
         console.log('Error on /vote');
         console.log(e.message);
@@ -46,18 +45,17 @@ const unvote = async (req, res) => {
             include: [db.contributions],
         });
 
-        console.log('INSPECTION:');
-
-        var renderObject = {
-            post: post,
-            comments: comments,
-            moment: require('moment'),
-        }
         if (req.isAuthenticated()) {
             renderObject.loggedIn = true;
             renderObject.user = req.user;
         }
-        res.render('pages/item', renderObject);
+  
+        put.upvotes = upvotes+1;
+        await put.save();
+        
+        console.log(`voted`);
+        res.status(StatusCodes.OK).redirect('/newest');
+
     } catch (e) {
         console.log('Error on /vote');
         console.log(e.message);
