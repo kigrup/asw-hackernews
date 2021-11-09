@@ -14,10 +14,10 @@ const item = async (req, res) => {
             include: [db.contributions],
         });
 
-        console.log('item post: ');
         console.log(require('util').inspect(post, false, 3, false));
         if (post == undefined) {
             res.send('Item not found');
+            return;
         }
 
         let comments = await db.contributions.findAll({

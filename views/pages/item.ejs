@@ -1,6 +1,6 @@
 <html lang="en" op="item">
     <head>
-        <title><%= post.title %> | Hacker News</title>
+        <title><%= post.dataValues.title %> | Hacker News</title>
         <%- include('../partials/head'); %>
     </head>
     <body cz-shortcut-listen="true">
@@ -17,7 +17,7 @@
                     <%- include('../partials/indexheader.ejs'); -%>
                     <tr
                         id="pagespace"
-                        title="<%= post.title %> "
+                        title="<%= post.dataValues.title %> "
                         style="height: 10px"
                     ></tr>
                     <tr>
@@ -116,7 +116,7 @@
                                                 <input
                                                     type="hidden"
                                                     name="id"
-                                                    value="<%= post.id %> "
+                                                    value="<%= post.dataValues.id %> "
                                                 /><input
                                                     type="hidden"
                                                     name="hmac"
