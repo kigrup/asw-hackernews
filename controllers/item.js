@@ -1,5 +1,4 @@
 const { StatusCodes } = require('http-status-codes');
-const { Utils } = require('sequelize/types');
 const db = require('../db/db');
 
 const item = async (req, res) => {
