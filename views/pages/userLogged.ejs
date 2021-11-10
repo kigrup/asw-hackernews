@@ -39,16 +39,12 @@
                             <form
                                 class="profileform"
                                 method="post"
-                                action="https://news.ycombinator.com/xuser"
+                                action="http://hackers.hopto.org:13001/user/edit"
                             >
                                 <input
                                     type="hidden"
                                     name="id"
-                                    value="kigrup"
-                                /><input
-                                    type="hidden"
-                                    name="hmac"
-                                    value="e7dbc3f56b274857873c6a106d5c1b494cb621a3"
+                                    value="<%= user.id %>"
                                 />
                                 <table border="0">
                                     <tbody>
@@ -56,7 +52,7 @@
                                             <td valign="top">user:</td>
                                             <td timestamp="1634497981">
                                                 <a
-                                                    href="https://news.ycombinator.com/user?id=<%= user.id %> "
+                                                    href="http://http://hackers.hopto.org:13001/user?id=<%= user.id %> "
                                                     class="hnuser"
                                                     ><font color="#3c963c"
                                                         ><%= user.username %> </font
@@ -67,9 +63,7 @@
                                         <tr>
                                             <td valign="top">created:</td>
                                             <td>
-                                                <a
-                                                    href="https://news.ycombinator.com/front?day=2021-10-17&amp;birth=kigrup"
-                                                    >13 days ago</a
+                                                <a> <%= moment(new Date(user.createdAt)).fromNow() %> </a
                                                 >
                                             </td>
                                         </tr>
@@ -88,22 +82,13 @@
                                                 >
 <%= user.about %> </textarea
                                                 >
-                                                <font size="-2"
-                                                    ><a
-                                                        href="https://news.ycombinator.com/formatdoc"
-                                                        tabindex="-1"
-                                                        ><font color="#afafaf"
-                                                            >help</font
-                                                        ></a
-                                                    ></font
-                                                >
                                             </td>
                                         </tr>
                                         <tr>
                                             <td></td>
                                             <td>
                                                 <a
-                                                    href="https://news.ycombinator.com/index?by=<%= user.dataValues.id %>"
+                                                    href="http://http://hackers.hopto.org:13001/index?by=<%= user.dataValues.id %>"
                                                     ><u>submissions</u></a
                                                 >
                                             </td>
@@ -112,7 +97,7 @@
                                             <td></td>
                                             <td>
                                                 <a
-                                                    href="https://news.ycombinator.com/threads?by=<%= user.dataValues.id %>"
+                                                    href="http://http://hackers.hopto.org:13001/threads?by=<%= user.dataValues.id %>"
                                                     ><u>comments</u></a
                                                 >
                                             </td>
@@ -121,14 +106,14 @@
                                             <td></td>
                                             <td>
                                                 <a
-                                                    href="https://news.ycombinator.com/index?by=<%= user.dataValues.id %>&liked=1"
+                                                    href="http://http://hackers.hopto.org:13001/index?by=<%= user.dataValues.id %>&liked=1"
                                                     ><u
                                                         >upvoted submissions</u
                                                     ></a
                                                 >
                                                 /
                                                 <a
-                                                    href="https://news.ycombinator.com/threads?by=<%= user.dataValues.id %>&liked=1"
+                                                    href="http://http://hackers.hopto.org:13001/threads?by=<%= user.dataValues.id %>&liked=1"
                                                     ><u>comments</u></a
                                                 >
                                                 &nbsp;<span
