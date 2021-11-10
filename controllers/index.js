@@ -33,7 +33,12 @@ const index = async (req, res) => {
         };
         if (req.isAuthenticated()) {
             renderObject.loggedIn = true;
-            renderObject.user = req.user;
+            const loggeduser = await db.users.findOne({
+                where: {
+                    id: req.user.id,
+                }
+            });
+            renderObject.user = loggeduser;
         }
         res.render('pages/index', renderObject);
     } catch (e) {
