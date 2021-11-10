@@ -22,6 +22,7 @@ const user = async (req, res) => {
             renderObject.loggedIn = true;
         }
         res.render(`pages/user${logged}`, renderObject);
+
     } catch (e) {
         console.log('Error on /user');
         console.log(e.message);
@@ -29,4 +30,29 @@ const user = async (req, res) => {
     }
 };
 
-module.exports = user;
+const modify = async (req, res) => {
+    try {
+        if(!req.isAuthenticated()){
+            res.redirect('/login')
+        }
+        const { about } = req.body;
+        
+        const authorObject = await db.users.findOne({
+            where: {
+                id: req.user.id,
+            }
+        });
+
+        if (about !== undefined ) {
+            authorObject.about = about;
+            authorObject.save();
+        }
+        
+    } catch (e) {
+        console.log('Error modfiying about');
+        console.log(e.message);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send();
+    }
+};
+
+module.exports = {user, modify};
