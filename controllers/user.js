@@ -13,12 +13,15 @@ const user = async (req, res) => {
             },
         });
         let logged = '';
+        let renderObject = {
+            user: user,
+            loggedIn: false,
+        }
         if (req.user && req.user.id == id) {
             logged = 'Logged';
+            renderObject.loggedIn = true;
         }
-        res.render(`pages/user${logged}`, {
-            user: user,
-        });
+        res.render(`pages/user${logged}`, renderObject);
     } catch (e) {
         console.log('Error on /user');
         console.log(e.message);
