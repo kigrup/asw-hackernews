@@ -39,7 +39,7 @@ const threads = async (req, res) => {
                     });
                     commentsObject[i] = child;
                     if (depth > 0) {
-                        repliesIds.push(commentsObject[i]);
+                        repliesIds.push(commentsObject[i].dataValues.id);
                     }
                     //console.log('CHILD:');
                     //console.log(require('util').inspect(child, false, 6, false));
