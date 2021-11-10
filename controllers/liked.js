@@ -28,10 +28,6 @@ const posts = async (req, res) => {
             include: [
                 {
                     model: db.contributions,
-                    as: "liked",
-                },
-                {
-                    model: db.contributions,
                     as: "likers",
                 },
             ],
