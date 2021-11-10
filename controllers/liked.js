@@ -19,7 +19,7 @@ const posts = async (req, res) => {
             },
         });
 
-        user.addContribution(post, { through: "UserLikes" });
+        await user.addContribution(post, { through: "UserLikes" });
 
         const fullUser = await db.users.findOne({
             where: {
@@ -27,13 +27,17 @@ const posts = async (req, res) => {
             },
             include: [
                 {
+                    association: 'liked',
                     model: db.contributions,
-                    as: "liked",
+                },
+                {
+                    association: 'contributions',
+                    model: db.contributions,
                 },
             ],
         });
 
-        console.log(`USER WITH INCLUDE: ${require("util").inspect(fullUser, true, 4, false)}`);
+        console.log(`USER WITH INCLUDE: ${require("util").inspect(fullUser, false, 4, false)}`);
         // Listar todos los posts del usuario
     } catch (e) {
         console.log("Issue in liked/posts");
