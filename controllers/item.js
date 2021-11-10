@@ -48,7 +48,7 @@ const item = async (req, res) => {
                 if (child.dataValues.contributions !== undefined) {
                     console.log('------POPULATING COMMENT---------');
                     console.log(child.dataValues.content);
-                    populateComments(
+                    await populateComments(
                         commentsObject[i].dataValues.contributions
                     );
                 }
