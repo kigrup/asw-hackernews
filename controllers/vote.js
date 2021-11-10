@@ -3,10 +3,12 @@ const db = require('../db/db');
 
 const vote = async (req, res) => {
     try {
-        const id = req.query.id;
+        const { id, how } = req.query.id;
         if (id == undefined) {
             res.send('Null id in query');
         }
+        if (how == undefined)
+            res.send('Null "how" parameter in query');
         // Find contribution that user wants to like
         const contribution = await db.contributions.findOne({
             where: {
@@ -30,11 +32,17 @@ const vote = async (req, res) => {
             ],
         });
 
-        post.upvotes = upvotes+1;
-        await post.save();
+        // Si fullUser.liked tiene un post con contribution.id entonces
+            // TODO: si how = unvote, contribution.upvotes-- y borrar la entrada de UserLikes
+        // sino
+            // TODO: si how = vote, contribution.upvotes++ y añadir la entrada así:
+            // await user.addLiked(post);
+            
+        contribution.upvotes = contribution.upvotes+1;
+        await contribution.save();
   
         console.log(`voted`);
-        res.status(StatusCodes.OK).redirect('/newest');
+        res.status(StatusCodes.OK).send();
 
     } catch (e) {
         console.log('Error voting on /vote');

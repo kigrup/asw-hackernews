@@ -51,6 +51,16 @@ const index = async (req, res) => {
 
 const newest = async (req, res) => {
     try {
+        let postTypes = [];
+        console.log(`/newest request from: ${req.url}`);
+        if (req.url == '/ask'){
+            postTypes.push({type: 'post/text'});
+        }
+        else if (req.url == '/newest'){
+            postTypes.push({type: 'post/url'});
+            postTypes.push({type: 'post/text'});
+        }
+           
         const posts = await db.contributions.findAll({
             attributes: [
                 'id',
@@ -64,10 +74,7 @@ const newest = async (req, res) => {
                 'createdAt',
             ],
             where: {
-                [db.Sequelize.Op.or]: [
-                    { type: 'post/text' },
-                    { type: 'post/url' },
-                ],
+                [db.Sequelize.Op.or]: postTypes,
             },
             include: [db.users],
             order: [['createdAt', 'DESC']],
