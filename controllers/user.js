@@ -17,6 +17,7 @@ const user = async (req, res) => {
         let renderObject = {
             user: user,
             loggedIn: false,
+            moment:moment,
         }
         if (req.user && req.user.id == id) {
             logged = 'Logged';
@@ -33,25 +34,17 @@ const user = async (req, res) => {
 
 const modify = async (req, res) => {
     try {
-        let renderObject = {
-            moment: moment,
-            loggedIn: false,
-            baseUrl: require('../utils/Constants').BASE_URL,
-            user:{}
-        };
         let authorObject;
         if(!req.isAuthenticated()){
             res.redirect('/login');
             return;
         }
         else{
-            renderObject.loggedIn = true;
             authorObject= await db.users.findOne({
                 where: {
                     id: req.user.id,
                 }
             });
-            renderObject.user = authorObject;
         }
 
         const { about } = req.body;
