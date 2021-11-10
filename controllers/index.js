@@ -24,7 +24,7 @@ const index = async (req, res) => {
             include: [db.users],
             order: [['upvotes', 'DESC']],
         });
-        posts.forEach(post => {
+        posts.forEach(async post => {
             const postAuthor = await db.users.findOne({
                 attributes: [
                     'id',
@@ -76,7 +76,7 @@ const newest = async (req, res) => {
             include: [db.users],
             order: [['createdAt', 'DESC']],
         });
-        posts.forEach(post => {
+        posts.forEach(async post => {
             const postAuthor = await db.users.findOne({
                 attributes: [
                     'id',
