@@ -33,7 +33,7 @@ const item = async (req, res) => {
         const populateComments = async (commentsObject) => {
             for (
                 let i = 0;
-                i < commentsObject.dataValues.contributions.length;
+                i < commentsObject.length;
                 i++
             ) {
                 child = await db.contributions.findOne({
@@ -47,7 +47,7 @@ const item = async (req, res) => {
                 console.log(require('util').inspect(child, false, 6, false));
                 if (child.dataValues.contributions !== undefined) {
                     populateComments(
-                        commentsObject.dataValues.contributions[i]
+                        commentsObject.dataValues.contributions[i].dataValues.contributions
                     );
                 }
             }
