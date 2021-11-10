@@ -54,7 +54,7 @@ const threads = async (req, res) => {
                     console.log('------POPULATING COMMENT---------');
                     console.log(child.dataValues.content);
                     await populateComments(
-                        commentsObject[i].dataValues.contributions, depth++
+                        commentsObject[i].dataValues.contributions, depth+1
                     );
                     }                
                 }
