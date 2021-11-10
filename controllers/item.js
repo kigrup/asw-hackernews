@@ -43,9 +43,11 @@ const item = async (req, res) => {
                     include: [db.contributions],
                 });
                 commentsObject[i] = child;
-                console.log('CHILD:');
-                console.log(require('util').inspect(child, false, 6, false));
+                //console.log('CHILD:');
+                //console.log(require('util').inspect(child, false, 6, false));
                 if (child.dataValues.contributions !== undefined) {
+                    console.log('------POPULATING COMMENT---------');
+                    console.log(child.dataValues.content);
                     populateComments(
                         commentsObject[i].dataValues.contributions
                     );
@@ -55,6 +57,8 @@ const item = async (req, res) => {
         console.log('BEFORE POPULATE COMMENTS:');
         console.log(require('util').inspect(comments, false, 6, false));
         populateComments(comments);
+        console.log('AFTER POPULATE COMMENTS:');
+        console.log(require('util').inspect(comments, false, 12, false));
         // feach comment
 
         //console.log('INSPECTION:');
