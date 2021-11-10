@@ -29,6 +29,7 @@ const item = async (req, res) => {
             include: [db.contributions],
         });
         // Recursively get all childs' comments
+        
         const populateComments = (commentsObject) => {
             for (
                 let i = 0;
@@ -49,10 +50,11 @@ const item = async (req, res) => {
                 }
             }
         };
+        populateComments(comments);
         // feach comment
 
-        console.log('INSPECTION:');
-        console.log(require('util').inspect(comments, false, 5, false));
+        //console.log('INSPECTION:');
+        //console.log(require('util').inspect(comments, false, 5, false));
 
         let dataObject = {
             post: post,
