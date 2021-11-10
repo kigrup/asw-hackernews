@@ -27,7 +27,7 @@
                                 <tbody>
                                     <% for( let i = 0; i < comments.length; i++ ) { %>
                                         <p>Comment</p>
-                                        <%- include('../partials/comment.ejs', {comment: comments[i]}); -%> 
+                                        <%- include('../partials/comment.ejs', {post: post, comment: comments[i]}); -%> 
                                     <% }; %>
                                 </tbody>
                             </table>
