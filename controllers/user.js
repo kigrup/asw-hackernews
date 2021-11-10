@@ -47,13 +47,13 @@ const modify = async (req, res) => {
             authorObject.about = about;
             authorObject.save();
         }
-        const authorObject = await db.users.findOne({
+        const author = await db.users.findOne({
             where: {
                 id: req.user.id,
             }
         });
         console.log("authorObject.about");
-        console.log(authorObject.about);
+        console.log(author.about);
         
     } catch (e) {
         console.log('Error modfiying about');
