@@ -88,11 +88,17 @@ const newest = async (req, res) => {
             posts: posts,
             moment: moment,
             loggedIn: false,
-            baseUrl: require('../utils/Constants').BASE_URL
+            baseUrl: require('../utils/Constants').BASE_URL,
+            user:{}
         };
         if (req.isAuthenticated()) {
             renderObject.loggedIn = true;
-            renderObject.user = req.user;
+            const loggeduser = await db.users.findOne({
+                where: {
+                    id: req.user.id,
+                }
+            });
+            renderObject.user = loggeduser;
         }
         res.render('pages/index', renderObject);
     } catch (e) {
