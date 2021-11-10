@@ -76,7 +76,7 @@ const item = async (req, res) => {
                     id: req.user.id,
                 }
             });
-            renderObject.user = loggeduser;
+            dataObject.user = loggeduser;
         }
         res.render('pages/item', dataObject);
     } catch (e) {
