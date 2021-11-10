@@ -38,16 +38,16 @@ const item = async (req, res) => {
             ) {
                 child = await db.contributions.findOne({
                     where: {
-                        id: id,
+                        id: commentsObject[i].dataValues.id,
                     },
                     include: [db.contributions],
                 });
-                commentsObject.dataValues.contributions[i] = child;
+                commentsObject[i] = child;
                 console.log('CHILD:');
                 console.log(require('util').inspect(child, false, 6, false));
                 if (child.dataValues.contributions !== undefined) {
                     populateComments(
-                        commentsObject.dataValues.contributions[i].dataValues.contributions
+                        commentsObject[i].dataValues.contributions
                     );
                 }
             }
