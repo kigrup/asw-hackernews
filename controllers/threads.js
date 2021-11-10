@@ -65,7 +65,7 @@ const threads = async (req, res) => {
             seen.push(false);
         }
         await populateComments(comments, 0);
-        let interator = 0;
+        let iterator = 0;
         while (iterator < comments.length){
             if (seen[iterator] == true) {
                 comments.splice(iterator, 1);
