@@ -2,58 +2,59 @@
     <td>
         <table border="0">
             <tbody>
-                <% for( let reply=0; reply < comment.dataValues.contributions.length; reply++ ) { %>
-                    <tr>
-                        <td class="ind" indent="<%= 0 %>">
-                            <img src="s.gif" height="1" width="0" />
-                        </td>
-                        <td valign="top" class="votelinks">
-                            <center>
-                                <a id="up_<%= comment.id %>" onclick='return vote(event, this, "up")'
-                                    href="http://hackers.hopto.org:13001/vote?id=<%= comment.dataValues.contributions[reply].dataValues.id %>&amp;how=up">
-                                    <div class="votearrow" title="upvote"></div>
+                <tr>
+                    <td class="ind" indent="<%= 0 %>">
+                        <img src="s.gif" height="1" width="0" />
+                    </td>
+                    <td valign="top" class="votelinks">
+                        <center>
+                            <a id="up_<%= comment.id %>" onclick='return vote(event, this, "up")'
+                                href="http://hackers.hopto.org:13001/vote?id=<%= comment.dataValues.contributions[reply].dataValues.id %>&amp;how=up">
+                                <div class="votearrow" title="upvote"></div>
+                            </a>
+                        </center>
+                    </td>
+                    <td class="default">
+                        <div style="margin-top: 2px; margin-bottom: -10px;">
+                            <span class="comhead">
+                                <a href="http://hackers.hopto.org:13001/user?id=<%= comment.dataValues.contributions[reply].dataValues.author %>" class="hnuser">
+                                    <font color="#3c963c">
+                                        <%= comment.author %>
+                                    </font>
                                 </a>
-                            </center>
-                        </td>
-                        <td class="default">
-                            <div style="margin-top: 2px; margin-bottom: -10px;">
-                                <span class="comhead">
-                                    <a href="http://hackers.hopto.org:13001/user?id=<%= comment.dataValues.contributions[reply].dataValues.author %>" class="hnuser">
-                                        <font color="#3c963c">
-                                            <%= comment.author %>
-                                        </font>
+                                <span class="age" title="<%= comment.createdAt %>">
+                                    <a href="http://hackers.hopto.org:13001/item?id=<%= comment.dataValues.contributions[reply].dataValues.id %>">
+                                        <%= moment(new Date(comment.createdAt)).fromNow() %>
                                     </a>
-                                    <span class="age" title="<%= comment.createdAt %>">
-                                        <a href="http://hackers.hopto.org:13001/item?id=<%= comment.dataValues.contributions[reply].dataValues.id %>">
-                                            <%= moment(new Date(comment.createdAt)).fromNow() %>
-                                        </a>
-                                    </span>
-                                    <span id="unv_<%= comment.dataValues.contributions[reply].dataValues.id %>"></span><span class="
-                                            par
-                                        "></span>
-                                    <a class="
-                                            togg
-                                        " n="1" href="javascript:void(0)"
-                                        onclick="return toggle(event, <%= comment.dataValues.contributions[reply].dataValues.id %>)">[–]</a><span class="
-                                            onstory
-                                        "></span>
                                 </span>
+                                <span id="unv_<%= comment.dataValues.contributions[reply].dataValues.id %>"></span><span class="
+                                        par
+                                    "></span>
+                                <a class="
+                                        togg
+                                    " n="1" href="javascript:void(0)"
+                                    onclick="return toggle(event, <%= comment.dataValues.contributions[reply].dataValues.id %>)">[–]</a><span class="
+                                        onstory
+                                    "></span>
+                            </span>
+                        </div>
+                        <br />
+                        <div class="comment">
+                            <span class="commtext c00">
+                                <%= comment.dataValues.contributions[reply].dataValues.content %>
+                            </span>
+                            <div class="reply">
+                                <p>
+                                    <font size="1">
+                                        <u><a href="http://hackers.hopto.org:13001/reply?id=<%= comment.dataValues.contributions[reply].dataValues.id %>">reply</a></u>
+                                    </font>
+                                </p>
                             </div>
-                            <br />
-                            <div class="comment">
-                                <span class="commtext c00">
-                                    <%= comment.dataValues.contributions[reply].dataValues.content %>
-                                </span>
-                                <div class="reply">
-                                    <p>
-                                        <font size="1">
-                                            <u><a href="http://hackers.hopto.org:13001/reply?id=<%= comment.dataValues.contributions[reply].dataValues.id %>">reply</a></u>
-                                        </font>
-                                    </p>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                        </div>
+                    </td>
+                </tr>
+                <% for( let reply=0; reply < comment.dataValues.contributions.length; reply++ ) { %>
+                    <% include('../partials/comment.ejs', {comment: comment.dataValues.contributions[reply]}); %> 
                 <% } %>
             </tbody>
         </table>
