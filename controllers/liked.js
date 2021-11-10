@@ -27,6 +27,7 @@ const posts = async (req, res) => {
             },
             include: [
                 {
+                    association: 'liked',
                     model: db.contributions,
                 },
             ],
