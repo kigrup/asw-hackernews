@@ -6,8 +6,14 @@ const moment = require("moment");
 moment.updateLocale("es");
 
 const threads = async (req, res) => {
-    try {
-        var seen = [];
+    try {       
+        var localauthor;
+        if (req.query.by !== undefined)
+        {
+            localauthor = req.query.by;
+        }
+        else if (req.isAuthenticated()) localauthor = req.user.id;
+        else res.send('/login');      
         const comments = await db.contributions.findAll({
             attributes: [
                 "id",
@@ -22,7 +28,7 @@ const threads = async (req, res) => {
             ],
             where: {
                 type: "comment",
-                author: req.user.id,
+                author: localauthor,
             },
             include: [db.users],
             order: [["createdAt", "DESC"]],
@@ -73,8 +79,8 @@ const threads = async (req, res) => {
         };
         if (req.isAuthenticated()) {
             renderObject.loggedIn = true;
-            renderObject.user = req.user;
-        }
+            renderObject.user = localauthor;
+        }              
         res.render("pages/threads", renderObject);
     } catch (e) {
         console.log("Issue in Threads");
