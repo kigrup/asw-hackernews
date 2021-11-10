@@ -76,10 +76,16 @@ const threads = async (req, res) => {
             moment: moment,
             loggedIn: false,
             baseUrl: require("../utils/Constants").BASE_URL,
+            user:{}
         };
         if (req.isAuthenticated()) {
             renderObject.loggedIn = true;
-            renderObject.user = localauthor;
+            const loggeduser = await db.users.findOne({
+                where: {
+                    id: req.user.id,
+                }
+            });
+            renderObject.user = loggeduser;
         }              
         res.render("pages/threads", renderObject);
     } catch (e) {
