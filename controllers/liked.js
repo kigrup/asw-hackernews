@@ -13,7 +13,7 @@ const posts = async (req, res) => {
             }
         });
 
-        console.log(`USER: ${require('util').inspect(user, false, 4, false)}`);
+        console.log(`USER: ${require('util').inspect(user, true, 4, false)}`);
         // Listar todos los posts del usuario 
     } catch (e) {
         console.log('Issue in liked/posts');
