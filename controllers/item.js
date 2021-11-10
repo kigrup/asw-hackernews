@@ -43,6 +43,8 @@ const item = async (req, res) => {
                     include: [db.contributions],
                 });
                 commentsObject.dataValues.contributions[i] = child;
+                console.log('CHILD:');
+                console.log(require('util').inspect(child, false, 6, false));
                 if (child.dataValues.contributions !== undefined) {
                     populateComments(
                         commentsObject.dataValues.contributions[i]
@@ -50,8 +52,8 @@ const item = async (req, res) => {
                 }
             }
         };
-        console.log('BEFORE POPULATE COMMENTS:');
-        console.log(require('util').inspect(comments, false, 6, false));
+        //console.log('BEFORE POPULATE COMMENTS:');
+        //console.log(require('util').inspect(comments, false, 6, false));
         populateComments(comments);
         // feach comment
 
