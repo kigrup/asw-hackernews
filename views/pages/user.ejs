@@ -41,32 +41,32 @@
                                         <td valign="top">user:</td>
                                         <td timestamp="1631965655">
                                             <a
-                                                href="http://hackers.hopto.org:13001/user?id=<%= user.id %> "
+                                                href="http://hackers.hopto.org:13001/user?id=<%= userProfile.id %> "
                                                 class="hnuser"
-                                                ><%= user.username %> </a
+                                                ><%= userProfile.username %> </a
                                             >
                                         </td>
                                     </tr>
                                     <tr>
                                         <td valign="top">created:</td>
                                         <td>
-                                            <a><%= moment(new Date(user.createdAt)).fromNow() %></a
+                                            <a><%= moment(new Date(userProfile.createdAt)).fromNow() %></a
                                             >
                                         </td>
                                     </tr>
                                     <tr>
                                         <td valign="top">karma:</td>
-                                        <td><%= user.karma %> </td>
+                                        <td><%= userProfile.karma %> </td>
                                     </tr>
                                     <tr>
                                         <td valign="top">about:</td>
-                                        <td style="overflow: hidden"><%= user.about %> </td>
+                                        <td style="overflow: hidden"><%= userProfile.about %> </td>
                                     </tr>
                                     <tr>
                                         <td></td>
                                         <td>
                                             <a
-                                                href="http://hackers.hopto.org:13001/newest?by=<%= user.dataValues.id %>"
+                                                href="http://hackers.hopto.org:13001/newest?by=<%= userProfile.dataValues.id %>"
                                                 ><u>submissions</u></a
                                             >
                                         </td>
@@ -75,7 +75,7 @@
                                         <td></td>
                                         <td>
                                             <a
-                                                href="http://hackers.hopto.org:13001/threads?by=<%= user.dataValues.id %>"
+                                                href="http://hackers.hopto.org:13001/threads?by=<%= userProfile.dataValues.id %>"
                                                 ><u>comments</u></a
                                             >
                                         </td>

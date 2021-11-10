@@ -67,10 +67,16 @@ const item = async (req, res) => {
             comments: comments,
             moment: require('moment'),
             loggedIn: false,
+            user:{},
         };
         if (req.user) {
             dataObject.loggedIn = true;
-            dataObject.user = req.user;
+            const loggeduser = await db.users.findOne({
+                where: {
+                    id: req.user.id,
+                }
+            });
+            dataObject.user = loggeduser;
         }
         res.render('pages/item', dataObject);
     } catch (e) {
