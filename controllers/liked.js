@@ -7,21 +7,6 @@ moment.updateLocale("es");
 
 const posts = async (req, res) => {
     try {
-        const user = await db.users.findOne({
-            where: {
-                id: req.user.id,
-            },
-        });
-
-        const post = await db.contributions.findOne({
-            where: {
-                id: 1,
-            },
-        });
-
-        await user.addLiked(post);
-        //await user.addLiked(post, { through: "UserLikes" });
-
         const fullUser = await db.users.findOne({
             where: {
                 id: req.user.id,
@@ -38,8 +23,11 @@ const posts = async (req, res) => {
             ],
         });
 
-        console.log(`USER WITH INCLUDE: ${require("util").inspect(fullUser, false, 4, false)}`);
-        // Listar todos los posts del usuario
+        await user.addLiked(post);
+
+        //console.log(`USER WITH INCLUDE: ${require("util").inspect(fullUser, false, 4, false)}`);
+
+        
     } catch (e) {
         console.log("Issue in liked/posts");
         console.log(e.message);
