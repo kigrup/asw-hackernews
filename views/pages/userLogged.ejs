@@ -39,16 +39,12 @@
                             <form
                                 class="profileform"
                                 method="post"
-                                action="https://news.ycombinator.com/xuser"
+                                action="http://hackers.hopto.org:13001/user/edit"
                             >
                                 <input
                                     type="hidden"
                                     name="id"
-                                    value="kigrup"
-                                /><input
-                                    type="hidden"
-                                    name="hmac"
-                                    value="e7dbc3f56b274857873c6a106d5c1b494cb621a3"
+                                    value="<%= user.id %>"
                                 />
                                 <table border="0">
                                     <tbody>
@@ -56,7 +52,7 @@
                                             <td valign="top">user:</td>
                                             <td timestamp="1634497981">
                                                 <a
-                                                    href="https://news.ycombinator.com/user?id=<%= user.id %> "
+                                                    href="http://hackers.hopto.org:13001/user?id=<%= user.id %> "
                                                     class="hnuser"
                                                     ><font color="#3c963c"
                                                         ><%= user.username %> </font
@@ -67,9 +63,7 @@
                                         <tr>
                                             <td valign="top">created:</td>
                                             <td>
-                                                <a
-                                                    href="https://news.ycombinator.com/front?day=2021-10-17&amp;birth=kigrup"
-                                                    >13 days ago</a
+                                                <a> <%= moment(new Date(user.createdAt)).fromNow() %> </a
                                                 >
                                             </td>
                                         </tr>
@@ -88,108 +82,13 @@
                                                 >
 <%= user.about %> </textarea
                                                 >
-                                                <font size="-2"
-                                                    ><a
-                                                        href="https://news.ycombinator.com/formatdoc"
-                                                        tabindex="-1"
-                                                        ><font color="#afafaf"
-                                                            >help</font
-                                                        ></a
-                                                    ></font
-                                                >
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td>
-                                                <font size="2"
-                                                    >Only admins see your email
-                                                    below. To share publicly,
-                                                    add to the 'about'
-                                                    box.</font
-                                                >
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td valign="top">email:</td>
-                                            <td>
-                                                <input
-                                                    type="text"
-                                                    name="uemail"
-                                                    value="raul.plesa@gmail.com"
-                                                    size="60"
-                                                />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td valign="top">showdead:</td>
-                                            <td>
-                                                <select name="showd">
-                                                    <option>yes</option>
-                                                    <option selected="">
-                                                        no
-                                                    </option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td valign="top">noprocrast:</td>
-                                            <td>
-                                                <select name="nopro">
-                                                    <option>yes</option>
-                                                    <option selected="">
-                                                        no
-                                                    </option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td valign="top">maxvisit:</td>
-                                            <td>
-                                                <input
-                                                    type="text"
-                                                    name="maxv"
-                                                    value="20"
-                                                    size="16"
-                                                />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td valign="top">minaway:</td>
-                                            <td>
-                                                <input
-                                                    type="text"
-                                                    name="mina"
-                                                    value="180"
-                                                    size="16"
-                                                />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td valign="top">delay:</td>
-                                            <td>
-                                                <input
-                                                    type="text"
-                                                    name="delay"
-                                                    value="0"
-                                                    size="16"
-                                                />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td></td>
                                             <td>
                                                 <a
-                                                    href="https://news.ycombinator.com/changepw"
-                                                    ><u>change password</u></a
-                                                >
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td>
-                                                <a
-                                                    href="https://news.ycombinator.com/submitted?id=kigrup"
+                                                    href="http://hackers.hopto.org:13001/newest?by=<%= user.dataValues.id %>"
                                                     ><u>submissions</u></a
                                                 >
                                             </td>
@@ -198,7 +97,7 @@
                                             <td></td>
                                             <td>
                                                 <a
-                                                    href="https://news.ycombinator.com/threads?id=kigrup"
+                                                    href="http://hackers.hopto.org:13001/threads?by=<%= user.dataValues.id %>"
                                                     ><u>comments</u></a
                                                 >
                                             </td>
@@ -207,51 +106,21 @@
                                             <td></td>
                                             <td>
                                                 <a
-                                                    href="https://news.ycombinator.com/hidden"
-                                                    ><u>hidden</u></a
-                                                >
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td>
-                                                <a
-                                                    href="https://news.ycombinator.com/upvoted?id=kigrup"
+                                                    href="http://hackers.hopto.org:13001/liked/posts"
                                                     ><u
                                                         >upvoted submissions</u
                                                     ></a
                                                 >
-                                                /
-                                                <a
-                                                    href="https://news.ycombinator.com/upvoted?id=kigrup&amp;comments=t"
-                                                    ><u>comments</u></a
-                                                >
-                                                &nbsp;<span
-                                                    style="font-style: italic"
-                                                    >(private)</span
-                                                >
                                             </td>
                                         </tr>
                                         <tr>
                                             <td></td>
                                             <td>
                                                 <a
-                                                    href="https://news.ycombinator.com/favorites?id=kigrup"
-                                                    ><u
-                                                        >favorite submissions</u
-                                                    ></a
-                                                >
-                                                /
-                                                <a
-                                                    href="https://news.ycombinator.com/favorites?id=kigrup&amp;comments=t"
-                                                    ><u>comments</u></a
-                                                >
-                                                &nbsp;<span
-                                                    style="font-style: italic"
-                                                    >(public)</span
-                                                >
-                                            </td>
-                                        </tr>
+                                                     href="http://hackers.hopto.org:13001/liked/comments"
+                                                     ><u>upvoted comments</u></a>
+                                             </td>
+                                         </tr>
                                     </tbody>
                                 </table>
                                 <br /><input type="submit" value="update" />

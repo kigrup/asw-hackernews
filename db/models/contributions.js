@@ -30,6 +30,9 @@ module.exports = (sequelize, DataTypes) => {
             author: {
                 type: DataTypes.STRING,
             },
+            authorName: {
+                type: DataTypes.STRING,
+            },
             inReplyTo: {
                 type: DataTypes.INTEGER,
             },

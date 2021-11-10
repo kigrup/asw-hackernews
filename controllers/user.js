@@ -1,5 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 const db = require('../db/db');
+const moment = require('moment');
 
 const user = async (req, res) => {
     try {
@@ -13,12 +14,17 @@ const user = async (req, res) => {
             },
         });
         let logged = '';
+        let renderObject = {
+            user: user,
+            loggedIn: false,
+            moment:moment,
+        }
         if (req.user && req.user.id == id) {
             logged = 'Logged';
+            renderObject.loggedIn = true;
         }
-        res.render(`pages/user${logged}`, {
-            user: user,
-        });
+        res.render(`pages/user${logged}`, renderObject);
+
     } catch (e) {
         console.log('Error on /user');
         console.log(e.message);
@@ -26,4 +32,36 @@ const user = async (req, res) => {
     }
 };
 
-module.exports = user;
+const modify = async (req, res) => {
+    try {
+        let authorObject;
+        if(!req.isAuthenticated()){
+            res.redirect('/login');
+            return;
+        }
+        else{
+            authorObject= await db.users.findOne({
+                where: {
+                    id: req.user.id,
+                }
+            });
+        }
+
+        const { about } = req.body;
+        
+        if (about !== undefined ) {
+            authorObject.about = about;
+            authorObject.save();
+        }
+
+        res.redirect(`/user?id=${req.user.id}`);
+
+        
+    } catch (e) {
+        console.log('Error modfiying about');
+        console.log(e.message);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send();
+    }
+};
+
+module.exports = {user, modify};

@@ -16,6 +16,7 @@ const index = async (req, res) => {
                 'upvotes',
                 'comments',
                 'author',
+                'authorName',
                 'createdAt',
             ],
             where: {
@@ -28,11 +29,17 @@ const index = async (req, res) => {
             posts: posts,
             moment: moment,
             loggedIn: false,
-            baseUrl: require('../utils/Constants').BASE_URL
+            baseUrl: require('../utils/Constants').BASE_URL,
+            user:{}
         };
         if (req.isAuthenticated()) {
             renderObject.loggedIn = true;
-            renderObject.user = req.user;
+            const loggeduser = await db.users.findOne({
+                where: {
+                    id: req.user.id,
+                }
+            });
+            renderObject.user = loggeduser;
         }
         res.render('pages/index', renderObject);
     } catch (e) {
@@ -53,6 +60,7 @@ const newest = async (req, res) => {
                 'upvotes',
                 'comments',
                 'author',
+                'authorName',
                 'createdAt',
             ],
             where: {
@@ -64,15 +72,33 @@ const newest = async (req, res) => {
             include: [db.users],
             order: [['createdAt', 'DESC']],
         });
+        posts.forEach(async post => {
+            const postAuthor = await db.users.findOne({
+                attributes: [
+                    'id',
+                    'username',
+                ],
+                where: {
+                    id: post.author
+                }
+            })
+            post.authorName = postAuthor.username;
+        });
         let renderObject = {
             posts: posts,
             moment: moment,
             loggedIn: false,
-            baseUrl: require('../utils/Constants').BASE_URL
+            baseUrl: require('../utils/Constants').BASE_URL,
+            user:{}
         };
         if (req.isAuthenticated()) {
             renderObject.loggedIn = true;
-            renderObject.user = req.user;
+            const loggeduser = await db.users.findOne({
+                where: {
+                    id: req.user.id,
+                }
+            });
+            renderObject.user = loggeduser;
         }
         res.render('pages/index', renderObject);
     } catch (e) {

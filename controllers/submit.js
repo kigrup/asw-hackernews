@@ -30,11 +30,18 @@ const post = async (req, res) => {
             contentType = 'post/url';
             content = url;
         }
+        const authorObject = await db.users.findOne({
+            where: {
+                id: userId,
+            }
+        });
+
         const post = await db.contributions.create({
             type: contentType,
             title: title,
             content: content,
             author: userId,
+            authorName: authorObject.dataValues.username,
             deep: 0,
         });
         console.log(`published post with id ${post.id}`);

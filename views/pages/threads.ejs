@@ -1,0 +1,45 @@
+<!-- saved from url=(0058)https://news.ycombinator.com/threads?id=peremasip#29166752 -->
+<html lang="en" op="item">
+    <head>
+        <title><%= user.displayName %>'s comments | Hacker News</title>
+        <%- include('../partials/head'); %>
+    </head>
+    <body cz-shortcut-listen="true">
+        <center>
+            <table
+                id="hnmain"
+                border="0"
+                cellpadding="0"
+                cellspacing="0"
+                width="85%"
+                bgcolor="#f6f6ef"
+            >
+                <tbody>
+                    <%- include('../partials/indexheader.ejs', { loggedIn: loggedIn}); -%>
+                    <tr
+                        id="pagespace"                        
+                        style="height: 10px"
+                    ></tr>
+                    <tr>
+                        <td>                           
+                            <br /><br />
+                            <table border="0" class="comment-tree">
+                                <tbody>
+                                    <% for( let i = 0; i < comments.length; i++ ) { %>
+                                        <%- include('../partials/comment.ejs', {post: post, comment: comments[i]}); -%> 
+                                    <% }; %>
+                                </tbody>
+                            </table>
+                            <br /><br />
+                        </td>
+                    </tr>
+                    <%- include('../partials/footer.ejs'); -%>
+                </tbody>
+            </table>
+        </center>
+        <script
+            type="text/javascript"
+            src="../data/hn.js"
+        ></script>
+    </body>
+</html>

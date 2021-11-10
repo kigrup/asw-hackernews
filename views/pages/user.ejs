@@ -31,7 +31,6 @@
                     </tr>
                     <tr
                         id="pagespace"
-                        title="Profile: RageoftheRobots"
                         style="height: 10px"
                     ></tr>
                     <tr>
@@ -42,7 +41,7 @@
                                         <td valign="top">user:</td>
                                         <td timestamp="1631965655">
                                             <a
-                                                href="https://news.ycombinator.com/user?id=RageoftheRobots"
+                                                href="http://hackers.hopto.org:13001/user?id=<%= user.id %> "
                                                 class="hnuser"
                                                 ><%= user.username %> </a
                                             >
@@ -51,9 +50,7 @@
                                     <tr>
                                         <td valign="top">created:</td>
                                         <td>
-                                            <a
-                                                href="https://news.ycombinator.com/front?day=2021-09-18&amp;birth=RageoftheRobots"
-                                                >42 days ago</a
+                                            <a><%= moment(new Date(user.createdAt)).fromNow() %></a
                                             >
                                         </td>
                                     </tr>
@@ -69,7 +66,7 @@
                                         <td></td>
                                         <td>
                                             <a
-                                                href="https://news.ycombinator.com/submitted?id=<%= user.id %> "
+                                                href="http://hackers.hopto.org:13001/newest?by=<%= user.dataValues.id %>"
                                                 ><u>submissions</u></a
                                             >
                                         </td>
@@ -78,17 +75,8 @@
                                         <td></td>
                                         <td>
                                             <a
-                                                href="https://news.ycombinator.com/threads?id=<%= user.id %> "
+                                                href="http://hackers.hopto.org:13001/threads?by=<%= user.dataValues.id %>"
                                                 ><u>comments</u></a
-                                            >
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            <a
-                                                href="https://news.ycombinator.com/favorites?id=<%= user.id %> "
-                                                ><u>favorites</u></a
                                             >
                                         </td>
                                     </tr>
