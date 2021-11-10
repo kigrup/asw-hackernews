@@ -18,6 +18,7 @@ const threads = async (req, res) => {
                 'upvotes',
                 'comments',
                 'author',
+                'authorName',
                 'createdAt',
             ],
             where: {
@@ -51,7 +52,7 @@ const threads = async (req, res) => {
                 commentsObject[i] = child;
                 //console.log('CHILD:');
                 //console.log(require('util').inspect(child, false, 6, false));
-                if (child.dataValues.contributions !== undefined) 
+                if (child.dataValues.contributions.length > 0) 
                     {
                     console.log('------POPULATING COMMENT---------');
                     console.log(child.dataValues.content);

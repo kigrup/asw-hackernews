@@ -16,6 +16,7 @@ const index = async (req, res) => {
                 'upvotes',
                 'comments',
                 'author',
+                'authorName',
                 'createdAt',
             ],
             where: {
@@ -23,18 +24,6 @@ const index = async (req, res) => {
             },
             include: [db.users],
             order: [['upvotes', 'DESC']],
-        });
-        posts.forEach(async post => {
-            const postAuthor = await db.users.findOne({
-                attributes: [
-                    'id',
-                    'username',
-                ],
-                where: {
-                    id: post.author
-                }
-            })
-            post.authorName = postAuthor.username;
         });
         let renderObject = {
             posts: posts,
@@ -65,6 +54,7 @@ const newest = async (req, res) => {
                 'upvotes',
                 'comments',
                 'author',
+                'authorName',
                 'createdAt',
             ],
             where: {
