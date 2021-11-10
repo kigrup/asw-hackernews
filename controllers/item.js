@@ -90,6 +90,7 @@ const comment = async (req, res) => {
             },
         });
         console.log(`commenting onto: ${require('util').inspect(contribution, false, 3, false)}`);
+        console.log(`with user: ${require('util').inspect(req.user, false, 5, false)}`);
 
         const reply = await db.contributions.create({
             type: 'comment',
