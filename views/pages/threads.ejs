@@ -26,6 +26,7 @@
                             <table border="0" class="comment-tree">
                                 <tbody>
                                     <% for( let i = 0; i < comments.length; i++ ) { %>
+                                        <p>Comment</p>
                                         <%- include('../partials/comment.ejs', {comment: comments[i]}); -%> 
                                     <% }; %>
                                 </tbody>
