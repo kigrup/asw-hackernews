@@ -15,7 +15,7 @@
                 bgcolor="#f6f6ef"
             >
                 <tbody>
-                    <%- include('../partials/indexheader.ejs'); -%>
+                    <%- include('../partials/indexheader.ejs', { loggedIn: loggedIn}); -%>
                     <tr
                         id="pagespace"
                         title="<%= post.dataValues.title %> "
