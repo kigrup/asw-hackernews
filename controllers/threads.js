@@ -37,8 +37,9 @@ const threads = async (req, res) => {
                         },
                         include: [db.contributions],
                     });
+                    child.dataValues.deep = depth;
                     commentsObject[i] = child;
-                    if (depth > 0) {
+                    if (depth > 1) {
                         repliesIds.push(commentsObject[i].dataValues.id);
                     }
                     //console.log('CHILD:');
@@ -54,7 +55,7 @@ const threads = async (req, res) => {
                 }
             }
         };
-        await populateComments(comments, 0);
+        await populateComments(comments, 1);
         var uniqueComments = [];
         for (let i = 0; i < comments.length; i++) {
             if (!repliesIds.includes(comments[i].dataValues.id)) {
