@@ -101,7 +101,7 @@ const comment = async (req, res) => {
         //console.log(`with user: ${require('util').inspect(req.user, false, 5, false)}`);
         const authorObject = await db.users.findOne({
             where: {
-                id: userId,
+                id: req.user.id,
             }
         });
 
