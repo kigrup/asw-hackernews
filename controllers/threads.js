@@ -8,14 +8,7 @@ moment.updateLocale('es');
 
 const threads = async (req, res) => {
     try {
-        var seen = [];
-        const { id, content } = req.body;
-        console.log(`starting comment thread id: ${id} content: ${content}`);
-        if (id === undefined || !id) {
-            res.send('Id undefined in body');
-        } else if (content === undefined || !content) {
-            res.send('Message undefined in body');
-        }
+        
         const comments = await db.contributions.findAll({
             attributes: [
                 'id',
