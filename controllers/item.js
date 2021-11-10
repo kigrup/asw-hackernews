@@ -96,6 +96,9 @@ const comment = async (req, res) => {
             author: req.user.id,
             deep: contribution.deep + 1,
         });
+
+        console.log(`commented: ${require('util').inspect(reply, false, 3, false)}`);
+
         res.redirect(`/item?id=${id}`);
     } catch (e) {
         console.log('Error on /item/comment');
