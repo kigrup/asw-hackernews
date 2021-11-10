@@ -17,6 +17,7 @@ const threads = async (req, res) => {
                 'upvotes',
                 'comments',
                 'author',
+                'authorName',
                 'createdAt',
             ],
             where: {

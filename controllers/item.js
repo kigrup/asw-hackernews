@@ -43,8 +43,6 @@ const item = async (req, res) => {
                     include: [db.contributions],
                 });
                 commentsObject[i] = child;
-                //console.log('CHILD:');
-                //console.log(require('util').inspect(child, false, 6, false));
                 if (child.dataValues.contributions !== undefined) {
                     console.log('------POPULATING COMMENT---------');
                     console.log(child.dataValues.content);
@@ -54,11 +52,11 @@ const item = async (req, res) => {
                 }
             }
         };
-        console.log('BEFORE POPULATE COMMENTS:');
-        console.log(require('util').inspect(comments, false, 6, false));
+        //console.log('BEFORE POPULATE COMMENTS:');
+        //console.log(require('util').inspect(comments, false, 6, false));
         await populateComments(comments);
-        console.log('AFTER POPULATE COMMENTS:');
-        console.log(require('util').inspect(comments, false, 12, false));
+        //console.log('AFTER POPULATE COMMENTS:');
+        //console.log(require('util').inspect(comments, false, 12, false));
         // feach comment
 
         //console.log('INSPECTION:');
@@ -101,12 +99,18 @@ const comment = async (req, res) => {
         });
         //console.log(`commenting onto: ${require('util').inspect(contribution, false, 3, false)}`);
         //console.log(`with user: ${require('util').inspect(req.user, false, 5, false)}`);
+        const authorObject = await db.users.findOne({
+            where: {
+                id: userId,
+            }
+        });
 
         const reply = await db.contributions.create({
             type: 'comment',
             content: content,
             inReplyTo: id,
             author: req.user.id,
+            authorName: authorObject.dataValues.username,
             deep: contribution.deep + 1,
         });
 
