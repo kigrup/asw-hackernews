@@ -53,7 +53,7 @@
                         </div>
                     </td>
                 </tr>
-                <% for( let reply=0; reply < comment.contributions.length; reply++ ) { %>
+                <% if (comment.contributions) for( let reply=0; reply < comment.contributions.length; reply++ ) { %>
                     <%- include('../partials/comment.ejs', {comment: comment.contributions[reply].dataValues}); %> 
                 <% } %>
             </tbody>
