@@ -16,7 +16,7 @@ const item = async (req, res) => {
         });
         // Get first level of childs
 
-        console.log(require('util').inspect(post, false, 3, false));
+        //console.log(require('util').inspect(post, false, 3, false));
         if (post == undefined) {
             res.send('Item not found');
             return;
@@ -45,11 +45,13 @@ const item = async (req, res) => {
                 commentsObject.dataValues.contributions[i] = child;
                 if (child.dataValues.contributions !== undefined) {
                     populateComments(
-                        commentsObject.dataValues.contributions[i].dataValues.contributions
+                        commentsObject.dataValues.contributions[i]
                     );
                 }
             }
         };
+        console.log('BEFORE POPULATE COMMENTS:');
+        console.log(require('util').inspect(comments, false, 6, false));
         populateComments(comments);
         // feach comment
 
@@ -91,8 +93,8 @@ const comment = async (req, res) => {
                 id: id,
             },
         });
-        console.log(`commenting onto: ${require('util').inspect(contribution, false, 3, false)}`);
-        console.log(`with user: ${require('util').inspect(req.user, false, 5, false)}`);
+        //console.log(`commenting onto: ${require('util').inspect(contribution, false, 3, false)}`);
+        //console.log(`with user: ${require('util').inspect(req.user, false, 5, false)}`);
 
         const reply = await db.contributions.create({
             type: 'comment',
@@ -102,7 +104,7 @@ const comment = async (req, res) => {
             deep: contribution.deep + 1,
         });
 
-        console.log(`commented: ${require('util').inspect(reply, false, 3, false)}`);
+        //console.log(`commented: ${require('util').inspect(reply, false, 3, false)}`);
 
         res.redirect(`/item?id=${id}`);
     } catch (e) {
