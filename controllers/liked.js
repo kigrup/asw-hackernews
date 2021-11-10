@@ -23,11 +23,11 @@ const posts = async (req, res) => {
             ],
         });
 
-        await user.addLiked(post);
+        //await user.addLiked(post);
 
         //console.log(`USER WITH INCLUDE: ${require("util").inspect(fullUser, false, 4, false)}`);
 
-        
+
     } catch (e) {
         console.log("Issue in liked/posts");
         console.log(e.message);
