@@ -1,34 +1,31 @@
-const { StatusCodes } = require('http-status-codes');
-const db = require('../db/db');
-const ejs = require('ejs');
-const moment = require('moment');
+const { StatusCodes } = require("http-status-codes");
+const db = require("../db/db");
+const ejs = require("ejs");
+const moment = require("moment");
 
-moment.updateLocale('es');
-
+moment.updateLocale("es");
 
 const threads = async (req, res) => {
-    try {
-        var seen = [];      
-        const comments = await db.contributions.findAll({
-            attributes: [
-                'id',
-                'title',
-                'type',
-                'content',
-                'upvotes',
-                'comments',
-                'author',
-                'authorName',
-                'createdAt',
-            ],
-            where: {
-                type: 'comment',
-                author: req.user.id
-            },
-            include: [db.users],
-            order: [['createdAt', 'DESC']],
-        });
-
+  try {
+    const comments = await db.contributions.findAll({
+      attributes: [
+        "id",
+        "title",
+        "type",
+        "content",
+        "upvotes",
+        "comments",
+        "author",
+        "authorName",
+        "createdAt",
+      ],
+      where: {
+        type: "comment",
+        author: req.user.id,
+      },
+      include: [db.users],
+      order: [["createdAt", "DESC"]],
+    });
         const populateComments = async (commentsObject, depth) => {
             for (
                 let i = 0;
@@ -86,7 +83,9 @@ const threads = async (req, res) => {
         console.log('Issue in Threads');
         console.log(e.message);
         res.status(StatusCodes.OK).send('Error');
+
     }
+ 
 };
 
 module.exports = threads;
