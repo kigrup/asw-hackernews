@@ -35,7 +35,7 @@ const item = async (req, res) => {
                 i < commentsObject.contributions.dataValues.length;
                 i++
             ) {
-                child = db.contributions.findOne({
+                child = await db.contributions.findOne({
                     where: {
                         id: id,
                     },
