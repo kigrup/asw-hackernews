@@ -30,7 +30,7 @@ const item = async (req, res) => {
         });
         // Recursively get all childs' comments
         
-        const populateComments = (commentsObject) => {
+        const populateComments = async (commentsObject) => {
             for (
                 let i = 0;
                 i < commentsObject.contributions.dataValues.length;
