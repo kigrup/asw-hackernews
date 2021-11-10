@@ -7,6 +7,7 @@ moment.updateLocale("es");
 
 const threads = async (req, res) => {
   try {
+      var seen = [];
     const comments = await db.contributions.findAll({
       attributes: [
         "id",
