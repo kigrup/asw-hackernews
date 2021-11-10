@@ -26,6 +26,7 @@ const threads = async (req, res) => {
             include: [db.users],
             order: [['createdAt', 'DESC']],
         });
+
         const populateComments = async (commentsObject) => {
             for (
                 let i = 0;
@@ -59,6 +60,8 @@ const threads = async (req, res) => {
                 }
             }
         };
+        populateComments(comments);
+        
         let renderObject = {
             comments: comments,
             moment: moment,
