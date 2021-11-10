@@ -39,7 +39,7 @@ const modify = async (req, res) => {
             baseUrl: require('../utils/Constants').BASE_URL,
             user:{}
         };
-        const authorObject;
+        let authorObject;
         if(!req.isAuthenticated()){
             res.redirect('/login');
             return;
