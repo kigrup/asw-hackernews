@@ -44,7 +44,7 @@ app.use('/submit', authenticateUser, submit);
 app.use('/item', item);
 app.use('/user', user);
 app.use('/threads', threads);
-app.use('/liked', liked);
+app.use('/liked', authenticateUser, liked);
 
 // TODO: tidy up
 // Passport

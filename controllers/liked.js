@@ -7,7 +7,14 @@ moment.updateLocale('es');
 
 const posts = async (req, res) => {
     try {
-        
+        const user = await db.users.findOne({
+            where: {
+                id: req.user.id
+            }
+        });
+
+        console.log(`USER: ${require('util').inspect(user, false, 4, false)}`);
+        // Listar todos los posts del usuario 
     } catch (e) {
         console.log('Issue in liked/posts');
         console.log(e.message);

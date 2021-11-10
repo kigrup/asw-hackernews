@@ -18,5 +18,6 @@ db.users.hasMany(db.contributions, { foreignKey: 'author' });
 db.contributions.belongsTo(db.users, { foreignKey: 'author' });
 db.contributions.hasMany(db.contributions, { foreignKey: 'inReplyTo' });
 db.contributions.belongsToMany(db.users, { through: 'UserLikes' });
+db.users.belongsToMany(db.contributions, { through: 'UserLikes' });
 
 module.exports = db;
