@@ -11,7 +11,7 @@ const login = require('./routes/login');
 const submit = require('./routes/submit');
 const item = require('./routes/item');
 const user = require('./routes/user');
-const votes = require ('./routes/vote')
+const vote = require ('./routes/vote')
 const threads = require('./routes/threads');
 const liked = require('./routes/liked');
 const authenticateUser = require('./middlewares/authentication');
@@ -44,7 +44,7 @@ app.use('/login', login);
 app.use('/submit', authenticateUser, submit);
 app.use('/item', item);
 app.use('/user', user);
-app.use('/vote', votes);
+app.use('/vote', authenticateUser, vote);
 app.use('/threads', threads);
 app.use('/liked', authenticateUser, liked);
 
