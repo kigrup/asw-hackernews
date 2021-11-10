@@ -1,11 +1,11 @@
 # ASW Hacker News - Q1 2021
-##Miembros:
+## Miembros:
 - Pere Masip Rispa
 - Xavier Garcia Merino
 - Pau Martin Galindo
 - Raul Plesa
 
-##Taiga
+## Taiga
 El Taiga ha sido la principal herramienta que hemos usado para organizar nuestro proyecto. En primer lugar, hemos dividido cada una de las historias de usuario para la entrega en Tasks, y les hemos asignado puntos a cada una. Una vez hecho esto las hemos asignado a diferentes miembros del equipo, y después cada uno ha ido actualizando su estado.
 Para realizar las tareas anteriores tenemos los siguientes elementos:
   1. Tags: cada tarea tiene una tag asignada que hace referencia a su categoría. Éstas son *Front-end*,*Back-end* y *BD*
