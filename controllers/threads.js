@@ -57,7 +57,7 @@ const threads = async (req, res) => {
         await populateComments(comments, 0);
         var uniqueComments = [];
         for (let i = 0; i < comments.length; i++) {
-            if (repliesIds.includes(comments[i].dataValues.id)) {
+            if (!repliesIds.includes(comments[i].dataValues.id)) {
                 uniqueComments.push(comments[i]);
             }
         }
