@@ -33,7 +33,7 @@ const item = async (req, res) => {
         const populateComments = async (commentsObject) => {
             for (
                 let i = 0;
-                i < commentsObject.contributions.dataValues.length;
+                i < commentsObject.dataValues.contributions.length;
                 i++
             ) {
                 child = await db.contributions.findOne({
@@ -42,10 +42,10 @@ const item = async (req, res) => {
                     },
                     include: [db.contributions],
                 });
-                commentsObject.contributions.dataValues[i] = child;
-                if (child.contributions.dataValues !== undefined) {
+                commentsObject.dataValues.contributions[i] = child;
+                if (child.dataValues.contributions !== undefined) {
                     populateComments(
-                        commentsObject.contributions.dataValues[i]
+                        commentsObject.dataValues.contributions[i].dataValues.contributions
                     );
                 }
             }
