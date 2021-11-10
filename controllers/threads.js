@@ -75,7 +75,9 @@ const threads = async (req, res) => {
                 iterator++;
             }
         }
+        const post = { deep: 0 }; // dummy object to read indentation
         let renderObject = {
+            post: post,
             comments: comments,
             moment: moment,
             loggedIn: false,
