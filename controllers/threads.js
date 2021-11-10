@@ -65,7 +65,7 @@ const threads = async (req, res) => {
         const post = { deep: 0 }; // dummy object to read indentation
         let renderObject = {
             post: post,
-            comments: comments,
+            comments: uniqueComments,
             moment: moment,
             loggedIn: false,
             baseUrl: require("../utils/Constants").BASE_URL,
