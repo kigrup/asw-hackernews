@@ -52,8 +52,8 @@ const item = async (req, res) => {
                 }
             }
         };
-        //console.log('BEFORE POPULATE COMMENTS:');
-        //console.log(require('util').inspect(comments, false, 6, false));
+        console.log('BEFORE POPULATE COMMENTS:');
+        console.log(require('util').inspect(comments, false, 6, false));
         populateComments(comments);
         // feach comment
 
