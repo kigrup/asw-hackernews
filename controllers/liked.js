@@ -13,6 +13,16 @@ const posts = async (req, res) => {
             }
         });
 
+        const post = await db.contributions.findOne({
+            where: {
+                id: 1
+            }
+        });
+
+        user.addContributions(post);
+
+        
+
         console.log(`USER: ${require('util').inspect(user, true, 4, false)}`);
         // Listar todos los posts del usuario 
     } catch (e) {
