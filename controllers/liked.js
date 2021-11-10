@@ -19,7 +19,7 @@ const posts = async (req, res) => {
             },
         });
 
-        user.addContribution(post, { through: "UserLikes" });
+        await user.addContribution(post, { through: "UserLikes" });
 
         const fullUser = await db.users.findOne({
             where: {
@@ -28,6 +28,14 @@ const posts = async (req, res) => {
             include: [
                 {
                     association: 'liked',
+                    model: db.contributions,
+                },
+                {
+                    association: 'likers',
+                    model: db.contributions,
+                },
+                {
+                    association: 'contributions',
                     model: db.contributions,
                 },
             ],
