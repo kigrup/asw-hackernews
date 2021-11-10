@@ -29,15 +29,14 @@ const threads = async (req, res) => {
             order: [['createdAt', 'DESC']],
         });
 
-        const populateComments = async (commentsObject) => {
+        const populateComments = async (commentsObject, depth) => {
             for (
                 let i = 0;
                 i < commentsObject.length;
                 i++
             ) 
-            {
-            seen.push(false);
-            if(comments.includes(commentsObject[i]))    //Eliminar comments repetidos
+            {            
+            if(comments.includes(commentsObject[i]) && depth > 0)    //Eliminar comments repetidos
             {
                 var index = comments.findIndex(comment => comment.dataValues.id == commentsObject[i].dataValues.id);
                 seen[index] = true;
@@ -57,19 +56,21 @@ const threads = async (req, res) => {
                     console.log('------POPULATING COMMENT---------');
                     console.log(child.dataValues.content);
                     await populateComments(
-                        commentsObject[i].dataValues.contributions
+                        commentsObject[i].dataValues.contributions, depth++
                     );
                     }                
                 }
-            }
-            for(let j = 0; j < seen.length; ++j)
-            {
-                if (seen[j] == true) comments.splice(j, 1); 
-            }
+            }          
         };
-
-        await populateComments(comments);
-
+        for (let i = 0; i < comments.length; i++)
+        {
+            seen.push(false);
+        }
+        await populateComments(comments, 0);
+        for (let i = 0; i < comments.length; i++)
+        {
+            if (seen[i] == true) comments.splice(i, 1);
+        }
         let renderObject = {
             comments: comments,
             moment: moment,
