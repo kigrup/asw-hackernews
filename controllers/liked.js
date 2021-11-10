@@ -30,6 +30,10 @@ const posts = async (req, res) => {
                     model: db.contributions,
                     as: "liked",
                 },
+                {
+                    model: db.contributions,
+                    as: "likers",
+                },
             ],
         });
 
