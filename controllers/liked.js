@@ -20,7 +20,7 @@ const posts = async (req, res) => {
         });
 
         await user.addLiked(post);
-        await user.addLiked(post, { through: "UserLikes" });
+        //await user.addLiked(post, { through: "UserLikes" });
 
         const fullUser = await db.users.findOne({
             where: {
