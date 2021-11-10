@@ -134,9 +134,9 @@
                             <br /><br />
                             <table border="0" class="comment-tree">
                                 <tbody>
-                                    <% for( let i = 0; i < comments.length; i++ ) { %>
-                                        <%- include('../partials/comment.ejs'); -%> 
-                                    <% }; %>
+                                    <% for( let index = 0; index < comments.length; index++ ) { %>
+                                        <% include('../partials/comment.ejs', {comment: comments[i]}); %> 
+                                    <% } %>
                                 </tbody>
                             </table>
                             <br /><br />
