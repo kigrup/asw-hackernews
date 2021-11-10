@@ -7,7 +7,8 @@ moment.updateLocale('es');
 
 
 const threads = async (req, res) => {
-    try {        
+    try {
+        var seen = [];      
         const comments = await db.contributions.findAll({
             attributes: [
                 'id',
@@ -34,10 +35,11 @@ const threads = async (req, res) => {
                 i++
             ) 
             {
+            seen.push(false);
             if(comments.includes(commentsObject[i]))    //Eliminar comments repetidos
             {
                 var index = comments.findIndex(comment => comment.dataValues.id == commentsObject[i].dataValues.id);
-                comments.splice(index,1);
+                seen[index] = true;
             }
                 {
                     child = await db.contributions.findOne({
@@ -59,7 +61,12 @@ const threads = async (req, res) => {
                     }                
                 }
             }
+            for(let j = 0; j < seen.length; ++j)
+            {
+                if (seen[j] == true) comments.splice(j, 1); 
+            }
         };
+
         await populateComments(comments);
 
         let renderObject = {
