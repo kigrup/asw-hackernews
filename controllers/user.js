@@ -15,13 +15,22 @@ const user = async (req, res) => {
         });
         let logged = '';
         let renderObject = {
-            user: user,
+            user: {},
             loggedIn: false,
             moment:moment,
+            userProfile: user,
         }
         if (req.user && req.user.id == id) {
             logged = 'Logged';
+        }
+        if (req.isAuthenticated()) {
             renderObject.loggedIn = true;
+            const loggeduser = await db.users.findOne({
+                where: {
+                    id: req.user.id,
+                }
+            });
+            renderObject.user = loggeduser;
         }
         res.render(`pages/user${logged}`, renderObject);
 
