@@ -75,7 +75,7 @@ const item = async (req, res) => {
 const comment = async (req, res) => {
     try {
         if (!req.user){
-            res.send('/login');
+            res.redirect('/login');
         }
         const { id, content } = req.body;
         console.log(`starting comment id: ${id} content: ${content}`);
@@ -89,6 +89,8 @@ const comment = async (req, res) => {
                 id: id,
             },
         });
+        console.log(`commenting onto: ${require('util').inspect(contribution, false, 3, false)}`);
+
         const reply = await db.contributions.create({
             type: 'comment',
             content: content,
