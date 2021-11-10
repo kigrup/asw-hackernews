@@ -31,10 +31,6 @@ const posts = async (req, res) => {
                     model: db.contributions,
                 },
                 {
-                    association: 'likers',
-                    model: db.contributions,
-                },
-                {
                     association: 'contributions',
                     model: db.contributions,
                 },
