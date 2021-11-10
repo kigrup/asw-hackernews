@@ -29,7 +29,8 @@ const index = async (req, res) => {
             posts: posts,
             moment: moment,
             loggedIn: false,
-            baseUrl: require('../utils/Constants').BASE_URL
+            baseUrl: require('../utils/Constants').BASE_URL,
+            user:{}
         };
         if (req.isAuthenticated()) {
             renderObject.loggedIn = true;
