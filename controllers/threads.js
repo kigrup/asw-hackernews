@@ -60,8 +60,8 @@ const threads = async (req, res) => {
                 }
             }
         };
-        populateComments(comments);
-        
+        await populateComments(comments);
+
         let renderObject = {
             comments: comments,
             moment: moment,
