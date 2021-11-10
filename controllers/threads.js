@@ -34,30 +34,38 @@ const threads = async (req, res) => {
             include: [db.users],
             order: [['createdAt', 'DESC']],
         });
-        const populateComments = (commentsObject) => {
+        const populateComments = async (commentsObject) => {
             for (
                 let i = 0;
-                i < commentsObject.contributions.dataValues.length;
+                i < commentsObject.length;
                 i++
-                ) 
+            ) 
+            {
+            if(comments.includes(commentsObject[i]))    //Eliminar comments repetidos
+            {
+                var index = comments.findIndex(comment => comment.dataValues.id == commentsObject[i].dataValues.id);
+                comments.splice(index,1);
+            }
                 {
-                    if (!seen.includes(comments.contributions.dataValues[i].id))
+                    child = await db.contributions.findOne({
+                    where: {
+                        id: commentsObject[i].dataValues.id,
+                    },
+                    include: [db.contributions],
+                });
+                commentsObject[i] = child;
+                //console.log('CHILD:');
+                //console.log(require('util').inspect(child, false, 6, false));
+                if (child.dataValues.contributions !== undefined) 
                     {
-                        child = db.contributions.findOne({
-                            where: {
-                                id: commentsObject[i].dataValues.id,
-                            },
-                            include: [db.contributions],
-                        });
-                        commentsObject.contributions.dataValues[i] = child;
-                        if (child.contributions.dataValues !== undefined) {
-                            populateComments(
-                                commentsObject.contributions.dataValues[i]
-                            );
-                        }
-                    }
-                    else seen.push(comments.contributions.dataValues[i].id);
+                    console.log('------POPULATING COMMENT---------');
+                    console.log(child.dataValues.content);
+                    await populateComments(
+                        commentsObject[i].dataValues.contributions
+                    );
+                    }                
                 }
+            }
         };
         let renderObject = {
             comments: comments,
