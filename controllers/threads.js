@@ -69,7 +69,7 @@ const threads = async (req, res) => {
             renderObject.loggedIn = true;
             renderObject.user = req.user;
         }        
-        res.redirect(`/threads?id=${req.user.id}`, renderObject);
+        res.render('pages/threads', renderObject);
     } catch (e) {
         console.log('Issue in Threads');
         console.log(e.message);
