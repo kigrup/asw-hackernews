@@ -19,7 +19,7 @@
                             <span class="comhead">
                                 <a href="http://hackers.hopto.org:13001/user?id=<%= comment.author %>" class="hnuser">
                                     <font color="#3c963c">
-                                        <%= comment.author %>
+                                        <%= comment.authorName %>
                                     </font>
                                 </a>
                                 <span class="age" title="<%= comment.createdAt %>">
@@ -46,7 +46,7 @@
                             <div class="reply">
                                 <p>
                                     <font size="1">
-                                        <u><a href="http://hackers.hopto.org:13001/reply?id=<%= comment.id %>">reply</a></u>
+                                        <u><a href="http://hackers.hopto.org:13001/item?id=<%= comment.id %>">reply</a></u>
                                     </font>
                                 </p>
                             </div>
