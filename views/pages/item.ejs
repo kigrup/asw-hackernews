@@ -136,7 +136,7 @@
                                 <tbody>
                                     <% for( let index = 0; index < comments.length; index++ ) { %>
                                         <p>comentario: </p>
-                                        <% include('../partials/comment.ejs', {comment: comments[index]}); %> 
+                                        <% include('../partials/comment.ejs', {comment: comments[index].dataValues}); %> 
                                     <% } %>
                                 </tbody>
                             </table>
