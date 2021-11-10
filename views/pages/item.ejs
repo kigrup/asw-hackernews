@@ -29,80 +29,7 @@
                                     <tr>
                                         <td colspan="2"></td>
                                         <td>
-                                            Hey, folks. Looking for some insight
-                                            on distributed systems setups but
-                                            not exactly sure how to phrase it.
-                                            Here goes:
-                                            <p>
-                                                Does anyone know of any decent
-                                                approaches to building organic
-                                                systems of services that can be
-                                                arbitrarily distributed? The two
-                                                things that come to mind
-                                                immediately are the BEAM and
-                                                something like Kubernetes. I
-                                                have no experience with
-                                                Kubernetes, but it does seem a
-                                                bit heavy handed. With the BEAM
-                                                my concern would be platform
-                                                buy-in for everything. I'm
-                                                exploring ideas for a new system
-                                                I'm planning, and I'd like to be
-                                                able to mix and match different
-                                                languages/platforms as time goes
-                                                on, with a focus on building
-                                                really small services that are
-                                                composable and reusable. Is
-                                                Kubernetes the best way to do
-                                                this these days?
-                                            </p>
-                                            <p>Things I'm looking for:</p>
-                                            <p>
-                                                - No platform/language buy-in
-                                                (each service/unit can do things
-                                                however it needs to)
-                                            </p>
-                                            <p>- Hot reload of services</p>
-                                            <p>
-                                                - Ability to deploy multiple
-                                                instances of a service
-                                            </p>
-                                            <p>
-                                                - Ability to deploy different
-                                                versions of a service (e.g.
-                                                version 1, version 1.1, version
-                                                2, etc.)
-                                            </p>
-                                            <p>
-                                                - Ability to manage/monitor all
-                                                of said services
-                                            </p>
-                                            <p>
-                                                - Some sort of first
-                                                class/idiomatic way to
-                                                communicate between them (even
-                                                if that's just http)
-                                            </p>
-                                            <p>
-                                                - Low operational
-                                                overhead/complexity
-                                            </p>
-                                            <p>
-                                                Seems to me like the BEAM hits
-                                                all of these except the first.
-                                                And Kubernetes hits all of these
-                                                except the last xD
-                                            </p>
-                                            <p>Thoughts?</p>
-                                            <p>
-                                                P.S. Additionally I guess it
-                                                would be nice to have some sort
-                                                of super simple and versionable
-                                                configuration that governs the
-                                                current state of deployment. No
-                                                idea what it would look like.
-                                                Maybe something like terraform?
-                                            </p>
+                                            <%= post.dataValues.content %> 
                                         </td>
                                     </tr>
                                     <tr style="height: 10px"></tr>
@@ -116,11 +43,7 @@
                                                 <input
                                                     type="hidden"
                                                     name="id"
-                                                    value="<%= post.dataValues.id %> "
-                                                /><input
-                                                    type="hidden"
-                                                    name="hmac"
-                                                    value="9fd848fe7f459c480afd85a91cee060e523442fc"
+                                                    value="<%=post.id%> "
                                                 /><textarea
                                                     name="content"
                                                     rows="6"
@@ -138,9 +61,9 @@
                             <br /><br />
                             <table border="0" class="comment-tree">
                                 <tbody>
-                                    <% for( let i = 0; i < comments.length; i++ ) { %>
-                                        <%- include('../partials/comment.ejs', {comment: comments[i]}); -%> 
-                                    <% }; %>
+                                    <% for( let index = 0; index < comments.length; index++ ) { %>
+                                        <%- include('../partials/comment.ejs', {comment: comments[index].dataValues}); %> 
+                                    <% } %>
                                 </tbody>
                             </table>
                             <br /><br />

@@ -25,9 +25,9 @@
     <td class="subtext">
         <span class="score" id="score_<%=post.id%>"><%= post.upvotes %> points</span>
         by
-        <a href="http://hackers.hopto.org:13001/user?name=<%= post.author %> " class="hnuser"
-            ><%= post.author %></a
-        >
+        <a href="http://hackers.hopto.org:13001/user?name=<%= post.author %> " class="hnuser">
+            <%= post.authorName %>
+        </a>
         <span class="age" title="<%= post.createdAt %> ">
             <a href="http://hackers.hopto.org:13001/item?id=<%=post.id%>">
                 <%= moment(new Date(post.createdAt)).fromNow() %> 
@@ -37,12 +37,11 @@
         <a
             href="https://news.ycombinator.com/hide?id=<%=post.id%>"
             onclick="return hidestory(event, this, <%=post.id%>)"
-            >hide</a
-        >
-        |
+            >hide
+        </a> |
         <a href="http://hackers.hopto.org:13001/item?id=<%=post.id%>"
-            ><%= post.comments %>&nbsp;comments</a
-        >
+            ><%= post.comments %>&nbsp;comments
+        </a>
     </td>
 </tr>
 <tr class="spacer" style="height: 5px"></tr>

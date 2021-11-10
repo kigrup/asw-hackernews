@@ -2,119 +2,51 @@
     <td>
         <table border="0">
             <tbody>
-                <% let  while( let reply = 0; index < array.length; index++ ) { %>
-                
-                <% } %>
                 <tr>
-                    <td
-                        class="ind"
-                        indent="<%= comment.indent %>"
-                    >
-                        <img
-                            src="s.gif"
-                            height="1"
-                            width="0"
-                        />
+                    <td class="ind" indent="<%= 0 %>">
+                        <img src="s.gif" height="1" width="0" />
                     </td>
-                    <td
-                        valign="top"
-                        class="votelinks"
-                    >
+                    <td valign="top" class="votelinks">
                         <center>
-                            <a
-                                id="up_<%= comment.id %>"
-                                onclick='return vote(event, this, "up")'
-                                href="https://news.ycombinator.com/vote?id=<%= comment.id %>&amp;how=up"
-                                ><div
-                                    class="
-                                        votearrow
-                                    "
-                                    title="upvote"
-                                ></div
-                            ></a>
+                            <a id="up_<%= comment.id %>" onclick='return vote(event, this, "up")'
+                                href="http://hackers.hopto.org:13001/vote?id=<%= comment.id %>&amp;how=up">
+                                <div class="votearrow" title="upvote"></div>
+                            </a>
                         </center>
                     </td>
                     <td class="default">
-                        <div
-                            style="
-                                margin-top: 2px;
-                                margin-bottom: -10px;
-                            "
-                        >
-                            <span
-                                class="
-                                    comhead
-                                "
-                            >
-                                <a
-                                    href="http://hackers.hopto.org:13001/user?id=<%= comment.author %> "
-                                    class="
-                                        hnuser
-                                    "
-                                    ><font
-                                        color="#3c963c"
-                                        ><%= comment.author %></font
-                                    ></a
-                                >
-                                <span
-                                    class="
-                                        age
-                                    "
-                                    title="<%= comment.createdAt %>"
-                                    ><a
-                                        href="http://hackers.hopto.org:13001/item?id=<%= comment.id %>"
-                                        ><%= moment(new Date(comment.createdAt)).fromNow() %> </a
-                                    ></span
-                                >
-                                <span
-                                    id="unv_<%= comment.id %>"
-                                ></span
-                                ><span
-                                    class="
+                        <div style="margin-top: 2px; margin-bottom: -10px;">
+                            <span class="comhead">
+                                <a href="http://hackers.hopto.org:13001/user?id=<%= comment.author %>" class="hnuser">
+                                    <font color="#3c963c">
+                                        <%= comment.author %>
+                                    </font>
+                                </a>
+                                <span class="age" title="<%= comment.createdAt %>">
+                                    <a href="http://hackers.hopto.org:13001/item?id=<%= comment.id %>">
+                                        <%= moment(new Date(comment.createdAt)).fromNow() %>
+                                    </a>
+                                </span>
+                                <span id="unv_<%= comment.id %>"></span><span class="
                                         par
-                                    "
-                                ></span>
-                                <a
-                                    class="
+                                    "></span>
+                                <a class="
                                         togg
-                                    "
-                                    n="1"
-                                    href="javascript:void(0)"
-                                    onclick="return toggle(event, <%= comment.id %>)"
-                                    >[–]</a
-                                ><span
-                                    class="
+                                    " n="1" href="javascript:void(0)"
+                                    onclick="return toggle(event, <%= comment.id %>)">[–]</a><span class="
                                         onstory
-                                    "
-                                ></span>
+                                    "></span>
                             </span>
                         </div>
                         <br />
-                        <div
-                            class="comment"
-                        >
-                            <span
-                                class="
-                                    commtext
-                                    c00
-                                "
-                                ><%= comment.content %> </span
-                            >
-                            <div
-                                class="
-                                    reply
-                                "
-                            >
+                        <div class="comment">
+                            <span class="commtext c00">
+                                <%= comment.content %>
+                            </span>
+                            <div class="reply">
                                 <p>
-                                    <font
-                                        size="1"
-                                    >
-                                        <u
-                                            ><a
-                                                href="http://hackers.hopto.org:13001/reply?id=<%= comment.id %>"
-                                                >reply</a
-                                            ></u
-                                        >
+                                    <font size="1">
+                                        <u><a href="http://hackers.hopto.org:13001/reply?id=<%= comment.id %>">reply</a></u>
                                     </font>
                                 </p>
                             </div>
@@ -125,3 +57,6 @@
         </table>
     </td>
 </tr>
+<% if (comment.contributions) for( let reply=0; reply < comment.contributions.length; reply++ ) { %>
+    <%- include('../partials/comment.ejs', {comment: comment.contributions[reply].dataValues}); %> 
+<% } %>
