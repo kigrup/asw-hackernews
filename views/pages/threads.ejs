@@ -1,292 +1,46 @@
 <!-- saved from url=(0058)https://news.ycombinator.com/threads?id=peremasip#29166752 -->
-<html lang="en" op="threads">
-
-<head>
-    <title>
-        <%=user.displayName%>'s comments | Hacker News
-    </title>
-    <%- include('..partials/head'); %>
-</head>
-
-<body>
-    <center>
-        <table id="hnmain" border="0" cellpadding="0" cellspacing="0" width="85%" bgcolor="#f6f6ef">
-            <tbody>
-                <%- include('../partials/indexheader.ejs', { loggedIn: loggedIn}); %>
-                <tr id="pagespace" style="height:10px"></tr>
-                <tr>
-                    <td> </td>
-                </tr>
-                <tr class="athing comtr" id="29166743">
-                    <td>
-                        <table border="0">
-                            <tbody>
-                                <tr>
-                                    <td class="ind" indent="0"><img
-                                            src="./peremasip&#39;s comments _ Hacker News_files/s.gif" height="1"
-                                            width="0"></td>
-                                    <td valign="top" class="votelinks">
-                                        <center>
-                                            <font color="#ff6600">*</font>
-                                            <br>
-                                            <img src="./peremasip&#39;s comments _ Hacker News_files/s.gif" height="1"
-                                                width="14">
-                                        </center>
-                                    </td>
-                                    <td class="default">
-                                        <div style="margin-top:2px; margin-bottom:-10px;">
-                                            <span class="comhead">
-                                                <span class="score" id="score_29166743">0
-                                                    points</span> by
-                                                <a href="https://news.ycombinator.com/user?id=peremasip" class="hnuser">
-                                                    <font color="#3c963c">
-                                                        peremasip
-                                                    </font>
-                                                </a> <span class="age" title="2021-11-09T20:04:45"><a
-                                                        href="https://news.ycombinator.com/item?id=29166743">1
-                                                        minute
-                                                        ago</a></span>
-                                                <span id="unv_29166743"></span><span class="navs"> |
-                                                    <a href="https://news.ycombinator.com/item?id=29164727">parent</a>
-                                                    | <a
-                                                        href="https://news.ycombinator.com/context?id=29166743">context</a></span>
-                                                | <a href="https://news.ycombinator.com/edit?id=29166743">edit</a>
-                                                <a class="togg" n="3" href="javascript:void(0)"
-                                                    onclick="return toggle(event, 29166743)">[–]</a><span
-                                                    class="onstory">
-                                                    | on: <a href="https://news.ycombinator.com/item?id=29164727">We
-                                                        saved
-                                                        millions
-                                                        in SSD
-                                                        costs by
-                                                        upgrading
-                                                        our
-                                                        fi...</a></span>
-                                            </span>
-                                        </div><br>
-                                        <div class="comment">
-                                            <span class="commtext c00">This
-                                                is pretty interesting,
-                                                because the effects of
-                                                migrating from lz4 to
-                                                zstd were:
-                                                - Total storage usage
-                                                reduced by ~21% (for our
-                                                dataset, this is on the
-                                                order of petabytes)<p>-
-                                                    Average write
-                                                    operation
-                                                    duration
-                                                    decreased by 50%
-                                                    on our fullest
-                                                    machines</p>
-                                                <p>- No observable query
-                                                    performance
-                                                    effects</p>
-                                                <p>It seems like the
-                                                    better
-                                                    compression
-                                                    ratio and
-                                                    resulting
-                                                    reduced IO more
-                                                    than makes up
-                                                    for increased
-                                                    CPU compared to
-                                                    lz4. I wish they
-                                                    had mentioned
-                                                    the actual
-                                                    effect on CPU.
-                                                </p>
-                                                <p>Compare to the recent
-                                                    thread "The LZ4
-                                                    introduced in
-                                                    PostgreSQL 14
-                                                    provides faster
-                                                    compression" [0]
-                                                    where the
-                                                    loudest voices
-                                                    were saying that
-                                                    zstd would not
-                                                    work due to
-                                                    increased CPU.
-                                                    This is a
-                                                    different layer
-                                                    (filesystem
-                                                    compression vs
-                                                    db comrpession),
-                                                    but this article
-                                                    represents an
-                                                    interesting data
-                                                    point in the
-                                                    conversation.
-                                                </p>
-                                                <p>[0]: <a href="https://news.ycombinator.com/item?id=29147656"
-                                                        rel="nofollow">https://news.ycombinator.com/item?id=29147656</a>
-                                                </p>
-                                                <div class="reply">
-                                                    <p>
-                                                        <font size="1">
-                                                            <u><a
-                                                                    href="https://news.ycombinator.com/reply?id=29166743&amp;goto=threads%3Fid%3Dperemasip%2329166743">reply</a></u>
-                                                        </font>
-                                                    </p>
-                                                </div>
-                                            </span>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                <tr class="athing comtr" id="29166752">
-                    <td>
-                        <table border="0">
-                            <tbody>
-                                <tr>
-                                    <td class="ind" indent="1"><img
-                                            src="./peremasip&#39;s comments _ Hacker News_files/s.gif" height="1"
-                                            width="40"></td>
-                                    <td valign="top" class="votelinks">
-                                        <center><a id="up_29166752" onclick="return vote(event, this, &quot;up&quot;)"
-                                                href="https://news.ycombinator.com/vote?id=29166752&amp;how=up&amp;auth=1debe3af603e4c8ee166106129d856f75f480720&amp;goto=threads%3Fid%3Dperemasip#29166752">
-                                                <div class="votearrow" title="upvote">
-                                                </div>
-                                            </a></center>
-                                    </td>
-                                    <td class="default">
-                                        <div style="margin-top:2px; margin-bottom:-10px;">
-                                            <span class="comhead">
-                                                <a href="https://news.ycombinator.com/user?id=pirata99"
-                                                    class="hnuser">pirata99</a>
-                                                <span class="age" title="2021-11-09T20:05:12"><a
-                                                        href="https://news.ycombinator.com/item?id=29166752">0
-                                                        minutes
-                                                        ago</a></span>
-                                                <span id="unv_29166752"></span><span class="navs"> |
-                                                    <a href="https://news.ycombinator.com/threads?id=peremasip#29166743"
-                                                        aria-hidden="true">parent</a></span>
-                                                <a class="togg" n="2" href="javascript:void(0)"
-                                                    onclick="return toggle(event, 29166752)">[–]</a><span
-                                                    class="onstory"></span>
-                                            </span>
-                                        </div><br>
-                                        <div class="comment">
-                                            <span class="commtext c00">hey
-                                                you copied this
-                                                comment!!<p>that's mean
-                                                    &gt;:(
-                                                </p>
-                                                <div class="reply">
-                                                    <p>
-                                                        <font size="1">
-                                                            <u><a
-                                                                    href="https://news.ycombinator.com/reply?id=29166752&amp;goto=threads%3Fid%3Dperemasip%2329166752">reply</a></u>
-                                                        </font>
-                                                    </p>
-                                                </div>
-                                            </span>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                <tr class="athing comtr" id="29166759">
-                    <td>
-                        <table border="0">
-                            <tbody>
-                                <tr>
-                                    <td class="ind" indent="2"><img
-                                            src="./peremasip&#39;s comments _ Hacker News_files/s.gif" height="1"
-                                            width="80"></td>
-                                    <td valign="top" class="votelinks">
-                                        <center>
-                                            <font color="#ff6600">*</font>
-                                            <br>
-                                            <img src="./peremasip&#39;s comments _ Hacker News_files/s.gif" height="1"
-                                                width="14">
-                                        </center>
-                                    </td>
-                                    <td class="default">
-                                        <div style="margin-top:2px; margin-bottom:-10px;">
-                                            <span class="comhead">
-                                                <span class="score" id="score_29166759">1
-                                                    point</span> by
-                                                <a href="https://news.ycombinator.com/user?id=peremasip" class="hnuser">
-                                                    <font color="#3c963c">
-                                                        peremasip
-                                                    </font>
-                                                </a> <span class="age" title="2021-11-09T20:05:54"><a
-                                                        href="https://news.ycombinator.com/item?id=29166759">0
-                                                        minutes
-                                                        ago</a></span>
-                                                <span id="unv_29166759"></span><span class="navs"> |
-                                                    <a href="https://news.ycombinator.com/threads?id=peremasip#29166743"
-                                                        aria-hidden="true">root</a>
-                                                    | <a href="https://news.ycombinator.com/threads?id=peremasip#29166752"
-                                                        aria-hidden="true">parent</a></span>
-                                                | <a href="https://news.ycombinator.com/edit?id=29166759">edit</a>
-                                                | <a
-                                                    href="https://news.ycombinator.com/delete-confirm?id=29166759&amp;goto=threads%3Fid%3Dperemasip">delete</a>
-                                                <a class="togg" n="1" href="javascript:void(0)"
-                                                    onclick="return toggle(event, 29166759)">[–]</a><span
-                                                    class="onstory"></span>
-                                            </span>
-                                        </div><br>
-                                        <div class="comment">
-                                            <span class="commtext c00">hey
-                                                you copied this
-                                                comment!!
-                                                that's mean
-                                                &gt;:(</span>
-                                            <div class="reply">
-                                                <p>
-                                                    <font size="1">
-                                                        <u><a
-                                                                href="https://news.ycombinator.com/reply?id=29166759&amp;goto=threads%3Fid%3Dperemasip%2329166759">reply</a></u>
-                                                    </font>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td><img src="./peremasip&#39;s comments _ Hacker News_files/s.gif" height="10" width="0">
-                        <table width="100%" cellspacing="0" cellpadding="1">
-                            <tbody>
-                                <tr>
-                                    <td bgcolor="#ff6600"></td>
-                                </tr>
-                            </tbody>
-                        </table><br>
-                        <center><span class="yclinks"><a
-                                    href="https://news.ycombinator.com/newsguidelines.html">Guidelines</a>
-                                | <a href="https://news.ycombinator.com/newsfaq.html">FAQ</a>
-                                | <a href="https://news.ycombinator.com/lists">Lists</a>
-                                | <a href="https://github.com/HackerNews/API">API</a>
-                                | <a href="https://news.ycombinator.com/security.html">Security</a>
-                                | <a href="http://www.ycombinator.com/legal/">Legal</a>
-                                | <a href="http://www.ycombinator.com/apply/">Apply to
-                                    YC</a>
-                                | <a href="mailto:hn@ycombinator.com">Contact</a></span><br><br>
-                            <form method="get" action="https://hn.algolia.com/">Search:
-                                <input type="text" name="q" value="" size="17" autocorrect="off" spellcheck="false"
-                                    autocapitalize="off" autocomplete="false">
-                            </form>
-                        </center>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </center>
-    <script type="text/javascript" src="./peremasip&#39;s comments _ Hacker News_files/hn.js.download"></script>
-</body>
-
+<html lang="en" op="item">
+    <head>
+        <title><%= user.displayName %>'s comments | Hacker News</title>
+        <%- include('../partials/head'); %>
+    </head>
+    <body cz-shortcut-listen="true">
+        <center>
+            <table
+                id="hnmain"
+                border="0"
+                cellpadding="0"
+                cellspacing="0"
+                width="85%"
+                bgcolor="#f6f6ef"
+            >
+                <tbody>
+                    <%- include('../partials/header.ejs'); -%>
+                    <tr
+                        id="pagespace"
+                        title="<%= post.dataValues.title %> "
+                        style="height: 10px"
+                    ></tr>
+                    <tr>
+                        <td>                           
+                            <br /><br />
+                            <table border="0" class="comment-tree">
+                                <tbody>
+                                    <% for( let i = 0; i < comments.length; i++ ) { %>
+                                        <%- include('../partials/comment.ejs', {comment: comments[i]}); -%> 
+                                    <% }; %>
+                                </tbody>
+                            </table>
+                            <br /><br />
+                        </td>
+                    </tr>
+                    <%- include('../partials/footer.ejs'); -%>
+                </tbody>
+            </table>
+        </center>
+        <script
+            type="text/javascript"
+            src="../data/hn.js"
+        ></script>
+    </body>
 </html>
