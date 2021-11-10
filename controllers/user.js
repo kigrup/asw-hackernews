@@ -54,7 +54,7 @@ const modify = async (req, res) => {
             authorObject.save();
         }
 
-        res.redirect(`/user?id=${id}`);
+        res.redirect(`/user?id=${req.user.id}`);
 
         
     } catch (e) {
