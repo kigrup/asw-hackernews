@@ -52,7 +52,7 @@ const vote = async (req, res) => {
         }
 
         console.log(`voted`);
-        res.status(StatusCodes.OK).send();
+        res.redirect('/');
     } catch (e) {
         console.log('Error voting on /vote');
         console.log(e.message);
