@@ -60,8 +60,7 @@ const newest = async (req, res) => {
             };
         } else if (req.url == '/newest') {
             postTypes = {
-                [db.Op.eq]: 'post/text',
-                [db.Op.eq]: 'post/url',
+                [db.Op.like]: 'post/%',
             };
         }
         let whereClause = {
