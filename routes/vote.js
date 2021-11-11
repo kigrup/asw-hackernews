@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { vote, unvote } = require('../controllers/vote.js');
 
-router.put('/vote', vote);
-router.put('/unvote', unvote);
+router.get('/vote', vote);
+router.get('/unvote', unvote);
 
 module.exports = router;

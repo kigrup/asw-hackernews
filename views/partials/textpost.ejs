@@ -32,13 +32,22 @@
             <a href="http://hackers.hopto.org:13001/item?id=<%=post.id%>">
                 <%= moment(new Date(post.createdAt)).fromNow() %> 
             </a>
-        </span>
-        <span id="unv_<%=post.id%>"></span> |
-        <a
+        </span> |
+        <% if (post.voted != undefined && post.voted) { %>
+            <span class="unvote" title="unvote">
+                <a href="<%= baseUrl %>vote?id=<%=post.id%>&amp;how=un">
+                    unvote
+                </a>
+            </span> | 
+        <% } %> 
+        <!--
+
+            <a
             href="https://news.ycombinator.com/hide?id=<%=post.id%>"
             onclick="return hidestory(event, this, <%=post.id%>)"
             >hide
         </a> |
+        -->
         <a href="http://hackers.hopto.org:13001/item?id=<%=post.id%>"
             ><%= post.comments %>&nbsp;comments
         </a>

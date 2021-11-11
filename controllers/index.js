@@ -73,14 +73,6 @@ const newest = async (req, res) => {
             };
         }
 
-        console.log(
-            `whereClause: ${require('util').inspect(
-                whereClause,
-                false,
-                5,
-                false
-            )}`
-        );
         const posts = await db.contributions.findAll({
             attributes: [
                 'id',
