@@ -55,12 +55,10 @@ const newest = async (req, res) => {
         console.log(`/newest request from: ${req.url}`);
         const url = await req.url;
         if (req.url == '/ask') {
-            console.log('/ask url');
             postTypes = {
                 [db.Op.eq]: 'post/text',
             };
         } else if (req.url == '/newest') {
-            console.log('/newest url');
             postTypes = {
                 [db.Op.eq]: 'post/text',
                 [db.Op.eq]: 'post/url',
@@ -72,6 +70,7 @@ const newest = async (req, res) => {
             },
         };
         if (req.query.by != undefined) {
+            console.log('received by parameter in query');
             whereClause.author = {
                 [db.Op.eq]: req.query.by,
             };
