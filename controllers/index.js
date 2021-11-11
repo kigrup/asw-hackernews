@@ -51,18 +51,28 @@ const index = async (req, res) => {
 
 const newest = async (req, res) => {
     try {
-        let postTypes = [];
+        let postTypes = {};
         console.log(`/newest request from: ${req.url}`);
         const url = await req.url;
         if (req.url == '/ask') {
-            postTypes.push({ type: 'post/text' });
+            postTypes = {
+                [db.Op.eq]: 'post/text',
+            };
         } else if (req.url == '/newest') {
-            postTypes.push({ type: 'post/url' });
-            postTypes.push({ type: 'post/text' });
+            postTypes = {
+                [db.Op.eq]: 'post/text',
+                [db.Op.eq]: 'post/url',
+            };
         }
-        let whereClause = { [db.Sequelize.Op.or]: postTypes };
+        let whereClause = {
+            type: {
+                [db.Op.or]: postTypes,
+            },
+        };
         if (req.query.by != undefined) {
-            whereClause.author = req.query.by;
+            whereClause.author = {
+                [db.Op.eq]: req.query.by,
+            };
         }
 
         const posts = await db.contributions.findAll({
@@ -77,17 +87,7 @@ const newest = async (req, res) => {
                 'authorName',
                 'createdAt',
             ],
-            where: {
-                type: {
-                    [db.Op.or]: {
-                        [db.Op.eq]: 'post/text',
-                        [db.Op.eq]: 'post/url',
-                    },
-                },
-                author: {
-                    [db.Op.eq]: '101908718141570741187',
-                },
-            },
+            where: whereClause,
             include: [db.users],
             order: [['createdAt', 'DESC']],
         });
