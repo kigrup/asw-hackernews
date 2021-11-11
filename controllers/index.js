@@ -30,14 +30,14 @@ const index = async (req, res) => {
             moment: moment,
             loggedIn: false,
             baseUrl: require('../utils/Constants').BASE_URL,
-            user:{}
+            user: {},
         };
         if (req.isAuthenticated()) {
             renderObject.loggedIn = true;
             const loggeduser = await db.users.findOne({
                 where: {
                     id: req.user.id,
-                }
+                },
             });
             renderObject.user = loggeduser;
         }
@@ -53,14 +53,14 @@ const newest = async (req, res) => {
     try {
         let postTypes = [];
         console.log(`/newest request from: ${req.url}`);
-        if (req.url == '/ask'){
-            postTypes.push({type: 'post/text'});
+        const url = await req.url;
+        if (req.url == '/ask') {
+            postTypes.push({ type: 'post/text' });
+        } else if (req.url == '/newest') {
+            postTypes.push({ type: 'post/url' });
+            postTypes.push({ type: 'post/text' });
         }
-        else if (req.url == '/newest'){
-            postTypes.push({type: 'post/url'});
-            postTypes.push({type: 'post/text'});
-        }
-           
+
         const posts = await db.contributions.findAll({
             attributes: [
                 'id',
@@ -79,16 +79,13 @@ const newest = async (req, res) => {
             include: [db.users],
             order: [['createdAt', 'DESC']],
         });
-        posts.forEach(async post => {
+        posts.forEach(async (post) => {
             const postAuthor = await db.users.findOne({
-                attributes: [
-                    'id',
-                    'username',
-                ],
+                attributes: ['id', 'username'],
                 where: {
-                    id: post.author
-                }
-            })
+                    id: post.author,
+                },
+            });
             post.authorName = postAuthor.username;
         });
         let renderObject = {
@@ -96,14 +93,14 @@ const newest = async (req, res) => {
             moment: moment,
             loggedIn: false,
             baseUrl: require('../utils/Constants').BASE_URL,
-            user:{}
+            user: {},
         };
         if (req.isAuthenticated()) {
             renderObject.loggedIn = true;
             const loggeduser = await db.users.findOne({
                 where: {
                     id: req.user.id,
-                }
+                },
             });
             renderObject.user = loggeduser;
         }
