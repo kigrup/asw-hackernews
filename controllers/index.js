@@ -53,12 +53,12 @@ const newest = async (req, res) => {
     try {
         let postTypes = {};
         const url = await req.url.match(/[^?]*/);
-        console.log(`/newest request from: ${req.url}`);
-        if (req.url == '/ask') {
+        console.log(`/newest request from: ${url}`);
+        if (url == '/ask') {
             postTypes = {
                 [db.Op.eq]: 'post/text',
             };
-        } else if (req.url == '/newest') {
+        } else if (url == '/newest') {
             postTypes = {
                 [db.Op.like]: 'post/%',
             };
