@@ -13,7 +13,7 @@ const threads = async (req, res) => {
         } else if (req.isAuthenticated()) {
             localauthor = req.user.id;
         } else {
-            res.send('/login');
+            res.redirect('/login');
             return;
         }
         const comments = await db.contributions.findAll({
