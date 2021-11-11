@@ -6,18 +6,23 @@ const vote = async (req, res) => {
         const { id, how } = req.query.id;
         if (id == undefined) {
             res.send('Null id in query');
+            return;
         }
-        if (how == undefined)
+        if (how == undefined) {
             res.send('Null "how" parameter in query');
+            return;
+        }
         // Find contribution that user wants to like
         const contribution = await db.contributions.findOne({
             where: {
                 id: id,
-            }
+            },
         });
 
-        if (contribution == undefined)
+        if (contribution == undefined) {
             res.send('Invalid id in query');
+            return;
+        }
 
         // Get user and all of its liked contributions
         const fullUser = await db.users.findOne({
@@ -28,22 +33,26 @@ const vote = async (req, res) => {
                 {
                     association: 'liked',
                     model: db.contributions,
-                }
+                },
             ],
         });
 
-        // Si fullUser.liked tiene un post con contribution.id entonces
-            // TODO: si how = unvote, contribution.upvotes-- y borrar la entrada de UserLikes
+        // TODO: si how = unvote, contribution.upvotes-- y borrar la entrada de UserLikes
         // sino
-            // TODO: si how = vote, contribution.upvotes++ y añadir la entrada así:
-            // await user.addLiked(post);
-            
-        contribution.upvotes = contribution.upvotes+1;
-        await contribution.save();
-  
+        // TODO: si how = vote, contribution.upvotes++ y añadir la entrada así:
+        if (fullUser != undefined) {
+            // && tiene un post con contribution.id
+            if (how == 'up') {
+                await fullUser.addLiked(contribution);
+                contribution.upvotes = contribution.upvotes + 1;
+            } else if (how == 'un') {
+                contribution.upvotes = contribution.upvotes - 1;
+            }
+            await contribution.save();
+        }
+
         console.log(`voted`);
         res.status(StatusCodes.OK).send();
-
     } catch (e) {
         console.log('Error voting on /vote');
         console.log(e.message);
@@ -57,17 +66,15 @@ const unvote = async (req, res) => {
         if (id == undefined) {
             res.send('Null id in query');
         }
-        if (how == undefined)
-            res.send('Null "how" parameter in query');
+        if (how == undefined) res.send('Null "how" parameter in query');
         // Find contribution that user wants to like
         const contribution = await db.contributions.findOne({
             where: {
                 id: id,
-            }
+            },
         });
 
-        if (contribution == undefined)
-            res.send('Invalid id in query');
+        if (contribution == undefined) res.send('Invalid id in query');
 
         // Get user and all of its liked contributions
         const fullUser = await db.users.findOne({
@@ -78,22 +85,21 @@ const unvote = async (req, res) => {
                 {
                     association: 'dislike',
                     model: db.contributions,
-                }
+                },
             ],
         });
 
         // Si fullUser.liked tiene un post con contribution.id entonces
-            // TODO: si how = unvote, contribution.upvotes-- y borrar la entrada de UserLikes
+        // TODO: si how = unvote, contribution.upvotes-- y borrar la entrada de UserLikes
         // sino
-            // TODO: si how = vote, contribution.upvotes++ y añadir la entrada así:
-            // await user.addLiked(post);
-            
-        contribution.upvotes = contribution.upvotes-1;
+        // TODO: si how = vote, contribution.upvotes++ y añadir la entrada así:
+        // await user.addLiked(post);
+
+        contribution.upvotes = contribution.upvotes - 1;
         await contribution.save();
-  
+
         console.log(`unvoted`);
         res.status(StatusCodes.OK).send();
-
     } catch (e) {
         console.log('Error voting on /vote');
         console.log(e.message);
