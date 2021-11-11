@@ -51,9 +51,6 @@ const index = async (req, res) => {
 
 const newest = async (req, res) => {
     try {
-        if (req.query.by !== undefined) {
-            localauthor = await req.query.by;
-        }
         let postTypes = [];
         console.log(`/newest request from: ${req.url}`);
         const url = await req.url;
@@ -64,7 +61,7 @@ const newest = async (req, res) => {
             postTypes.push({ type: 'post/text' });
         }
         let whereClause = { [db.Sequelize.Op.or]: postTypes };
-        if (req.query.by !== undefined) {
+        if (req.query.by != undefined) {
             whereClause.author = req.query.by;
         }
 
@@ -80,7 +77,10 @@ const newest = async (req, res) => {
                 'authorName',
                 'createdAt',
             ],
-            where: whereClause,
+            where: {
+                [db.Sequelize.Op.or]: postTypes,
+                author: '101908718141570741187',
+            },
             include: [db.users],
             order: [['createdAt', 'DESC']],
         });
