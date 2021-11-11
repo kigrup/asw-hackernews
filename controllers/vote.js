@@ -3,7 +3,7 @@ const db = require('../db/db');
 
 const vote = async (req, res) => {
     try {
-        const { id, how } = req.query.id;
+        const { id, how } = await req.query.id;
         if (id == undefined) {
             res.send('Null id in query');
             return;
