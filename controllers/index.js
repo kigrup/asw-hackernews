@@ -64,9 +64,7 @@ const newest = async (req, res) => {
             };
         }
         let whereClause = {
-            type: {
-                [db.Op.or]: postTypes,
-            },
+            type: postTypes,
         };
         if (req.query.by != undefined) {
             console.log('received by parameter in query');
