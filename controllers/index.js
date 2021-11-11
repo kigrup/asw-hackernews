@@ -52,9 +52,8 @@ const index = async (req, res) => {
 const newest = async (req, res) => {
     try {
         let postTypes = {};
-        const url = req.url.match(/[^?]*/);
+        const url = await req.url.match(/[^?]*/);
         console.log(`/newest request from: ${req.url}`);
-        const url = await req.url;
         if (req.url == '/ask') {
             postTypes = {
                 [db.Op.eq]: 'post/text',
