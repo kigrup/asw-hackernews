@@ -65,7 +65,7 @@ const newest = async (req, res) => {
         }
         let whereClause = { [db.Sequelize.Op.or]: postTypes };
         if (req.query.by !== undefined) {
-            whereClause.where = { author: req.query.by };
+            whereClause.author = req.query.by;
         }
 
         const posts = await db.contributions.findAll({
