@@ -79,13 +79,13 @@ const newest = async (req, res) => {
             ],
             where: {
                 type: {
-                    [Op.or]: {
-                        [Op.eq]: 'post/text',
-                        [Op.eq]: 'post/url',
+                    [db.Op.or]: {
+                        [db.Op.eq]: 'post/text',
+                        [db.Op.eq]: 'post/url',
                     },
                 },
                 author: {
-                    [Op.eq]: '101908718141570741187',
+                    [db.Op.eq]: '101908718141570741187',
                 },
             },
             include: [db.users],
