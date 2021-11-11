@@ -78,8 +78,15 @@ const newest = async (req, res) => {
                 'createdAt',
             ],
             where: {
-                [db.Sequelize.Op.or]: postTypes,
-                author: '101908718141570741187',
+                type: {
+                    [Op.or]: {
+                        [Op.eq]: 'post/text',
+                        [Op.eq]: 'post/url',
+                    },
+                },
+                author: {
+                    [Op.eq]: '101908718141570741187',
+                },
             },
             include: [db.users],
             order: [['createdAt', 'DESC']],
