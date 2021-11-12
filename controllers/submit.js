@@ -36,6 +36,16 @@ const post = async (req, res) => {
             }
         });
 
+        let postcreated = await db.contributions.findOne({
+            where:{
+                contentType: 'post/url',
+                content: url,
+            }
+        })
+        if(postcreated!=undefined){ 
+            res.redirect(`/item?id=${postcreated.id}`);
+            return;
+        }
         const post = await db.contributions.create({
             type: contentType,
             title: title,
@@ -45,7 +55,7 @@ const post = async (req, res) => {
             deep: 0,
         });
         console.log(`published post with id ${post.id}`);
-        res.status(StatusCodes.OK).redirect('/');
+        res.redirect('/newest');
     } catch (e) {
         console.log('Error creating contribution');
         console.log(e.message);
