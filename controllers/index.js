@@ -38,7 +38,12 @@ const index = async (req, res) => {
                 where: {
                     id: req.user.id,
                 },
-                include: ['liked']
+                include: [
+                    {
+                        association: 'liked',
+                        model: db.contributions,
+                    },
+                ],
             });
             renderObject.user = loggeduser;
             for (let l = 0; l < loggeduser.liked.length; l++) {
@@ -122,6 +127,12 @@ const newest = async (req, res) => {
                 where: {
                     id: req.user.id,
                 },
+                include: [
+                    {
+                        association: 'liked',
+                        model: db.contributions,
+                    },
+                ],
             });
             renderObject.user = loggeduser;
             for (let l = 0; l < loggeduser.liked.length; l++) {
