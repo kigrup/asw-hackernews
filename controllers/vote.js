@@ -40,9 +40,9 @@ const vote = async (req, res) => {
         // TODO: si how = unvote, contribution.upvotes-- y borrar la entrada de UserLikes
         // sino
         // TODO: si how = vote, contribution.upvotes++ y añadir la entrada así:
+        let likedContributions = [];
         if (fullUser != undefined) {
             let isLiked = false;
-            let likedContributions = [];
             for (let i = 0; i < fullUser.liked.length; i++){
                 if (fullUser.liked[i].id == contribution.id) {
                     isLiked = true;
