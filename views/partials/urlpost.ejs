@@ -8,12 +8,13 @@
     </td>
     <td valign="top" class="votelinks">
         <center>
-            <a
+            <% if (post.isVoted == undefined || !post.isVoted) { %>
+                <a
                 id="up_<%=post.id%>"
-                onclick='return vote(event, this, "up")'
-                href="<%= baseUrl %>vote?id=<%=post.id%>&amp;how=up"
-                ><div class="votearrow" title="upvote"></div
-            ></a>
+                href="http://hackers.hopto.org:13001/vote?id=<%=post.id%>&amp;how=up">
+                <div class="votearrow" title="upvote"></div>
+                </a>
+            <% } %>
         </center>
     </td>
     <td class="title">
@@ -50,9 +51,15 @@
             >hide
         </a> |
         -->
-        <a href="http://hackers.hopto.org:13001/item?id=<%=post.id%>"
-            ><%= post.comments %>&nbsp;comments
-        </a>
+        <% if (post.comments > 0) { %>
+            <a href="http://hackers.hopto.org:13001/item?id=<%=post.id%>">
+                <%= post.comments %>&nbsp;comments
+            </a>
+        <% } else { %>
+            <a href="http://hackers.hopto.org:13001/item?id=<%=post.id%>">
+                &nbsp;discuss
+            </a>
+        <% } %> 
     </td>
 </tr>
 <tr class="spacer" style="height: 5px"></tr>
