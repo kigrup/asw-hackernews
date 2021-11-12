@@ -38,26 +38,20 @@
                 <%= moment(new Date(post.createdAt)).fromNow() %> 
             </a>
         </span> |
-        <% if (post.voted != undefined && post.voted) { %>
+        <% if (post.isLiked != undefined && post.isLiked) { %>
             <span class="unvote" title="unvote">
                 <a href="<%= baseUrl %>vote?id=<%=post.id%>&amp;how=un">
                     unvote
                 </a>
             </span> | 
-        <% } %> 
-        <!--
-        <a href="https://news.ycombinator.com/hide?id=<%=post.id%>"
-            onclick="return hidestory(event, this, <%=post.id%>)"
-            >hide
-        </a> |
-        -->
+        <% } %>
         <% if (post.comments > 0) { %>
             <a href="http://hackers.hopto.org:13001/item?id=<%=post.id%>">
                 <%= post.comments %>&nbsp;comments
             </a>
         <% } else { %>
             <a href="http://hackers.hopto.org:13001/item?id=<%=post.id%>">
-                &nbsp;discuss
+                discuss
             </a>
         <% } %> 
     </td>
