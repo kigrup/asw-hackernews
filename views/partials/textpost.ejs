@@ -9,7 +9,7 @@
     <td valign="top" class="votelinks">
         <center>
             <a
-                <% if (post.isLiked == undefined && !post.isLiked) { %>
+                <% if (loggedIn && post.isLiked == undefined && !post.isLiked) { %>
                     class="nosee"
                 <% } %>
                 id="up_<%=post.id%>"
@@ -40,7 +40,7 @@
                 <%= moment(new Date(post.createdAt)).fromNow() %> 
             </a>
         </span> |
-        <% if (post.isLiked != undefined && post.isLiked) { %>
+        <% if (loggedIn && post.isLiked != undefined && post.isLiked) { %>
             <span class="unvote" title="unvote">
                 <a href="<%= baseUrl %>vote?id=<%=post.id%>&amp;how=un">
                     unvote
