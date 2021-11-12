@@ -62,6 +62,7 @@ const vote = async (req, res) => {
             else {
                 console.log(`invalid vote`);
                 res.redirect('back');
+                return;
             }
             await contribution.save();
         }
