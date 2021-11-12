@@ -26,14 +26,14 @@
                                 class="itemlist"
                             >
                                 <tbody>
-                                    <% for(let i = 0; i < posts.length; ++i){ %> 
-                                        <% posts[i].postNumber = i; %>
-                                        <% if (posts[i].type == 'post/text') { %> 
-                                            <%-include('../partials/textpost.ejs', { post: posts[i], baseUrl: baseUrl }); %>
+                                    <% for( let index = 0; index < posts.length; index++ ) { %>
+                                        <% posts[index].postNumber = index +1; %>
+                                        <% if (posts[index].type == 'post/text') { %> 
+                                            <%-include('../partials/textpost.ejs', { post: posts[index], baseUrl: baseUrl }); %>
                                         <% } else { %> 
-                                            <%-include('../partials/urlpost.ejs', { post: posts[i], baseUrl: baseUrl }); %> 
+                                            <%-include('../partials/urlpost.ejs', { post: posts[index], baseUrl: baseUrl }); %> 
                                         <% } %> 
-                                    <% }; %>
+                                    <% } %>
                                     <tr
                                         class="morespace"
                                         style="height: 10px"
