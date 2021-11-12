@@ -44,6 +44,12 @@ const post = async (req, res) => {
         })
 
         if(postcreateds > 0){ 
+            let postcreated = await db.contributions.findOne({
+                where:{
+                    type: 'post/url',
+                    content: url,
+                }
+            })
             res.redirect(`/item?id=${postcreated.id}`);
             return;
         }
