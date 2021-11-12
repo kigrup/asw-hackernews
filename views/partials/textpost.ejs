@@ -9,9 +9,11 @@
     <td valign="top" class="votelinks">
         <center>
             <a
+                <% if (post.isLiked == undefined || !post.isLiked) { %> class="nosee "<% } 
                 id="up_<%=post.id%>"
                 href="http://hackers.hopto.org:13001/vote?id=<%=post.id%>&amp;how=up">
-                <div class="<% if (post.isLiked == undefined || !post.isLiked) { %>votearrow<% } else { %>nosee<% } %>" title="upvote"></div>
+
+                <div class="votearrow" title="upvote"></div>
             </a>
         </center>
     </td>
