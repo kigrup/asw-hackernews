@@ -30,14 +30,14 @@ const index = async (req, res) => {
             moment: moment,
             loggedIn: false,
             baseUrl: require('../utils/Constants').BASE_URL,
-            user:{}
+            user: {},
         };
         if (req.isAuthenticated()) {
             renderObject.loggedIn = true;
             const loggeduser = await db.users.findOne({
                 where: {
                     id: req.user.id,
-                }
+                },
             });
             renderObject.user = loggeduser;
         }
@@ -51,6 +51,28 @@ const index = async (req, res) => {
 
 const newest = async (req, res) => {
     try {
+        let postTypes = {};
+        const url = await req.url.match(/[^?]*/);
+        console.log(`/newest request from: ${url}`);
+        if (url == '/ask') {
+            postTypes = {
+                [db.Op.eq]: 'post/text',
+            };
+        } else if (url == '/newest') {
+            postTypes = {
+                [db.Op.like]: 'post/%',
+            };
+        }
+        let whereClause = {
+            type: postTypes,
+        };
+        if (req.query.by != undefined) {
+            console.log('received by parameter in query');
+            whereClause.author = {
+                [db.Op.eq]: req.query.by,
+            };
+        }
+
         const posts = await db.contributions.findAll({
             attributes: [
                 'id',
@@ -63,25 +85,17 @@ const newest = async (req, res) => {
                 'authorName',
                 'createdAt',
             ],
-            where: {
-                [db.Sequelize.Op.or]: [
-                    { type: 'post/text' },
-                    { type: 'post/url' },
-                ],
-            },
+            where: whereClause,
             include: [db.users],
             order: [['createdAt', 'DESC']],
         });
-        posts.forEach(async post => {
+        posts.forEach(async (post) => {
             const postAuthor = await db.users.findOne({
-                attributes: [
-                    'id',
-                    'username',
-                ],
+                attributes: ['id', 'username'],
                 where: {
-                    id: post.author
-                }
-            })
+                    id: post.author,
+                },
+            });
             post.authorName = postAuthor.username;
         });
         let renderObject = {
@@ -89,14 +103,14 @@ const newest = async (req, res) => {
             moment: moment,
             loggedIn: false,
             baseUrl: require('../utils/Constants').BASE_URL,
-            user:{}
+            user: {},
         };
         if (req.isAuthenticated()) {
             renderObject.loggedIn = true;
             const loggeduser = await db.users.findOne({
                 where: {
                     id: req.user.id,
-                }
+                },
             });
             renderObject.user = loggeduser;
         }

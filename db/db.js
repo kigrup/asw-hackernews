@@ -18,15 +18,16 @@ db.users.hasMany(db.contributions, { foreignKey: 'author' });
 db.contributions.belongsTo(db.users, { foreignKey: 'author' });
 db.contributions.hasMany(db.contributions, { foreignKey: 'inReplyTo' });
 db.contributions.belongsToMany(db.users, {
-    through: "UserLikes",
-    as: "likers",
-    foreignKey: "contribution_id",
-  });
+    through: 'UserLikes',
+    as: 'likers',
+    foreignKey: 'contribution_id',
+});
 db.users.belongsToMany(db.contributions, {
-    through: "UserLikes",
-    as: "liked",
-    foreignKey: "user_id",
-  });
-  
+    through: 'UserLikes',
+    as: 'liked',
+    foreignKey: 'user_id',
+});
+
+db.Op = Sequelize.Op;
 
 module.exports = db;
