@@ -38,8 +38,19 @@ const index = async (req, res) => {
                 where: {
                     id: req.user.id,
                 },
+                include: ['liked']
             });
             renderObject.user = loggeduser;
+            for (let l = 0; l < loggeduser.liked.length; l++) {
+                for (let p = 0; p < posts.length; p++) {
+                    if (loggeduser.liked[l].id == posts[p].id){
+                        posts[p].isLiked = true;
+                    }
+                    else {
+                        posts[p].isLiked = false;
+                    }
+                }
+            }
         }
         res.render('pages/index', renderObject);
     } catch (e) {
@@ -113,6 +124,16 @@ const newest = async (req, res) => {
                 },
             });
             renderObject.user = loggeduser;
+            for (let l = 0; l < loggeduser.liked.length; l++) {
+                for (let p = 0; p < posts.length; p++) {
+                    if (loggeduser.liked[l].id == posts[p].id){
+                        posts[p].isLiked = true;
+                    }
+                    else {
+                        posts[p].isLiked = false;
+                    }
+                }
+            }
         }
         res.render('pages/index', renderObject);
     } catch (e) {
