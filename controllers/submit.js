@@ -36,13 +36,14 @@ const post = async (req, res) => {
             }
         });
 
-        let postcreated = await db.contributions.findOne({
+        let postcreateds = await db.contributions.count({
             where:{
                 type: 'post/url',
                 content: url,
             }
         })
-        if(postcreated!=undefined){ 
+
+        if(postcreateds > 0){ 
             res.redirect(`/item?id=${postcreated.id}`);
             return;
         }
