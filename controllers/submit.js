@@ -38,7 +38,7 @@ const post = async (req, res) => {
 
         let postcreated = await db.contributions.findOne({
             where:{
-                contentType: 'post/url',
+                type: 'post/url',
                 content: url,
             }
         })
