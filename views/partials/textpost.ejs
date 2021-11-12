@@ -8,7 +8,7 @@
     </td>
     <td valign="top" class="votelinks">
         <center>
-            <% if (post.isVoted == undefined || !post.isVoted) { %>
+            <% if (post.isLiked == undefined || !post.isLiked) { %>
                 <a
                 id="up_<%=post.id%>"
                 href="http://hackers.hopto.org:13001/vote?id=<%=post.id%>&amp;how=up">
