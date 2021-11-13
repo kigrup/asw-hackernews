@@ -35,7 +35,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(saveUrl());
+app.use(saveUrl);
 
 // EJS
 app.set('view engine', 'ejs');
