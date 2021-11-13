@@ -26,12 +26,10 @@
             ><%= post.title %>
         </a>
         <span class="sitebit comhead">
-            &nbsp;(
             <% const shortUrl = post.content.replace(/(http(s)?:\/\/)|(\/.*){1}/g, ''); %> 
-            <a href="http://<%= shortUrl %> ">
+            (<a href="http://<%= shortUrl %> ">
                 <%= shortUrl %> 
-            </a>
-            )
+            </a>)
         </span>
     </td>
 </tr>
