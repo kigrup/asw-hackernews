@@ -32,15 +32,13 @@
                                         <%= moment(new Date(comment.createdAt)).fromNow() %>
                                     </a>
                                 </span>
-                                <span id="unv_<%= comment.id %>"></span><span class="
-                                        par
-                                    "></span>
-                                <a class="
-                                        togg
-                                    " n="1" href="javascript:void(0)"
-                                    onclick="return toggle(event, <%= comment.id %>)">[–]</a><span class="
-                                        onstory
-                                    "></span>
+                                <% if (comment.isLiked != undefined && comment.isLiked) { %>
+                                    <span class="unvote" title="unvote">
+                                        &nbsp;|&nbsp;<a href="<%= baseUrl %>vote?id=<%=comment.id%>&amp;how=un">
+                                            unvote
+                                        </a>
+                                    </span>
+                                <% } %> 
                             </span>
                         </div>
                         <br />
