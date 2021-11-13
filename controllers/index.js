@@ -51,9 +51,6 @@ const index = async (req, res) => {
                     if (loggeduser.liked[l].id == posts[p].id){
                         posts[p].isLiked = true;
                     }
-                    else {
-                        posts[p].isLiked = false;
-                    }
                 }
             }
         }
@@ -139,9 +136,6 @@ const newest = async (req, res) => {
                 for (let p = 0; p < posts.length; p++) {
                     if (loggeduser.liked[l].id == posts[p].id){
                         posts[p].isLiked = true;
-                    }
-                    else {
-                        posts[p].isLiked = false;
                     }
                 }
             }
