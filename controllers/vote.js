@@ -66,7 +66,7 @@ const vote = async (req, res) => {
             }
             await contribution.save();
         }
-
+        console.log(`${req.get('referer')}`);
         console.log(`voted successfully. votes count: ${likedContributions.length}`);
         res.redirect(req.get('referer'));
     } catch (e) {
