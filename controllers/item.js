@@ -88,7 +88,11 @@ const item = async (req, res) => {
                     },
                 ],
             });
-
+            for (let l = 0; l < loggedUser.liked; l++) {
+                if (post.id == loggedUser.liked[l].id) {
+                    post.isLiked = true;
+                }
+            }
             await setIsLiked(loggedUser, comments);
         }
 
