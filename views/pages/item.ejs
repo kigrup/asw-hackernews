@@ -24,6 +24,7 @@
                         <td>
                             <table class="fatitem" border="0">
                                 <tbody>
+                                    <% console.log(`log from item.ejs: type == ${post.dataValues.type}`) %> 
                                     <% if (post.dataValues.type == 'post/text') { %> 
                                         <%-include('../partials/textpost', { post: post, loggedIn: loggedIn }); %>
                                     <% } else if (post.dataValues.type == 'post/url', { post: post, loggedIn: loggedIn }) { %>
