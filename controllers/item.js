@@ -57,11 +57,11 @@ const item = async (req, res) => {
                         commentsObject[i].dataValues.id ==
                         user.liked[l].dataValues.id
                     ) {
-                        commentsObject[i].dataValues.isLiked = true;
+                        commentsObject[i].isLiked = true;
                     } else if (
                         user.liked[l].dataValues.id == post.dataValues.id
                     ) {
-                        post.dataValues.isLiked = true;
+                        post.isLiked = true;
                     }
                 }
                 await setIsLiked(
