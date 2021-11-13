@@ -25,9 +25,9 @@
                             <table class="fatitem" border="0">
                                 <tbody>
                                     <% if (post.dataValues.type == 'post/text') { %> 
-                                        <%-include('../partials/textpost'); %>
-                                    <% } else if (post.dataValues.type == 'post/url') { %>
-                                        <%-include('../partials/urlpost'); %> 
+                                        <%-include('../partials/textpost', { post: post, loggedIn: loggedIn }); %>
+                                    <% } else if (post.dataValues.type == 'post/url', { post: post, loggedIn: loggedIn }) { %>
+                                        <%-include('../partials/urlpost', { post: post, loggedIn: loggedIn }); %> 
                                     <% } else { %>
                                         <%-include('../partials/commentpost'); %> 
                                     <% } %> 

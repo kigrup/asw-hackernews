@@ -14,6 +14,7 @@ const item = async (req, res) => {
             },
             include: [db.contributions],
         });
+
         // Get first level of childs
 
         //console.log(require('util').inspect(post, false, 3, false));
@@ -29,13 +30,9 @@ const item = async (req, res) => {
             include: [db.contributions],
         });
         // Recursively get all childs' comments
-        
+
         const populateComments = async (commentsObject) => {
-            for (
-                let i = 0;
-                i < commentsObject.length;
-                i++
-            ) {
+            for (let i = 0; i < commentsObject.length; i++) {
                 child = await db.contributions.findOne({
                     where: {
                         id: commentsObject[i].dataValues.id,
@@ -50,19 +47,29 @@ const item = async (req, res) => {
                 }
             }
         };
-        
+
         await populateComments(comments);
 
         const setIsLiked = async (user, commentsObject) => {
             for (let i = 0; i < commentsObject.length; i++) {
                 for (let l = 0; l < user.liked.length; l++) {
-                    if (commentsObject[i].dataValues.id == user.liked[l].dataValues.id) {
+                    if (
+                        commentsObject[i].dataValues.id ==
+                        user.liked[l].dataValues.id
+                    ) {
                         commentsObject[i].dataValues.isLiked = true;
+                    } else if (
+                        user.liked[l].dataValues.id == post.dataValues.id
+                    ) {
+                        post.dataValues.isLiked = true;
                     }
                 }
-                await setIsLiked(user, commentsObject[i].dataValues.contributions);
+                await setIsLiked(
+                    user,
+                    commentsObject[i].dataValues.contributions
+                );
             }
-        }
+        };
 
         let loggedUser;
         if (req.user) {
@@ -86,7 +93,7 @@ const item = async (req, res) => {
             comments: comments,
             moment: require('moment'),
             loggedIn: false,
-            user:{},
+            user: {},
         };
         if (req.user) {
             dataObject.loggedIn = true;
@@ -102,7 +109,7 @@ const item = async (req, res) => {
 
 const comment = async (req, res) => {
     try {
-        if (!req.user){
+        if (!req.user) {
             res.redirect('/login');
         }
         const { id, content } = req.body;
@@ -122,7 +129,7 @@ const comment = async (req, res) => {
         const authorObject = await db.users.findOne({
             where: {
                 id: req.user.id,
-            }
+            },
         });
 
         const reply = await db.contributions.create({
