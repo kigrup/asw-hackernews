@@ -44,23 +44,45 @@ const item = async (req, res) => {
                 });
                 commentsObject[i] = child;
                 if (child.dataValues.contributions !== undefined) {
-                    console.log('------POPULATING COMMENT---------');
-                    console.log(child.dataValues.content);
                     await populateComments(
                         commentsObject[i].dataValues.contributions
                     );
                 }
             }
         };
-        //console.log('BEFORE POPULATE COMMENTS:');
-        //console.log(require('util').inspect(comments, false, 6, false));
+        
         await populateComments(comments);
-        //console.log('AFTER POPULATE COMMENTS:');
-        //console.log(require('util').inspect(comments, false, 12, false));
-        // feach comment
 
-        //console.log('INSPECTION:');
-        //console.log(require('util').inspect(comments, false, 5, false));
+        const setIsLiked = async (user, commentsObject) => {
+            for (let i = 0; i < commentsObject.length; i++) {
+                for (let l = 0; l < user.liked.length; l++) {
+                    if (commentsObject[i].id == user.liked.length[l].id) {
+                        commentsObject[i].isLiked = true;
+                    }
+                    else {
+                        commentsObject[i].isLiked = false;
+                    }
+                }
+                await setIsLiked(user, commentsObject[i].dataValues.contributions);
+            }
+        }
+
+        let loggerUser;
+        if (req.user) {
+            loggerUser = await db.users.findOne({
+                where: {
+                    id: req.user.id,
+                },
+                include: [
+                    {
+                        association: 'liked',
+                        model: db.contributions,
+                    },
+                ],
+            });
+
+            await setIsLiked(loggedUser, comments);
+        }
 
         let dataObject = {
             post: post,
@@ -71,12 +93,7 @@ const item = async (req, res) => {
         };
         if (req.user) {
             dataObject.loggedIn = true;
-            const loggeduser = await db.users.findOne({
-                where: {
-                    id: req.user.id,
-                }
-            });
-            dataObject.user = loggeduser;
+            dataObject.user = loggerUser;
         }
         res.render('pages/item', dataObject);
     } catch (e) {

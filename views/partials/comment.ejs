@@ -8,8 +8,13 @@
                     </td>
                     <td valign="top" class="votelinks">
                         <center>
-                            <a id="up_<%= comment.id %>" onclick='return vote(event, this, "up")'
-                                href="http://hackers.hopto.org:13001/vote?id=<%= comment.id %>&amp;how=up">
+                            <a
+                                <% if (comment.isLiked != undefined && comment.isLiked) { %>
+                                    class="nosee"
+                                <% } %>
+                                id="up_<%=post.id%>"
+                                href="http://hackers.hopto.org:13001/vote?id=<%=comment.id%>&amp;how=up">
+
                                 <div class="votearrow" title="upvote"></div>
                             </a>
                         </center>
