@@ -62,6 +62,7 @@ const item = async (req, res) => {
                     } else if (
                         user.liked[l].dataValues.id == post.dataValues.id
                     ) {
+                        console.log(`found root post as liked`);
                         post.dataValues.isLiked = true;
                         post.isLiked = true;
                     }
