@@ -15,6 +15,7 @@ const vote = require ('./routes/vote')
 const threads = require('./routes/threads');
 const liked = require('./routes/liked');
 const authenticateUser = require('./middlewares/authentication');
+const saveUrl = require('./middlewares/saveUrl');
 const { authenticateGloggedInUser } = require('./db/user-management');
 
 // Middlewares
@@ -34,6 +35,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(saveUrl());
 
 // EJS
 app.set('view engine', 'ejs');
