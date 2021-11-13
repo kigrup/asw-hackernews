@@ -26,7 +26,7 @@
             ><%= post.title %>
         </a>
         <span class="sitebit comhead">
-            <% const shortUrl = post.content.replace(/(http(s)?:\/\/)|(\/.*){1}/g, ''); %> 
+            <% const shortUrl = post.content.replace(/(http(s)?:\/\/(www.)?)|(\/.*){1}/g, ''); %> 
             (<a href="http://<%= shortUrl %> "><%=shortUrl%></a>)
         </span>
     </td>
