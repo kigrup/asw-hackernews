@@ -43,11 +43,10 @@ const vote = async (req, res) => {
         let likedContributions = [];
         if (fullUser != undefined) {
             let isLiked = false;
-            for (let i = 0; i < fullUser.liked.length; i++){
+            for (let i = 0; i < fullUser.liked.length; i++) {
                 if (fullUser.liked[i].id == contribution.id) {
                     isLiked = true;
-                }
-                else {
+                } else {
                     likedContributions.push(fullUser.liked[i]);
                 }
             }
@@ -55,27 +54,29 @@ const vote = async (req, res) => {
             if (how == 'up' && !isLiked) {
                 await fullUser.addLiked(contribution);
                 contribution.upvotes = contribution.upvotes + 1;
+                fullUser.karma = fullUser.karma + 1;
             } else if (how == 'un' && isLiked) {
                 await fullUser.setLiked(likedContributions);
                 contribution.upvotes = contribution.upvotes - 1;
-            }
-            else {
+                fullUser.karma = fullUser.karma - 1;
+            } else {
                 console.log(`invalid vote`);
                 if (req.session.prevUrl) {
                     res.redirect(req.session.prevUrl);
-                }
-                else {
+                } else {
                     res.redirect('back');
                 }
                 return;
             }
             await contribution.save();
+            await fullUser.save();
         }
-        console.log(`voted successfully. votes count: ${likedContributions.length}`);
+        console.log(
+            `voted successfully. votes count: ${likedContributions.length}`
+        );
         if (req.session.prevUrl) {
             res.redirect(req.session.prevUrl);
-        }
-        else {
+        } else {
             res.redirect('back');
         }
     } catch (e) {
