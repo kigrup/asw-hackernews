@@ -61,13 +61,23 @@ const vote = async (req, res) => {
             }
             else {
                 console.log(`invalid vote`);
-                res.redirect('back');
+                if (req.session.prevUrl) {
+                    res.redirect(req.session.prevUrl);
+                }
+                else {
+                    res.redirect('back');
+                }
                 return;
             }
             await contribution.save();
         }
         console.log(`voted successfully. votes count: ${likedContributions.length}`);
-        res.redirect('back');
+        if (req.session.prevUrl) {
+            res.redirect(req.session.prevUrl);
+        }
+        else {
+            res.redirect('back');
+        }
     } catch (e) {
         console.log('Error voting on /vote');
         console.log(e.message);
