@@ -88,13 +88,14 @@ const item = async (req, res) => {
                     },
                 ],
             });
+            await setIsLiked(loggedUser, comments);
             for (let l = 0; l < loggedUser.liked.length; l++) {
                 if (post.id == loggedUser.liked[l].id) {
                     post.isLiked = true;
+                    post.dataValues.isLiked = true;
                     console.log('found post in liked');
                 }
             }
-            await setIsLiked(loggedUser, comments);
         }
 
         let dataObject = {
