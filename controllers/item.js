@@ -57,7 +57,7 @@ const item = async (req, res) => {
                         commentsObject[i].dataValues.id ==
                         user.liked[l].dataValues.id
                     ) {
-                        commentsObject[i].isLiked = true;
+                        commentsObject[i].dataValues.isLiked = true;
                     } else if (
                         user.liked[l].dataValues.id == post.dataValues.id
                     ) {
