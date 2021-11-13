@@ -29,7 +29,6 @@ const index = async (req, res) => {
             posts: posts,
             moment: moment,
             loggedIn: false,
-            baseUrl: require('../utils/Constants').BASE_URL,
             user: {},
         };
         if (req.isAuthenticated()) {
@@ -48,7 +47,7 @@ const index = async (req, res) => {
             renderObject.user = loggeduser;
             for (let l = 0; l < loggeduser.liked.length; l++) {
                 for (let p = 0; p < posts.length; p++) {
-                    if (loggeduser.liked[l].id == posts[p].id){
+                    if (loggeduser.liked[l].id == posts[p].id) {
                         posts[p].isLiked = true;
                     }
                 }
@@ -115,7 +114,6 @@ const newest = async (req, res) => {
             posts: posts,
             moment: moment,
             loggedIn: false,
-            baseUrl: require('../utils/Constants').BASE_URL,
             user: {},
         };
         if (req.isAuthenticated()) {
@@ -134,7 +132,7 @@ const newest = async (req, res) => {
             renderObject.user = loggeduser;
             for (let l = 0; l < loggeduser.liked.length; l++) {
                 for (let p = 0; p < posts.length; p++) {
-                    if (loggeduser.liked[l].id == posts[p].id){
+                    if (loggeduser.liked[l].id == posts[p].id) {
                         posts[p].isLiked = true;
                     }
                 }

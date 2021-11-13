@@ -77,7 +77,6 @@ const threads = async (req, res) => {
             comments: uniqueComments,
             moment: moment,
             loggedIn: false,
-            baseUrl: require('../utils/Constants').BASE_URL,
             user: {},
         };
         if (req.isAuthenticated()) {

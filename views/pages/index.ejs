@@ -29,9 +29,9 @@
                                     <% for( let index = 0; index < posts.length; index++ ) { %>
                                         <% posts[index].postNumber = index +1; %>
                                         <% if (posts[index].type == 'post/text') { %> 
-                                            <%-include('../partials/textpost.ejs', { post: posts[index], baseUrl: baseUrl, loggedIn: loggedIn }); %>
+                                            <%-include('../partials/textpost.ejs', { post: posts[index], loggedIn: loggedIn }); %>
                                         <% } else { %> 
-                                            <%-include('../partials/urlpost.ejs', { post: posts[index], baseUrl: baseUrl, loggedIn: loggedIn }); %> 
+                                            <%-include('../partials/urlpost.ejs', { post: posts[index], loggedIn: loggedIn }); %> 
                                         <% } %> 
                                     <% } %>
                                     <tr
