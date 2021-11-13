@@ -56,11 +56,11 @@ const item = async (req, res) => {
         const setIsLiked = async (user, commentsObject) => {
             for (let i = 0; i < commentsObject.length; i++) {
                 for (let l = 0; l < user.liked.length; l++) {
-                    if (commentsObject[i].id == user.liked.length[l].id) {
-                        commentsObject[i].isLiked = true;
+                    if (commentsObject[i].dataValues.id == user.liked[l].dataValues.id) {
+                        commentsObject[i].dataValues.isLiked = true;
                     }
                     else {
-                        commentsObject[i].isLiked = false;
+                        commentsObject[i].dataValues.isLiked = false;
                     }
                 }
                 await setIsLiked(user, commentsObject[i].dataValues.contributions);
