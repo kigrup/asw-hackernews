@@ -79,14 +79,42 @@ const threads = async (req, res) => {
             loggedIn: false,
             user: {},
         };
-        if (req.isAuthenticated()) {
-            renderObject.loggedIn = true;
-            const loggeduser = await db.users.findOne({
+
+        const setIsLiked = async (user, commentsObject) => {
+            for (let i = 0; i < commentsObject.length; i++) {
+                for (let l = 0; l < user.liked.length; l++) {
+                    if (
+                        commentsObject[i].dataValues.id ==
+                        user.liked[l].dataValues.id
+                    ) {
+                        commentsObject[i].dataValues.isLiked = true;
+                        commentsObject[i].isLiked = true;
+                    }
+                }
+                await setIsLiked(
+                    user,
+                    commentsObject[i].dataValues.contributions
+                );
+            }
+        };
+
+        let loggedUser;
+        if (req.user) {
+            loggedUser = await db.users.findOne({
                 where: {
                     id: req.user.id,
                 },
+                include: [
+                    {
+                        association: 'liked',
+                        model: db.contributions,
+                    },
+                ],
             });
-            renderObject.user = loggeduser;
+            await setIsLiked(loggedUser, comments);
+            renderObject.comments = comments;
+            renderObject.loggedIn = true;
+            renderObject.user = loggedUser;
         }
         res.render('pages/threads', renderObject);
     } catch (e) {
