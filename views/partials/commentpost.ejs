@@ -1,0 +1,61 @@
+<tr class="athing" id="<%=post.id%>">
+    <td align="right" valign="top" class="title">
+        <span class="rank">
+            <% if (post.postNumber!=undefined) { %>
+                <%=post.postNumber%>
+            <% } %>
+        </span>
+    </td>
+    <td valign="top" class="votelinks">
+        <center>
+            <a
+                <% if (loggedIn && post.isLiked != undefined && post.isLiked) { %>
+                    class="nosee"
+                <% } %>
+                id="up_<%=post.id%>"
+                href="http://hackers.hopto.org:13001/vote?id=<%=post.id%>&amp;how=up">
+
+                <div class="votearrow" title="upvote"></div>
+            </a>
+        </center>
+    </td>
+    <td class="title">
+        <a
+            href="http://hackers.hopto.org:13001/item?id=<%=post.id%>"
+            class="titlelink"
+            ><%= post.title %></a
+        >
+    </td>
+</tr>
+<tr>
+    <td colspan="2"></td>
+    <td class="subtext">
+        <span class="score" id="score_<%=post.id%>"><%= post.upvotes %> points</span>
+        by
+        <a href="http://hackers.hopto.org:13001/user?id=<%= post.author %> " class="hnuser">
+            <%= post.authorName %>
+        </a>
+        <span class="age" title="<%= post.createdAt %> ">
+            <a href="http://hackers.hopto.org:13001/item?id=<%=post.id%>">
+                <%= moment(new Date(post.createdAt)).fromNow() %> 
+            </a>
+        </span> |
+        <% if (loggedIn && post.isLiked != undefined && post.isLiked) { %>
+            <span class="unvote" title="unvote">
+                <a href="<%= baseUrl %>vote?id=<%=post.id%>&amp;how=un">
+                    unvote
+                </a>
+            </span> | 
+        <% } %> 
+        <% if (post.comments > 0) { %>
+            <a href="http://hackers.hopto.org:13001/item?id=<%=post.id%>">
+                <%= post.comments %>&nbsp;comments
+            </a>
+        <% } else { %>
+            <a href="http://hackers.hopto.org:13001/item?id=<%=post.id%>">
+                discuss
+            </a>
+        <% } %> 
+    </td>
+</tr>
+<tr class="spacer" style="height: 5px"></tr>

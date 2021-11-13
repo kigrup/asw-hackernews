@@ -24,7 +24,13 @@
                         <td>
                             <table class="fatitem" border="0">
                                 <tbody>
-                                    <%- include('../partials/textpost'); -%>
+                                    <% if (post.dataValues.type == 'post/text') { %> 
+                                        <%-include('../partials/textpost'); %>
+                                    <% } else if (post.dataValues.type == 'post/url') { %>
+                                        <%-include('../partials/urlpost'); %> 
+                                    <% } else { %>
+                                        <%-include('../partials/commentpost'); %> 
+                                    <% } %> 
                                     <tr style="height: 2px"></tr>
                                     <tr>
                                         <td colspan="2"></td>
