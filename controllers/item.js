@@ -67,9 +67,9 @@ const item = async (req, res) => {
             }
         }
 
-        let loggerUser;
+        let loggedUser;
         if (req.user) {
-            loggerUser = await db.users.findOne({
+            loggedUser = await db.users.findOne({
                 where: {
                     id: req.user.id,
                 },
@@ -93,7 +93,7 @@ const item = async (req, res) => {
         };
         if (req.user) {
             dataObject.loggedIn = true;
-            dataObject.user = loggerUser;
+            dataObject.user = loggedUser;
         }
         res.render('pages/item', dataObject);
     } catch (e) {
