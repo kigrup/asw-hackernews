@@ -33,24 +33,24 @@ const post = async (req, res) => {
         const authorObject = await db.users.findOne({
             where: {
                 id: userId,
-            }
+            },
         });
 
-        let postcreateds = await db.contributions.count({
-            where:{
+        let postsCreated = await db.contributions.count({
+            where: {
                 type: 'post/url',
                 content: url,
-            }
-        })
+            },
+        });
 
-        if(postcreateds > 0){ 
-            let postcreated = await db.contributions.findOne({
-                where:{
+        if (postsCreated > 0) {
+            let postCreated = await db.contributions.findOne({
+                where: {
                     type: 'post/url',
                     content: url,
-                }
-            })
-            res.redirect(`/item?id=${postcreated.id}`);
+                },
+            });
+            res.redirect(`/item?id=${postCreated.id}`);
             return;
         }
         const post = await db.contributions.create({
@@ -61,6 +61,18 @@ const post = async (req, res) => {
             authorName: authorObject.dataValues.username,
             deep: 0,
         });
+        if (text !== undefined && text != '') {
+            const comment = await db.contributions.create({
+                type: 'comment',
+                content: text,
+                author: userId,
+                authorName: authorObject.dataValues.username,
+                deep: 1,
+                inReplyTo: post.id,
+            });
+            res.redirect(`/item?id=${post.id}`);
+            return;
+        }
         console.log(`published post with id ${post.id}`);
         res.redirect('/newest');
     } catch (e) {
