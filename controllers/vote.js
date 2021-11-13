@@ -61,14 +61,14 @@ const vote = async (req, res) => {
             }
             else {
                 console.log(`invalid vote`);
-                res.redirect(req.get('referer'));
+                res.redirect(req.originalUrl);
                 return;
             }
             await contribution.save();
         }
-        console.log(`${req.get('referer')}`);
         console.log(`voted successfully. votes count: ${likedContributions.length}`);
-        res.redirect(req.get('referer'));
+        console.log(`${req.originalUrl}`);
+        res.redirect(req.originalUrl);
     } catch (e) {
         console.log('Error voting on /vote');
         console.log(e.message);
