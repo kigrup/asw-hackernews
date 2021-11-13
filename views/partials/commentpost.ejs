@@ -12,6 +12,7 @@
                 <% if (loggedIn && post.isLiked != undefined && post.isLiked) { %>
                     class="nosee"
                 <% } %>
+                <% console.log(`log from ejs: loggedIn=${loggedIn} post.isLiked=${post.isLiked}`) %> 
                 id="up_<%=post.id%>"
                 href="http://hackers.hopto.org:13001/vote?id=<%=post.id%>&amp;how=up">
 
