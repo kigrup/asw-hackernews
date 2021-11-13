@@ -111,8 +111,8 @@ const threads = async (req, res) => {
                     },
                 ],
             });
-            await setIsLiked(loggedUser, comments);
-            renderObject.comments = comments;
+            await setIsLiked(loggedUser, uniqueComments);
+            renderObject.comments = uniqueComments;
             renderObject.loggedIn = true;
             renderObject.user = loggedUser;
         }
