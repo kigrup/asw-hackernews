@@ -14,7 +14,7 @@ const saveUrl = async (req, res, next) => {
             req.session.prevUrl = req.url;
             console.log(`saved url ${req.url} for ${req.user.id}`);
         } else {
-            console.log(`ignoreing saveUrl for: ${url}`);
+            console.log(`ignoring saveUrl for: ${url}`);
         }
         next();
     } else {
