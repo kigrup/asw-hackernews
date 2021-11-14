@@ -54,11 +54,16 @@ const vote = async (req, res) => {
             if (how == 'up' && !isLiked) {
                 await fullUser.addLiked(contribution);
                 contribution.upvotes = contribution.upvotes + 1;
-                fullUser.karma = fullUser.karma + 1;
+                const author = await db.users.findOne({
+                    where: {
+                        id: contribution.author
+                    }
+                })
+                author.karma = author.karma + 1;
             } else if (how == 'un' && isLiked) {
                 await fullUser.setLiked(likedContributions);
                 contribution.upvotes = contribution.upvotes - 1;
-                fullUser.karma = fullUser.karma - 1;
+                author.karma = author.karma - 1;
             } else {
                 console.log(`invalid vote`);
                 if (req.session.prevUrl) {
@@ -70,6 +75,7 @@ const vote = async (req, res) => {
             }
             await contribution.save();
             await fullUser.save();
+            await author.save();
         }
         console.log(
             `voted successfully. votes count: ${likedContributions.length}`
