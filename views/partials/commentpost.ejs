@@ -38,12 +38,27 @@
                 </a>
             </span> | 
         <% } %> 
-        <% if (post.comments > 0) { %>
-            <a href="http://hackers.hopto.org:13001/item?id=<%=post.id%>">
+        <% if (post.dataValues.inReplyTo != rootPost.dataValues.id) { %>
+            <span>
+                <a href="http://hackers.hopto.org:13001/item?id=<%=post.dataValues.inReplyTo%>">
+                    parent
+                </a>
+            </span> |
+        <% } %>
+        <span>
+            on:
+            <a href="http://hackers.hopto.org:13001/item?id=<%=rootPost.dataValues.id%>">
+                <%= rootPost.dataValues.title %> 
+            </a>
+        </span>
+        <% if (post.dataValues.comments > 0) { %>
+            |
+            <a href="http://hackers.hopto.org:13001/item?id=<%=post.dataValues.id%>">
                 <%= post.comments %>&nbsp;replies
             </a>
         <% } else { %>
-            <a href="http://hackers.hopto.org:13001/item?id=<%=post.id%>">
+            |
+            <a href="http://hackers.hopto.org:13001/item?id=<%=post.dataValues.id%>">
                 reply
             </a>
         <% } %> 

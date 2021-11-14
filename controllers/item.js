@@ -97,13 +97,23 @@ const item = async (req, res) => {
                 }
             }
         }
-
+        let rootPost = post;
+        while (rootPost.inReplyTo != undefined) {
+            rootPost = await db.contributions.findOne({
+                where: {
+                    id: rootPost.inReplyTo
+                }
+            });
+        }
+        //console.log(`rootpost: ${require('util').inspect(rootPost, false, 3, false)}`);
+        //console.log(`post: ${require('util').inspect(post, false, 3, false)}`);
         let dataObject = {
             post: post,
             comments: comments,
             moment: require('moment'),
             loggedIn: false,
             user: {},
+            rootPost: rootPost,
         };
         if (req.user) {
             dataObject.loggedIn = true;

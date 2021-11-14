@@ -30,7 +30,7 @@
                                     <% } else if (post.dataValues.type == 'post/url') { %>
                                         <%-include('../partials/urlpost', { post: post, loggedIn: loggedIn }); %> 
                                     <% } else { %>
-                                        <%-include('../partials/commentpost', { post: post, loggedIn: loggedIn }); %> 
+                                        <%-include('../partials/commentpost', { post: post, loggedIn: loggedIn, rootPost: rootPost }); %> 
                                     <% } %> 
                                     <tr style="height: 2px"></tr>
                                     <tr>
