@@ -17,6 +17,7 @@ const vote = async (req, res) => {
             where: {
                 id: id,
             },
+            include: [db.users]
         });
 
         if (contribution == undefined) {
@@ -56,7 +57,7 @@ const vote = async (req, res) => {
                 contribution.upvotes = contribution.upvotes + 1;
                 const author = await db.users.findOne({
                     where: {
-                        id: contribution.author
+                        id: contribution.author.id
                     }
                 })
                 author.karma = author.karma + 1;
