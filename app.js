@@ -17,8 +17,10 @@ const liked = require('./routes/liked');
 const authenticateUser = require('./middlewares/authentication');
 const saveUrl = require('./middlewares/saveUrl');
 const { authenticateGloggedInUser } = require('./db/user-management');
+const nocache = require('nocache');
 
 // Middlewares
+app.use(nocache());
 app.use(express.json());
 app.use(
     express.urlencoded({
