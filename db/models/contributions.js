@@ -40,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
+            root: {
+                type: DataTypes.INTEGER,
+                defaultValue: -1
+            }
         },
         {
             initialAutoIncrement: 20000,

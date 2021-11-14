@@ -152,6 +152,25 @@ const comment = async (req, res) => {
             },
         });
 
+        let root;
+        if (contribution.type == 'comment') {
+            root = contribution.root;
+        }
+        else {
+            root = contribution.id;
+        }
+        parentContribution = contribution;
+        parentContribution.comments = parentContribution.comments + 1;
+        parentContribution.save();
+        while (parentContribution.inReplyTo != undefined) {
+            parentContribution = await db.contributions.findOne({
+                where: {
+                    id: parentContribution.inReplyTo
+                }
+            })
+            parentContribution.comments = parentContribution.comments + 1;
+            parentContribution.save();
+        }
         const reply = await db.contributions.create({
             type: 'comment',
             content: content,
@@ -159,6 +178,7 @@ const comment = async (req, res) => {
             author: req.user.id,
             authorName: authorObject.dataValues.username,
             deep: contribution.deep + 1,
+            root: root
         });
 
         //console.log(`commented: ${require('util').inspect(reply, false, 3, false)}`);

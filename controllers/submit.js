@@ -70,6 +70,8 @@ const post = async (req, res) => {
                 deep: 1,
                 inReplyTo: post.id,
             });
+            post.comments = 1;
+            post.save();
             res.redirect(`/item?id=${post.id}`);
             return;
         }
