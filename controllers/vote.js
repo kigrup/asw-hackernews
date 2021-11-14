@@ -17,10 +17,10 @@ const vote = async (req, res) => {
             where: {
                 id: id,
             },
-            include: [db.users]
+            //include: [db.users]
         });
 
-        console.log(`voting contribution ${require('util').inspect(contribution, false, 7, false)}`);
+        //console.log(`voting contribution ${require('util').inspect(contribution, false, 7, false)}`);
 
         if (contribution == undefined) {
             res.send('Invalid id in query');
@@ -53,15 +53,14 @@ const vote = async (req, res) => {
                     likedContributions.push(fullUser.liked[i]);
                 }
             }
-            // && tiene un post con contribution.id
+            const author = await db.users.findOne({
+                where: {
+                    id: contribution.author
+                }
+            })
             if (how == 'up' && !isLiked) {
                 await fullUser.addLiked(contribution);
                 contribution.upvotes = contribution.upvotes + 1;
-                const author = await db.users.findOne({
-                    where: {
-                        id: contribution.author.id
-                    }
-                })
                 author.karma = author.karma + 1;
             } else if (how == 'un' && isLiked) {
                 await fullUser.setLiked(likedContributions);
