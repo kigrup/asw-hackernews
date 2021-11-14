@@ -20,6 +20,8 @@ const vote = async (req, res) => {
             include: [db.users]
         });
 
+        console.log(`voting contribution ${require('util').inspect(contribution, false, 7, false)}`);
+
         if (contribution == undefined) {
             res.send('Invalid id in query');
             return;
