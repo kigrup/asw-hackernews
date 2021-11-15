@@ -15,8 +15,6 @@ Para acabar, este es el enlace al Sprint 2 del proyecto del Taiga correspondient
 ## La app
 ### Enlace
 http://hackers.hopto.org:13001
-### Cómo Funciona
-(Raúl pls)
 ## Tecnología
 ### Node.js
 Es un entorno en tiempo de ejecución multiplataforma y de código abierto para la capa de servidor. Está basado en JavaScript, y funciona de forma asíncrona.
