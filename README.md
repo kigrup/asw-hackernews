@@ -1,9 +1,9 @@
 # ASW Hacker News - Q1 2021
 ## Miembros
-- Pere Masip Rispa
-- Xavier Garcia Merino
-- Pau Martin Galindo
-- Raul Plesa
+- Pere Masip Rispa (username: **peremasip**)
+- Xavier Garcia Merino (username: **xavo7**)
+- Pau Martin Galindo (username: **pirata99**)
+- Raul Plesa (username: **kigrup**)
 
 ## Taiga
 El Taiga ha sido la principal herramienta que hemos usado para organizar nuestro proyecto. En primer lugar, hemos dividido cada una de las historias de usuario para la entrega en Tasks, y les hemos asignado puntos a cada una. Una vez hecho esto las hemos asignado a diferentes miembros del equipo, y después cada uno ha ido actualizando su estado.
