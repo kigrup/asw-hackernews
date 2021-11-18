@@ -61,7 +61,7 @@ const post = async (req, res) => {
             authorName: authorObject.dataValues.username,
             deep: 0,
         });
-        if (text !== undefined && text != '') {
+        if (text !== undefined && text != '' && contentType == 'post/url') {
             const comment = await db.contributions.create({
                 type: 'comment',
                 content: text,
