@@ -145,3 +145,7 @@ logs/
 .prettierignore
 
 /views/pages/inspiration/
+
+# Certificates
+
+*.pem

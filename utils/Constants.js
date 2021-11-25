@@ -1,4 +1,4 @@
-//const BASE_URL = 'http://hackers.hopto.org:13001/';
+//const BASE_URL = 'https://asw.raulplesa.online/';
 const LOCALHOST = 'localhost:13001/';
 
 module.exports = { LOCALHOST };

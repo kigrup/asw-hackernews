@@ -1,6 +1,8 @@
 const express = require('express');
+const https = require('https');
 const session = require('express-session');
 const app = express();
+const fs = require('fs');
 const db = require('./db/db');
 
 const passport = require('passport');
@@ -11,7 +13,7 @@ const login = require('./routes/login');
 const submit = require('./routes/submit');
 const item = require('./routes/item');
 const user = require('./routes/user');
-const vote = require ('./routes/vote')
+const vote = require('./routes/vote');
 const threads = require('./routes/threads');
 const liked = require('./routes/liked');
 const authenticateUser = require('./middlewares/authentication');
@@ -20,6 +22,12 @@ const { authenticateGloggedInUser } = require('./db/user-management');
 const nocache = require('nocache');
 
 // Middlewares
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
 app.use(nocache());
 app.use(express.json());
 app.use(
@@ -75,7 +83,8 @@ passport.use(
         {
             clientID: GOOGLE_CLIENT_ID,
             clientSecret: GOOGLE_CLIENT_SECRET,
-            callbackURL: 'http://hackers.hopto.org:13001/login/google/callback',
+            callbackURL:
+                'https://asw.raulplesa.online/login/google/callback',
         },
         function (accessToken, refreshToken, profile, done) {
             userProfile = profile;
@@ -105,7 +114,7 @@ app.get('/logout', function (req, res) {
     res.redirect('/');
 });
 
-const port = process.env.PORT || 13001;
+const port = 13001;
 
 const start = async () => {
     try {
@@ -115,9 +124,24 @@ const start = async () => {
         console.log('Syncing database...');
         db.sequelize.sync();
         console.log('Syncronized database successfull.');
+        /*
         app.listen(port, () =>
             console.log(`Server is listening on port ${port}...`)
         );
+        */
+        const keyFile = fs.readFileSync('privkey.pem');
+        const certFile = fs.readFileSync('fullchain.pem');
+        https
+            .createServer(
+                {
+                    key: fs.readFileSync('privkey.pem'),
+                    cert: fs.readFileSync('fullchain.pem'),
+                },
+                app
+            )
+            .listen(port, function () {
+                console.log('HTTPS server listening on port ' + port + '...');
+            });
     } catch (error) {
         console.log(error.message);
     }

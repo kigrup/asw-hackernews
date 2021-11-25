@@ -14,7 +14,7 @@ Para realizar las tareas anteriores tenemos los siguientes elementos:
 Para acabar, este es el enlace al Sprint 2 del proyecto del Taiga correspondiente a este repositorio: https://tree.taiga.io/project/xavo7-asw-hacker-news/taskboard/sprint-2-11149
 ## La app
 ### Enlace
-http://hackers.hopto.org:13001
+https://asw.raulplesa.online/
 ## Tecnología
 ### Node.js
 Es un entorno en tiempo de ejecución multiplataforma y de código abierto para la capa de servidor. Está basado en JavaScript, y funciona de forma asíncrona.

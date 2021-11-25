@@ -13,7 +13,7 @@
                     class="nosee"
                 <% } %>
                 id="up_<%=post.id%>"
-                href="http://hackers.hopto.org:13001/vote?id=<%=post.id%>&amp;how=up">
+                href="https://asw.raulplesa.online/vote?id=<%=post.id%>&amp;how=up">
 
                 <div class="votearrow" title="upvote"></div>
             </a>
@@ -21,7 +21,7 @@
     </td>
     <td class="title">
         <a
-            href="http://hackers.hopto.org:13001/item?id=<%=post.id%>"
+            href="https://asw.raulplesa.online/item?id=<%=post.id%>"
             class="titlelink"
             ><%= post.title %></a
         >
@@ -32,27 +32,27 @@
     <td class="subtext">
         <span class="score" id="score_<%=post.id%>"><%= post.upvotes %> points</span>
         by
-        <a href="http://hackers.hopto.org:13001/user?id=<%= post.author %> " class="hnuser">
+        <a href="https://asw.raulplesa.online/user?id=<%= post.author %> " class="hnuser">
             <%= post.authorName %>
         </a>
         <span class="age" title="<%= post.createdAt %> ">
-            <a href="http://hackers.hopto.org:13001/item?id=<%=post.id%>">
+            <a href="https://asw.raulplesa.online/item?id=<%=post.id%>">
                 <%= moment(new Date(post.createdAt)).fromNow() %> 
             </a>
         </span> |
         <% if (loggedIn && post.isLiked != undefined && post.isLiked) { %>
             <span class="unvote" title="unvote">
-                <a href="http://hackers.hopto.org:13001/vote?id=<%=post.id%>&amp;how=un">
+                <a href="https://asw.raulplesa.online/vote?id=<%=post.id%>&amp;how=un">
                     unvote
                 </a>
             </span> | 
         <% } %> 
         <% if (post.comments > 0) { %>
-            <a href="http://hackers.hopto.org:13001/item?id=<%=post.id%>">
+            <a href="https://asw.raulplesa.online/item?id=<%=post.id%>">
                 <%= post.comments %>&nbsp;comments
             </a>
         <% } else { %>
-            <a href="http://hackers.hopto.org:13001/item?id=<%=post.id%>">
+            <a href="https://asw.raulplesa.online/item?id=<%=post.id%>">
                 discuss
             </a>
         <% } %> 
