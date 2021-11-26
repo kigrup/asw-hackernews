@@ -1,3 +1,8 @@
+const db = require('../db/db');
+const ejs = require('ejs');
+const moment = require('moment');
+moment.updateLocale('es');
+
 const index = async(req,res) => 
 {
     const posts = await db.contributions.findAll({
