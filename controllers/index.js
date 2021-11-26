@@ -12,7 +12,7 @@ import {
 
 const index = async (req, res) => {
     try {
-        let renderObject = await indexLogic(req,res);
+        let renderObject = await indexLogic(req);
         res.render('pages/index', renderObject);
     } catch (e) {
         console.log('Issue in index');
@@ -23,7 +23,7 @@ const index = async (req, res) => {
 
 const newest = async (req, res) => {
     try {
-        let renderObject = await newestLogic(req,res);
+        let renderObject = await newestLogic(req);
         res.render('pages/index', renderObject);
     } catch (e) {
         console.log('Issue in index');

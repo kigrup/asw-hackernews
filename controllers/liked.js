@@ -11,7 +11,7 @@ moment.updateLocale("es");
 
 const posts = async (req, res) => {
     try {
-        let renderObject = await postsLogic(req,res);
+        let renderObject = await postsLogic(req);
         res.render('pages/index', renderObject);
     } catch (e) {
         console.log("Issue in liked/posts");
