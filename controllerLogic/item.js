@@ -1,7 +1,4 @@
 const db = require('../db/db');
-const ejs = require('ejs');
-const moment = require('moment');
-moment.updateLocale('es');
 
 
 const item = async (req,res) => {
