@@ -4,12 +4,15 @@ const ejs = require('ejs');
 const moment = require('moment');
 moment.updateLocale('es');
 
-import {index,newest} from "../controllerLogic";
+import {
+    index as indexLogic,
+    newest as newestLogic
+} from "../controllerLogic/index";
 
 
 const index = async (req, res) => {
     try {
-        let renderObject = await controllerLogic.index();
+        let renderObject = await indexLogic(req,res);
         res.render('pages/index', renderObject);
     } catch (e) {
         console.log('Issue in index');
@@ -20,7 +23,7 @@ const index = async (req, res) => {
 
 const newest = async (req, res) => {
     try {
-        let renderObject = await controllerLogic.newest();
+        let renderObject = await newestLogic(req,res);
         res.render('pages/index', renderObject);
     } catch (e) {
         console.log('Issue in index');
