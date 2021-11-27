@@ -6,7 +6,7 @@ const commentLogic = require('../controllerLogic/item').comment;
 
 const item = async (req, res) => {
     try {
-        let dataObject = await itemLogic(req, res);
+        let dataObject = await itemLogic(true, req, res);
         res.render('pages/item', dataObject);
     } catch (e) {
         console.log('Error on /item');
@@ -17,7 +17,7 @@ const item = async (req, res) => {
 
 const comment = async (req, res) => {
     try {
-        await commentLogic(req,res);
+        await commentLogic(true, req,res);
         //console.log(`commented: ${require('util').inspect(reply, false, 3, false)}`);
         res.redirect(`/item?id=${id}`);
     } catch (e) {

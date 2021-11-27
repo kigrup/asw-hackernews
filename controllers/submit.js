@@ -18,7 +18,7 @@ const submit = async (req, res) => {
 
 const post = async (req, res) => {
     try {
-        postLogic(req, res);
+        postLogic(true, req, res);
     } catch (e) {
         console.log('Error creating contribution');
         console.log(e.message);

@@ -10,7 +10,7 @@ moment.updateLocale("es");
 
 const posts = async (req, res) => {
     try {
-        let renderObject = await postsLogic(req);
+        let renderObject = await postsLogic(true, req);
         res.render('pages/index', renderObject);
     } catch (e) {
         console.log("Issue in liked/posts");
@@ -21,7 +21,7 @@ const posts = async (req, res) => {
 
 const comments = async (req, res) => {
     try {
-        let renderObject = await commentsLogic(req);
+        let renderObject = await commentsLogic(true, req);
         res.render('pages/likedcomments', renderObject);
         //console.log(`USER WITH INCLUDE: ${require("util").inspect(fullUser, false, 4, false)}`);
     } catch (e) {

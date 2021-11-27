@@ -5,7 +5,7 @@ const voteLogic = require('../controllerLogic/vote').vote;
 
 const vote = async (req, res) => {
     try {
-        voteLogic(req, res);
+        voteLogic(true, req, res);
     } catch (e) {
         console.log('Error voting on /vote');
         console.log(e.message);

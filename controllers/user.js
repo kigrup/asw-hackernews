@@ -6,7 +6,7 @@ const modifyLogic = require('../controllerLogic/user').modify;
 
 const user = async (req, res) => {
     try {
-        let { logged, renderObject } = await userLogic(req);
+        let { logged, renderObject } = await userLogic(true, req);
         res.render(`pages/user${logged}`, renderObject);
     } catch (e) {
         console.log('Error on /user');
@@ -30,7 +30,7 @@ const modify = async (req, res) => {
             });
         }
 
-        modifyLogic(req, authorObject);
+        modifyLogic(true, req, authorObject);
 
         res.redirect(`/user?id=${req.user.id}`);
     } catch (e) {

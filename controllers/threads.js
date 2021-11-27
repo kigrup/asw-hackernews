@@ -18,7 +18,7 @@ const threads = async (req, res) => {
             res.redirect('/login');
             return;
         }
-        let renderObject = await threadsLogic(localauthor, req);
+        let renderObject = await threadsLogic(true, localauthor, req);
         res.render('pages/threads', renderObject);
     } catch (e) {
         console.log('Issue in Threads');

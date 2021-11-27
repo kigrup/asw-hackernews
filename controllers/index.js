@@ -9,7 +9,7 @@ const newestLogic = require('../controllerLogic/index').newest;
 
 const index = async (req, res) => {
     try {
-        let renderObject = await indexLogic(req);
+        let renderObject = await indexLogic(true, req);
         res.render('pages/index', renderObject);
     } catch (e) {
         console.log('Issue in index');
@@ -20,7 +20,7 @@ const index = async (req, res) => {
 
 const newest = async (req, res) => {
     try {
-        let renderObject = await newestLogic(req);
+        let renderObject = await newestLogic(true, req);
         res.render('pages/index', renderObject);
     } catch (e) {
         console.log('Issue in index');
