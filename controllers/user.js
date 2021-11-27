@@ -33,8 +33,6 @@ const modify = async (req, res) => {
         modifyLogic(req, authorObject);
 
         res.redirect(`/user?id=${req.user.id}`);
-
-        
     } catch (e) {
         console.log('Error modfiying about');
         console.log(e.message);
