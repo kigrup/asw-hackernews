@@ -4,7 +4,7 @@ const moment = require("moment");
 
 moment.updateLocale("es");
 
-const posts = async(req) => {
+const posts = async(fromBrowser, req) => {
     let fullUser = await db.users.findOne({
         where: {
             id: req.user.id,
@@ -57,7 +57,7 @@ const posts = async(req) => {
     return renderObject;
 }
 
-const comments = async(req) => {
+const comments = async(fromBrowser, req) => {
     let fullUser = await db.users.findOne({
         where: {
             id: req.user.id,

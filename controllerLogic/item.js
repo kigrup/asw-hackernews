@@ -1,6 +1,6 @@
 const db = require("../db/db");
 
-const item = async (req, res) => {
+const item = async (fromBrowser, req, res) => {
     const id = req.query.id;
     if (id === undefined || !id || id < 1) {
         res.send("Invalid id in query");
@@ -111,7 +111,7 @@ const item = async (req, res) => {
     return dataObject;
 };
 
-const comment = async (req, res) => {
+const comment = async (fromBrowser, req, res) => {
     if (!req.user) {
         res.redirect("/login");
     }

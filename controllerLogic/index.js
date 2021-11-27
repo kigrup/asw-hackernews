@@ -3,7 +3,7 @@ const ejs = require('ejs');
 const moment = require('moment');
 moment.updateLocale('es');
 
-const index = async(req) => 
+const index = async(fromBrowser, req) => 
 {
     const posts = await db.contributions.findAll({
         attributes: [
@@ -54,7 +54,7 @@ const index = async(req) =>
     return renderObject;
 }
 
-const newest = async (req) => {
+const newest = async (fromBrowser, req) => {
     let postTypes = {};
     const url = await req.url.match(/[^?]*/);
     console.log(`/newest request from: ${url}`);

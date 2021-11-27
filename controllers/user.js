@@ -6,7 +6,7 @@ const modifyLogic = require('../controllerLogic/user').modify;
 
 const user = async (req, res) => {
     try {
-        let { logged, renderObject } = await userLogic(id, req);
+        let { logged, renderObject } = await userLogic(req);
         res.render(`pages/user${logged}`, renderObject);
     } catch (e) {
         console.log('Error on /user');

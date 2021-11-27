@@ -1,7 +1,7 @@
 const db = require("../db/db");
 const moment = require("moment");
 
-const user = async (id, req) => {
+const user = async (req) => {
     const id = req.query.id;
     if (id == undefined || !id) {
         res.send("User id undefined in query");
