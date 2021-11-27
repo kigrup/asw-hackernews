@@ -2,13 +2,9 @@ const { StatusCodes } = require('http-status-codes');
 const db = require('../db/db');
 const moment = require('moment');
 
-import { 
-    user as userLogic,
-    modify as modifyLogic
- } from "../controllerLogic/user";
+const userLogic = require('../controllerLogic/user').user;
+const modifyLogic = require('../controllerLogic/user').modify;
 
-
- 
 const user = async (req, res) => {
     try {
         const id = req.query.id;

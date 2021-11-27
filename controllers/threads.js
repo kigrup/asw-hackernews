@@ -3,9 +3,7 @@ const db = require('../db/db');
 const ejs = require('ejs');
 const moment = require('moment');
 
-import {
-    threads as threadsLogic
-  } from "../controllerLogic/threads";
+const threadsLogic = require('../controllerLogic/threads').threads;
 
 moment.updateLocale('es');
 

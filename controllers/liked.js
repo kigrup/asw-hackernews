@@ -2,10 +2,8 @@ const { StatusCodes } = require("http-status-codes");
 const db = require("../db/db");
 const ejs = require("ejs");
 const moment = require("moment");
-import {
-    posts as postsLogic,
-    comments as commentsLogic
-} from "../controllerLogic/liked";
+const postsLogic = require('../controllerLogic/liked').posts;
+const commentsLogic = require('../controllerLogic/liked').comments;
 
 moment.updateLocale("es");
 

@@ -4,11 +4,8 @@ const ejs = require('ejs');
 const moment = require('moment');
 moment.updateLocale('es');
 
-import {
-    index as indexLogic,
-    newest as newestLogic
-} from "../controllerLogic/index";
-
+const indexLogic = require('../controllerLogic/index').index;
+const newestLogic = require('../controllerLogic/index').newest;
 
 const index = async (req, res) => {
     try {
