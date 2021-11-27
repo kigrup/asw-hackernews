@@ -1,26 +1,25 @@
-const db = require('../db/db');
+const db = require("../db/db");
 
-
-const item = async (req,res) => {
+const item = async (req, res) => {
     const id = req.query.id;
-        if (id === undefined || !id || id < 1) {
-            res.send('Invalid id in query');
-        }
-        // Get first comment
-        const post = await db.contributions.findOne({
-            where: {
-                id: id,
-            },
-            include: [db.contributions],
-        });
+    if (id === undefined || !id || id < 1) {
+        res.send("Invalid id in query");
+    }
+    // Get first comment
+    const post = await db.contributions.findOne({
+        where: {
+            id: id,
+        },
+        include: [db.contributions],
+    });
 
-        // Get first level of childs
+    // Get first level of childs
 
-        //console.log(require('util').inspect(post, false, 3, false));
-        if (post == undefined) {
-            res.send('Item not found');
-            return;
-        }
+    //console.log(require('util').inspect(post, false, 3, false));
+    if (post == undefined) {
+        res.send("Item not found");
+        return;
+    }
 
     let comments = await db.contributions.findAll({
         where: {
@@ -29,8 +28,21 @@ const item = async (req,res) => {
         include: [db.contributions],
     });
     // Recursively get all childs' comments
+    const populateComments = async (commentsObject) => {
+        for (let i = 0; i < commentsObject.length; i++) {
+            child = await db.contributions.findOne({
+                where: {
+                    id: commentsObject[i].dataValues.id,
+                },
+                include: [db.contributions],
+            });
+            commentsObject[i] = child;
+            if (child.dataValues.contributions !== undefined) {
+                await populateComments(commentsObject[i].dataValues.contributions);
+            }
+        }
+    };
     await populateComments(comments);
-
 
     let loggedUser;
     if (req.user) {
@@ -40,17 +52,37 @@ const item = async (req,res) => {
             },
             include: [
                 {
-                    association: 'liked',
+                    association: "liked",
                     model: db.contributions,
                 },
             ],
         });
+        const setIsLiked = async (user, commentsObject) => {
+            for (let i = 0; i < commentsObject.length; i++) {
+                for (let l = 0; l < user.liked.length; l++) {
+                    if (
+                        commentsObject[i].dataValues.id == user.liked[l].dataValues.id
+                    ) {
+                        commentsObject[i].dataValues.isLiked = true;
+                        commentsObject[i].isLiked = true;
+                    } else if (
+                        user.liked[l].dataValues.id == post.dataValues.id ||
+                        user.liked[l].dataValues.id == post.id
+                    ) {
+                        console.log(`found root post as liked`);
+                        post.dataValues.isLiked = true;
+                        post.isLiked = true;
+                    }
+                }
+                await setIsLiked(user, commentsObject[i].dataValues.contributions);
+            }
+        };
         await setIsLiked(loggedUser, comments);
         for (let l = 0; l < loggedUser.liked.length; l++) {
             if (post.id == loggedUser.liked[l].id) {
                 post.isLiked = true;
                 post.dataValues.isLiked = true;
-                console.log('found post in liked');
+                console.log("found post in liked");
             }
         }
     }
@@ -58,8 +90,8 @@ const item = async (req,res) => {
     while (rootPost.inReplyTo != undefined) {
         rootPost = await db.contributions.findOne({
             where: {
-                id: rootPost.inReplyTo
-            }
+                id: rootPost.inReplyTo,
+            },
         });
     }
     //console.log(`rootpost: ${require('util').inspect(rootPost, false, 3, false)}`);
@@ -67,7 +99,7 @@ const item = async (req,res) => {
     let dataObject = {
         post: post,
         comments: comments,
-        moment: require('moment'),
+        moment: require("moment"),
         loggedIn: false,
         user: {},
         rootPost: rootPost,
@@ -77,61 +109,18 @@ const item = async (req,res) => {
         dataObject.user = loggedUser;
     }
     return dataObject;
-}
-
-
-const setIsLiked = async (user, commentsObject) => {
-    for (let i = 0; i < commentsObject.length; i++) {
-        for (let l = 0; l < user.liked.length; l++) {
-            if (
-                commentsObject[i].dataValues.id ==
-                user.liked[l].dataValues.id
-            ) {
-                commentsObject[i].dataValues.isLiked = true;
-                commentsObject[i].isLiked = true;
-            } else if (
-                user.liked[l].dataValues.id == post.dataValues.id ||
-                user.liked[l].dataValues.id == post.id
-            ) {
-                console.log(`found root post as liked`);
-                post.dataValues.isLiked = true;
-                post.isLiked = true;
-            }
-        }
-        await setIsLiked(
-            user,
-            commentsObject[i].dataValues.contributions
-        );
-    }
 };
 
-const populateComments = async (commentsObject) => {
-    for (let i = 0; i < commentsObject.length; i++) {
-        child = await db.contributions.findOne({
-            where: {
-                id: commentsObject[i].dataValues.id,
-            },
-            include: [db.contributions],
-        });
-        commentsObject[i] = child;
-        if (child.dataValues.contributions !== undefined) {
-            await populateComments(
-                commentsObject[i].dataValues.contributions
-            );
-        }
-    }
-};
-
-const comment = async(req,res) => {
+const comment = async (req, res) => {
     if (!req.user) {
-        res.redirect('/login');
+        res.redirect("/login");
     }
     const { id, content } = req.body;
     console.log(`starting comment id: ${id} content: ${content}`);
     if (id === undefined || !id) {
-        res.send('Id undefined in body');
+        res.send("Id undefined in body");
     } else if (content === undefined || !content) {
-        res.send('Message undefined in body');
+        res.send("Message undefined in body");
     }
     const contribution = await db.contributions.findOne({
         where: {
@@ -147,10 +136,9 @@ const comment = async(req,res) => {
     });
 
     let root;
-    if (contribution.type == 'comment') {
+    if (contribution.type == "comment") {
         root = contribution.root;
-    }
-    else {
+    } else {
         root = contribution.id;
     }
     parentContribution = contribution;
@@ -159,23 +147,21 @@ const comment = async(req,res) => {
     while (parentContribution.inReplyTo != undefined) {
         parentContribution = await db.contributions.findOne({
             where: {
-                id: parentContribution.inReplyTo
-            }
+                id: parentContribution.inReplyTo,
+            },
         });
         parentContribution.comments = parentContribution.comments + 1;
         parentContribution.save();
     }
     const reply = await db.contributions.create({
-        type: 'comment',
+        type: "comment",
         content: content,
         inReplyTo: id,
         author: req.user.id,
         authorName: authorObject.dataValues.username,
         deep: contribution.deep + 1,
-        root: root
+        root: root,
     });
-}
+};
 
-module.exports = {item,comment};
-
-
+module.exports = { item, comment };
