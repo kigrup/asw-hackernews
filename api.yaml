@@ -40,7 +40,7 @@ paths:
     get:
       tags:
       - Posts
-      summary: No sé qué coño hace KEKW
+      summary: Retrieves all the Posts that are of the type text, sorted by date of creation 
       operationId: ask
       responses:
         200:
@@ -110,7 +110,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Comment'
+                $ref: '#/components/schemas/AddCommentResult'
         404:
           description: 'Error: Post Not Found'
           content:
@@ -167,6 +167,37 @@ paths:
                   $ref: '#/components/examples/error403'
       security:
       - ApiKeyAuth: []
+  /item/{itemId}/vote:
+    get:
+      tags:
+      - Posts
+      summary: Upvote a Post
+      description: Returns the upvoted Post
+      operationId: vote
+      parameters:
+      - name: itemId
+        in: path
+        description: ID of Post to upvote
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        404:
+          description: 'Error: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error404'
   /item:
     post:
       tags:
@@ -174,12 +205,10 @@ paths:
       summary: Adds a new post to the site
       operationId: submitPost
       requestBody:
-        description: Provide the author and content of the new Post
+        description: Field **title** is **REQUIRED**
         content:
           application/json:
             schema:
-              required:
-              - Post
               type: object
               properties:
                 title:
@@ -196,6 +225,8 @@ paths:
                   minLength: 4
                   maxLength: 280
                   example: 'https://www.google.com'
+              required:
+                - title
         required: true
       responses:
         201:
@@ -243,7 +274,243 @@ paths:
               examples:
                 errorExample:
                   $ref: '#/components/examples/error404'
-    
+  /user/{userId}:
+    get:
+      tags:
+      - Users
+      summary: Returns the user identified by userId
+      description: Returns a single Post
+      operationId: getUser
+      parameters:
+      - name: userId
+        in: path
+        description: id of the user to retrieve
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        401:
+          description: 'Error: no API key'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error401'
+        403:
+          description: 'Error: API key not valid'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error403'
+                  
+        404:
+          description: 'Error: userId not valid'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error404'
+  /user/{userId}/threads:
+    get:
+      tags:
+      - Users
+      summary: Returns the comment threads where the user identified by userId participates
+      description: Returns an Array of comments and their respective children
+      operationId: threads
+      parameters:
+      - name: userId
+        in: path
+        description: id of the user to retrieve its comment threads
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Comment'
+        404:
+          description: 'Error: userId not valid'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error404'
+  /user/{userId}/likedposts:
+    get:
+      tags:
+      - Users
+      summary: Returns the users' liked posts
+      description: Returns an Array of posts liked by the user
+      operationId: likedPosts
+      parameters:
+      - name: userId
+        in: path
+        description: id of the user to retrieve its liked posts
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Post'
+        401:
+          description: 'Error: no API key'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error401'
+        403:
+          description: 'Error: API key not valid'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error403'
+        404:
+          description: 'Error: userId not valid'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error404'
+  /user/{userId}/likedcomments:
+    get:
+      tags:
+      - Users
+      summary: Returns the users' liked comments
+      description: Returns an Array of comments liked by the user
+      operationId: likedComments
+      parameters:
+      - name: userId
+        in: path
+        description: id of the user to retrieve its liked comments
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Post'
+        401:
+          description: 'Error: no API key'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error401'
+        403:
+          description: 'Error: API key not valid'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error403'
+        404:
+          description: 'Error: userId not valid'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error404'
+  /user/{userId}/edit:
+    post:
+      tags:
+      - Users
+      summary: modifies the about field of a user
+      operationId: userEdit
+      parameters:
+      - name: userId
+        in: path
+        description: Id of the user to modify
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: Field **about** is **REQUIRED**
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                about:
+                  type: string
+                  minLength: 4
+                  maxLength: 280
+                  example: 'description about me'
+        required: true
+      responses:
+        200:
+          description: Modified User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModifiedUserResult'
+        400:
+          description: 'Error: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error400'
+        404:
+          description: 'Error: User Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error404'
 components:
   schemas:
     Post:
@@ -338,7 +605,7 @@ components:
     AddCommentResult:
       type: object
       properties:
-        new_Post:
+        new_Comment:
           $ref: '#/components/schemas/Comment'
         api_key:
           type: string
@@ -362,14 +629,6 @@ components:
           type: integer
           format: int64
           example: 250
-        upvotes:
-          type: integer
-          format: int32
-          example: 3
-        created_at:
-          type: string
-          format: date-time
-          example: "02/01/2022"
         _links:
           type: object
           properties:
@@ -377,6 +636,14 @@ components:
               type: string
               format: url
               example: 'https://asw.raulplesa.online/user/2'
+    ModifiedUserResult:
+      type: object
+      properties:
+        ModifiedUser:
+          $ref: '#/components/schemas/User'
+        api_key:
+          type: string
+          example: "MjAyMC0wNC0xOCAxMjoyODo0MSBVVEM=\n"
   examples:
     error400:
       value:
@@ -397,6 +664,10 @@ components:
       value:
         status: 404
         error: "Not Found"
-        message: "No Contribution with that ID"
- 
+        message: "No Object with that ID"
+  securitySchemes:
+    ApiKeyAuth:        # arbitrary name for the security scheme
+      type: apiKey
+      in: header       # can be "header", "query" or "cookie"
+      name: X-API-KEY  # name of the header, query parameter or cookie
  
