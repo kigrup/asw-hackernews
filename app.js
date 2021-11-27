@@ -16,6 +16,7 @@ const user = require('./routes/user');
 const vote = require('./routes/vote');
 const threads = require('./routes/threads');
 const liked = require('./routes/liked');
+const api = require('./routes/api');
 const authenticateUser = require('./middlewares/authentication');
 const saveUrl = require('./middlewares/saveUrl');
 const { authenticateGloggedInUser } = require('./db/user-management');
@@ -59,6 +60,9 @@ app.use('/user', user);
 app.use('/vote', authenticateUser, vote);
 app.use('/threads', threads);
 app.use('/liked', authenticateUser, liked);
+
+// API Route
+app.use('/api', api);
 
 // TODO: tidy up
 // Passport
