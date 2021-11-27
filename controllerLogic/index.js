@@ -112,11 +112,14 @@ const newest = async (fromBrowser, req) => {
         loggedIn: false,
         user: {},
     };
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated() || req.header('X-API-KEY') != undefined) {
         renderObject.loggedIn = true;
+        let userId;
+        if (fromBrowser) userId = req.user.id;
+        else userId = req.header('X-API-KEY');
         const loggeduser = await db.users.findOne({
             where: {
-                id: req.user.id,
+                id: userId,
             },
             include: [
                 {

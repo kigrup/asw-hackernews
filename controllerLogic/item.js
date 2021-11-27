@@ -119,12 +119,16 @@ const item = async (fromBrowser, req, res) => {
 };
 
 const comment = async (fromBrowser, req, res) => {
-    if (!req.user && req.header('X-API-KEY') == undefined) {
-        if (fromBrowser) res.redirect("/login");
-        res.send(res.json({error: "Invalid login"}))
+    if (!req.user && req.header('X-API-KEY') == undefined) 
+    {
+        if (fromBrowser)
+        {
+            res.redirect("/login");           
+        }
+        else res.send(res.json({error: "Invalid login"}))
+        return;
     }
-    if (fromBrowser) const {id, content} = req.body;
-    else const { id = req.params.itemId, content  = req.body};
+    const {id, content} = req.body;  
     console.log(`starting comment id: ${id} content: ${content}`);
     if (id === undefined || !id) {        
         if (fromBrowser) res.send("Id undefined in body");
