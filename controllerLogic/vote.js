@@ -1,6 +1,6 @@
 const db = require("../db/db");
 
-const vote = async (req, res) => {
+const vote = async (fromBrowser, req, res) => {
     const { id, how } = await req.query;
     if (id == undefined) {
         res.send("Null id in query");

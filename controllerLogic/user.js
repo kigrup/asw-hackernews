@@ -1,7 +1,7 @@
 const db = require("../db/db");
 const moment = require("moment");
 
-const user = async (req) => {
+const user = async (fromBrowser, req) => {
     const id = req.query.id;
     if (id == undefined || !id) {
         res.send("User id undefined in query");
@@ -33,7 +33,7 @@ const user = async (req) => {
     return { logged, renderObject };
 };
 
-const modify = async (req, authorObject) => {
+const modify = async (fromBrowser, req, authorObject) => {
     const { about } = req.body;
 
     if (about !== undefined) {

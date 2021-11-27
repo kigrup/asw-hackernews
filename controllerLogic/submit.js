@@ -1,7 +1,7 @@
 const db = require('../db/db');
 const Constants = require('../utils/Constants');
 
-const post = async (req, res) => {
+const post = async (fromBrowser, req, res) => {
     let userId = req.user.id;
     const { title, url, text } = req.body;
     if (title === undefined || !title) {

@@ -4,7 +4,7 @@ const moment = require("moment");
 
 moment.updateLocale("es");
 
-const threads = async (localauthor, req) => {
+const threads = async (fromBrowser, localauthor, req) => {
     const comments = await db.contributions.findAll({
         attributes: [
             "id",
