@@ -1,19 +1,13 @@
 const { StatusCodes } = require('http-status-codes');
 const db = require('../db/db');
-const moment = require('moment');
 
 const userLogic = require('../controllerLogic/user').user;
 const modifyLogic = require('../controllerLogic/user').modify;
 
 const user = async (req, res) => {
     try {
-        const id = req.query.id;
-        if (id == undefined || !id) {
-            res.send('User id undefined in query');
-        }
         let { logged, renderObject } = await userLogic(id, req);
         res.render(`pages/user${logged}`, renderObject);
-
     } catch (e) {
         console.log('Error on /user');
         console.log(e.message);
