@@ -5,9 +5,12 @@ const moment = require("moment");
 moment.updateLocale("es");
 
 const posts = async(fromBrowser, req) => {
+    let userId;
+    if (fromBrowser) userId = req.user.id;
+    else userId = req.params.userId;
     let fullUser = await db.users.findOne({
         where: {
-            id: req.user.id,
+            id: userId,
         },
         include: [
             {
@@ -27,7 +30,7 @@ const posts = async(fromBrowser, req) => {
     if (fullUser == undefined) {
         fullUser = await db.users.findOne({
             where: {
-                id: req.user.id,
+                id: userId,
             },
         });
         fullUser.liked = [];
@@ -46,8 +49,15 @@ const posts = async(fromBrowser, req) => {
             fullUser.dataValues.liked[i].dataValues.deep = 0;
         }
     }
-    fullUser.displayName = req.user.displayName;
-    fullUser.dataValues.displayName = req.user.displayName;
+    if(fromBrowser){
+        fullUser.displayName = req.user.displayName;
+        fullUser.dataValues.displayName = req.user.displayName;
+    }
+    else{
+        fullUser.displayName = fullUser.dataValues.username;
+        fullUser.dataValues.displayName = fullUser.dataValues.username;
+    }
+
     let renderObject = {
         posts: fullUser.dataValues.liked,
         moment: moment,
@@ -58,9 +68,12 @@ const posts = async(fromBrowser, req) => {
 }
 
 const comments = async(fromBrowser, req) => {
+    let userId;
+    if (fromBrowser) userId = req.user.id;
+    else userId = req.params.userId;
     let fullUser = await db.users.findOne({
         where: {
-            id: req.user.id,
+            id: userId,
         },
         include: [
             {
@@ -78,7 +91,7 @@ const comments = async(fromBrowser, req) => {
     if (fullUser == undefined) {
         fullUser = await db.users.findOne({
             where: {
-                id: req.user.id,
+                id: userId,
             },
         });
         fullUser.liked = [];
@@ -97,8 +110,14 @@ const comments = async(fromBrowser, req) => {
             fullUser.dataValues.liked[i].dataValues.deep = 0;
         }
     }
-    fullUser.displayName = req.user.displayName;
-    fullUser.dataValues.displayName = req.user.displayName;
+    if(fromBrowser){
+        fullUser.displayName = req.user.displayName;
+        fullUser.dataValues.displayName = req.user.displayName;
+    }
+    else{
+        fullUser.displayName = fullUser.dataValues.username;
+        fullUser.dataValues.displayName = fullUser.dataValues.username;
+    }
     const post = { deep: 0 };
     let renderObject = {
         post: post,
