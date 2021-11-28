@@ -11,8 +11,8 @@ const controller = async (req, res) => {
         comments: []
     };
 
-    for (let i = 0; i < obj.posts.length; i++) {
-        let p = obj.posts[i];
+    for (let i = 0; i < obj.comments.length; i++) {
+        let p = obj.comments[i];
         let commentObj = {
             id: p.id,
             content: p.content,
@@ -24,7 +24,7 @@ const controller = async (req, res) => {
             inReplyTo: p.inReplyTo,
             root : p.root
         };
-        finalObj.posts.push(commentObj);
+        finalObj.comments.push(commentObj);
     }
 
     res.status(StatusCodes.OK).json(finalObj);
