@@ -1,11 +1,20 @@
 const db = require("../../db/db");
 const { StatusCodes } = require('http-status-codes');
+const postLogic = require('../controllerLogic/submit').post;
 
-const controller = async (req, res) => {
 
-    // CONTENIDO DE PLANTILLA:
-    // BORRAR ESTO CUANDO SE HAYA IMPLEMENTADO!!
-    res.status(StatusCodes.NOT_IMPLEMENTED).send();;
+const post = async (req, res) => {
+    try {
+        await postLogic(true,req,res); //navegador
+        res.redirect(`/item?id=${post.id}`);
+        console.log(`published post with id ${post.id}`);
+        res.redirect('/newest');
+    }
+    catch (e) {
+        console.log('Error creating contribution');
+        console.log(e.message);
+        res.status(StatusCodes.BAD_REQUEST).json({error: ' Bad request '});
+    }
 }
 
-module.exports = controller;
+module.exports = post;

@@ -1,11 +1,21 @@
 const db = require('../db/db');
 const Constants = require('../utils/Constants');
 
+//body,params,query des de los dos
+
 const post = async (fromBrowser, req, res) => {
-    let userId = req.user.id;
+    let userId;
+    if (req.user || req.header('X-API-KEY') != undefined) {
+        if (fromBrowser) userId = req.user.id;
+        else userId = req.header('X-API-KEY')
+    }
     const { title, url, text } = req.body;
     if (title === undefined || !title) {
-        res.redirect("/submit?invalidTitle=true");
+        if (fromBrowser)
+        {
+            res.redirect("/submit?invalidTitle=true");
+        }
+        else res.send(res.json({error: "Invalid submit"}))
         return;
     }
     var contentType, content;
@@ -36,7 +46,9 @@ const post = async (fromBrowser, req, res) => {
                 content: url,
             },
         });
-        res.redirect(`/item?id=${postCreated.id}`);
+        if (fromBrowser) {
+            res.redirect(`/item?id=${postCreated.id}`);
+        }
         return;
     }
     const post = await db.contributions.create({
@@ -58,11 +70,8 @@ const post = async (fromBrowser, req, res) => {
         });
         post.comments = 1;
         post.save();
-        res.redirect(`/item?id=${post.id}`);
         return;
     }
-    console.log(`published post with id ${post.id}`);
-    res.redirect("/newest");
 };
 
 module.exports = post;

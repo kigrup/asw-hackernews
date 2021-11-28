@@ -70,10 +70,13 @@ const threads = async (fromBrowser, localauthor, req) => {
     };
 
     let loggedUser;
-    if (req.user) {
+    let userId;
+    if (req.user || req.header('X-API-KEY') != undefined) {
+        if (fromBrowser) userId = req.user.id 
+        else userId = req.header('X-API-KEY');
         loggedUser = await db.users.findOne({
             where: {
-                id: req.user.id,
+                id: userId,
             },
             include: [
                 {

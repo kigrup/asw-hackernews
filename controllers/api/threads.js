@@ -1,11 +1,17 @@
 const db = require("../../db/db");
 const { StatusCodes } = require('http-status-codes');
+const threadsLogic = require('../controllerLogic/threads').threads;
 
-const controller = async (req, res) => {
-
-    // CONTENIDO DE PLANTILLA:
-    // BORRAR ESTO CUANDO SE HAYA IMPLEMENTADO!!
-    res.status(StatusCodes.NOT_IMPLEMENTED).send();;
+const threads = async (req, res) => {
+    try {
+        let dataObject = await threadsLogic(true,req,res);
+        res.render('pages/threads', dataObject);
+    }
+    catch (e) {
+        console.log('Error in Threads');
+        console.log(e.message);
+        res.status(StatusCodes.BAD_REQUEST).json({error: ' Bad request '});
+    }
 }
 
-module.exports = controller;
+module.exports = threads;
