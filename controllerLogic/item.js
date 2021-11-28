@@ -1,4 +1,5 @@
 const db = require("../db/db");
+const { StatusCodes } = require("http-status-codes");
 
 const item = async (fromBrowser, req, res) => {
     let id;
@@ -6,7 +7,7 @@ const item = async (fromBrowser, req, res) => {
     else id = req.params.itemId;
     if (id === undefined || !id || id < 1) {
         if (fromBrowser) res.send("Invalid id in query");
-        else res.send(res.json({error: "Invalid id in query"}));
+        else res.status(StatusCodes.BAD_REQUEST).json({error: "Invalid id"});
     }
     // Get first comment
     const post = await db.contributions.findOne({
@@ -21,7 +22,7 @@ const item = async (fromBrowser, req, res) => {
     //console.log(require('util').inspect(post, false, 3, false));
     if (post == undefined) {
         if (fromBrowser) res.send("Item not found");
-        else res.send(res.json({error: "Item not found"}));
+        else res.status(StatusCodes.BAD_REQUEST).json({error: "Item not found"});
         return;
     }
 
@@ -125,17 +126,18 @@ const comment = async (fromBrowser, req, res) => {
         {
             res.redirect("/login");           
         }
-        else res.send(res.json({error: "Invalid login"}))
+        else res.status(StatusCodes.UNAUTHORIZED).json({error: "Not logged in"});
         return;
     }
     const {id, content} = req.body;  
     console.log(`starting comment id: ${id} content: ${content}`);
     if (id === undefined || !id) {        
         if (fromBrowser) res.send("Id undefined in body");
-        else res.send(res.json({error: "Id undefined in body"}));
+        else res.status(StatusCodes.BAD_REQUEST).json({error: "Id not defined in body"});
     } else if (content === undefined || !content) {
         if (fromBrowser) res.send("Message undefined in body");
-        else res.send(res.json({error: "Message undefined in body"}));    }
+        else res.status(StatusCodes.BAD_REQUEST).json({error: "Message not defined in body"});
+    }
     const contribution = await db.contributions.findOne({
         where: {
             id: id,
@@ -179,6 +181,7 @@ const comment = async (fromBrowser, req, res) => {
         deep: contribution.deep + 1,
         root: root,
     });
+    return reply;
 };
 
 module.exports = { item, comment };

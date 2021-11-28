@@ -7,10 +7,10 @@ const threads = async (req, res) => {
         let dataObject = await threadsLogic(false,req,res);
         let finalObj = {
             threads: {
-                id: dataObject.renderObject.comments.id,
-                title: dataObject.renderObject.comments.title,
-                content: dataObject.renderObject.comments.content,
-                author: dataObject.renderObject.comments.author
+                id: dataObject.comments.id,
+                title: dataObject.comments.title,
+                content: dataObject.comments.content,
+                author: dataObject.comments.author
             }
         };
         res.status(StatusCodes.OK).json(finalObj);

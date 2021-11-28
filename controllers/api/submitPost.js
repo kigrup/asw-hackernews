@@ -10,10 +10,10 @@ const post = async (req, res) => {
 
         let finalObject = {
             post: {
-                id: dataObject.post.id,
-                title: dataObject.post.title,
-                content: dataObject.post.content,
-                author: dataObject.post.author
+                id: dataObject.dataValues.id,
+                title: dataObject.dataValues.title,
+                content: dataObject.dataValues.content,
+                author: dataObject.dataValues.author
             }
         };
 
