@@ -73,8 +73,8 @@ const post = async (fromBrowser, req, res) => {
         });
         post.comments = 1;
         post.save();
-        return post;
     }
+    return post;
 };
 
 module.exports = { post };
