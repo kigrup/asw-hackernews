@@ -31,8 +31,10 @@ const controller = async (req, res) => {
             let comment = {
                 id: originArray[i].id,
                 content: originArray[i].content,
+                upvotes: originArray[i].upvotes,
                 authorId: originArray[i].author,
-                authorName: originArray[i].authorName
+                authorName: originArray[i].authorName,
+                createdAt: originArray[i].createdAt,
             };
             endObject.push(comment);
             if (originArray[i].contributions != undefined) {
