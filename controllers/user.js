@@ -6,7 +6,7 @@ const modifyLogic = require('../controllerLogic/user').modify;
 
 const user = async (req, res) => {
     try {
-        let { logged, renderObject } = await userLogic(true, req);
+        let { logged, renderObject } = await userLogic(true, req, res);
         res.render(`pages/user${logged}`, renderObject);
     } catch (e) {
         console.log('Error on /user');
@@ -17,21 +17,7 @@ const user = async (req, res) => {
 
 const modify = async (req, res) => {
     try {
-        let authorObject;
-        if(!req.isAuthenticated()){
-            res.redirect('/login');
-            return;
-        }
-        else{
-            authorObject= await db.users.findOne({
-                where: {
-                    id: req.user.id,
-                }
-            });
-        }
-
-        modifyLogic(true, req, authorObject);
-
+        modifyLogic(true, req, res);
         res.redirect(`/user?id=${req.user.id}`);
     } catch (e) {
         console.log('Error modfiying about');

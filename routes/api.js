@@ -5,9 +5,9 @@ const router = express.Router();
 const api = require("../controllers/api.js");
 
 // Middlewares
-const authorLogged = require("../middlwares/apiAuthorLogged");
-const selfLogged = require("../middlwares/apiSelfLogged");
-const basicLogged = require("../middlwares/apiBasicLogged");
+const authorLogged = require("../middlewares/apiAuthorLogged.js");
+const selfLogged = require("../middlewares/apiSelfLogged.js");
+const basicLogged = require("../middlewares/apiBasicLogged.js");
 
 // Endpoints
 router.get("/index", api.index);
