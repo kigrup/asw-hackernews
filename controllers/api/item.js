@@ -26,12 +26,22 @@ const controller = async (req, res) => {
         finalObj.item.inReplyTo = obj.post.inReplyTo;
         finalObj.item.root = obj.post.root;
     }
-    /*
-    const populateComments = (array) => {
-        for (let i = 0; i < )
+    const populateComments = (originArray, endObject) => {
+        for (let i = 0; i < originArray.length; i++) {
+            let comment = {
+                id: originArray[i].id,
+                content: originArray[i].content,
+                authorId: originArray[i].author,
+                authorName: originArray[i].authorName
+            };
+            endObject.push(comment);
+            if (originArray[i].contributions != undefined) {
+                endObject[i].replies = [];
+                populateComments(originArray[i].contributions, endObject[i].replies);
+            }
+        }
     }
-    populateComments(finalObj);
-    */
+    populateComments(obj.comments, finalObj.item.replies);
 
     res.status(StatusCodes.OK).json(finalObj);
 };
