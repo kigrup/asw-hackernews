@@ -85,7 +85,10 @@ const threads = async (fromBrowser, localauthor, req) => {
                 },
             ],
         });
-        loggedUser.displayName = req.user.displayName;
+        if (fromBrowser)
+            loggedUser.displayName = req.user.displayName;
+        else
+            loggedUser.displayName = loggedUser.username;
         const setIsLiked = async (user, commentsObject) => {
             for (let i = 0; i < commentsObject.length; i++) {
                 for (let l = 0; l < user.liked.length; l++) {
