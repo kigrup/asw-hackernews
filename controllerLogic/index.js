@@ -29,12 +29,14 @@ const index = async(fromBrowser, req) =>
         loggedIn: false,
         user: {},
     };
-    
-    if (req.isAuthenticated() || req.header('X-API-KEY') != undefined) {
+    let userId;
+    if (fromBrowser && req.isAuthenticated()) {
+        userId = req.user.id;
+    }
+    if (userId != undefined || req.header('X-API-KEY') != undefined) {
         renderObject.loggedIn = true;
-        let userId;
-        if (fromBrowser) userId = req.user.id;
-        else userId = req.header('X-API-KEY');
+        if (!fromBrowser)
+            userId = req.header('X-API-KEY');
         const loggeduser = await db.users.findOne({
             where: {
                 id: userId
@@ -60,7 +62,12 @@ const index = async(fromBrowser, req) =>
 
 const newest = async (fromBrowser, req) => {
     let postTypes = {};
-    const url = await req.url.match(/[^?]*/);
+    let url;
+    if (req.url.includes('/ask')) {
+        url = '/ask';
+    } else if (req.url.includes('/newest')) {
+        url = '/newest';
+    }
     console.log(`/newest request from: ${url}`);
     if (url == '/ask') {
         postTypes = {
@@ -112,11 +119,14 @@ const newest = async (fromBrowser, req) => {
         loggedIn: false,
         user: {},
     };
-    if (req.isAuthenticated() || req.header('X-API-KEY') != undefined) {
+    let userId;
+    if (fromBrowser && req.isAuthenticated()) {
+        userId = req.user.id;
+    }
+    if (userId != undefined || req.header('X-API-KEY') != undefined) {
         renderObject.loggedIn = true;
-        let userId;
-        if (fromBrowser) userId = req.user.id;
-        else userId = req.header('X-API-KEY');
+        if (!fromBrowser) 
+            userId = req.header('X-API-KEY');
         const loggeduser = await db.users.findOne({
             where: {
                 id: userId,
