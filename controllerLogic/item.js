@@ -1,7 +1,7 @@
 const db = require("../db/db");
 
 const item = async (fromBrowser, req, res) => {
-    const id;
+    let id;
     if (fromBrowser) id = req.query.id;
     else id = req.params.itemId;
     if (id === undefined || !id || id < 1) {

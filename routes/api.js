@@ -5,9 +5,9 @@ const router = express.Router();
 const api = require("../controllers/api.js");
 
 // Middlewares
-const authorLogged = require("../middlwares/apiAuthorLogged");
-const selfLogged = require("../middlwares/apiSelfLogged");
-const basicLogged = require("../middlwares/apiBasicLogged");
+const authorLogged = require("../middlewares/apiAuthorLogged.js");
+const selfLogged = require("../middlewares/apiSelfLogged.js");
+const basicLogged = require("../middlewares/apiBasicLogged.js");
 
 // Endpoints
 router.get("/index", api.index);
@@ -17,7 +17,7 @@ router.post("/item", authorLogged, api.submitPost);
 router.get("/item/:itemId", api.item);
 router.post("/item/:itemId", authorLogged, api.itemComment);
 router.get("/user/:userId", api.user);
-router.post("/user/:userId/edit", selfLogged, api.userEdit); // Cambiar a PUT
+router.put("/user/:userId", selfLogged, api.userEdit);
 router.get("/item/:itemId/vote", basicLogged, api.vote); // Cambiar a PUT
 router.get("/user/:userId/threads", api.threads); // Falta añdir lógica añadida que está en el controller y no en la lógica
 router.get("/user/:userId/likedposts", selfLogged, api.likedPosts);
