@@ -1,10 +1,10 @@
 const db = require("../../db/db");
 const { StatusCodes } = require('http-status-codes');
-const threadsLogic = require('../controllerLogic/threads').threads;
+const threadsLogic = require('../../controllerLogic/threads.js').threads;
 
 const threads = async (req, res) => {
     try {
-        let dataObject = await threadsLogic(true,req,res);
+        let dataObject = await threadsLogic(false,req,res);
         res.render('pages/threads', dataObject);
     }
     catch (e) {

@@ -2,7 +2,7 @@ const { StatusCodes } = require('http-status-codes');
 const db = require('../db/db');
 const Constants = require('../utils/Constants');
 
-const postLogic = require('../controllerLogic/submit');
+const postLogic = require('../controllerLogic/submit').post;
 
 const submit = async (req, res) => {
     try {

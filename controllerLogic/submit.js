@@ -9,13 +9,16 @@ const post = async (fromBrowser, req, res) => {
         if (fromBrowser) userId = req.user.id;
         else userId = req.header('X-API-KEY')
     }
-    const { title, url, text } = req.body;
+    let { title, url, text } = req.body;
+    if (url == undefined) {
+        url = "";
+    }
     if (title === undefined || !title) {
         if (fromBrowser)
         {
             res.redirect("/submit?invalidTitle=true");
         }
-        else res.send(res.json({error: "Invalid submit"}))
+        else res.status(StatusCodes.BAD_REQUEST).json({error: ' msj del error '});
         return;
     }
     var contentType, content;
@@ -70,8 +73,8 @@ const post = async (fromBrowser, req, res) => {
         });
         post.comments = 1;
         post.save();
-        return;
+        return post;
     }
 };
 
-module.exports = post;
+module.exports = { post };
