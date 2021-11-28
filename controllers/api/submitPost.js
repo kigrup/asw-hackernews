@@ -9,10 +9,15 @@ const post = async (req, res) => {
         console.log(`published post with id ${post.id}`);
 
         let finalObject = {
-
+            post: {
+                id: dataObject.post.id,
+                title: dataObject.post.title,
+                content: dataObject.post.content,
+                author: dataObject.post.author
+            }
         };
 
-        res.status(StatusCodes.CREATED).json(dataObject);
+        res.status(StatusCodes.CREATED).json(finalObject);
     }
     catch (e) {
         console.log('Error creating contribution');
