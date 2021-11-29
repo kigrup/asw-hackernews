@@ -10,4 +10,4 @@ const userEdit = async (req, res) => {
 
 }
 
-module.exports = controller;
+module.exports = userEdit;
