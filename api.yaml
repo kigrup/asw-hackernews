@@ -120,21 +120,27 @@ paths:
               examples:
                 errorExample:
                   $ref: '#/components/examples/error404'
-  /item/{itemId}/vote:
+  /item/{itemId}/vote/{how}:
     get:
       tags:
       - Posts
-      summary: Upvote a Post
-      description: Returns the upvoted Post
+      summary: Upvote or unvote a Post
+      description: Returns the voted Post
       operationId: vote
       parameters:
       - name: itemId
         in: path
-        description: ID of Post to upvote
+        description: ID of Post to vote
         required: true
         schema:
           type: integer
           format: int64
+      - name: how
+        in: path
+        description: type of vote, "up" for upvote, "un" for unvote
+        required: true
+        schema:
+          type: string          
       responses:
         200:
           description: successful operation
@@ -151,6 +157,15 @@ paths:
               examples:
                 errorExample:
                   $ref: '#/components/examples/error404'
+        400:
+          description: 'Error: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResult'
+              examples:
+                errorExample:
+                  $ref: '#/components/examples/error400_2'
   /item:
     post:
       tags:
@@ -602,6 +617,11 @@ components:
         status: 400
         error: "Bad Request"
         message: "Content is too long (maximum is 280 characters)"
+    error400_2:
+      value:
+        status: 400
+        error: "Bad Request"
+        message: "Invalid vote: item was already upvoted or you can't unvote a post you didn't upvote before"
     error401:
       value:
         status: 401
