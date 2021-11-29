@@ -165,7 +165,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResult'
               examples:
                 errorExample:
-                  $ref: '#/components/examples/error400_2'
+                  $ref: '#/components/examples/error400_vote'
   /item:
     post:
       tags:
@@ -617,7 +617,7 @@ components:
         status: 400
         error: "Bad Request"
         message: "Content is too long (maximum is 280 characters)"
-    error400_2:
+    error400_vote:
       value:
         status: 400
         error: "Bad Request"

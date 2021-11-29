@@ -15,19 +15,7 @@ const controller = async (req, res) => {
             //include: [db.users]
         });
         let finalObj;
-        if (obj.dataValues.type == 'post')
-        {
-            finalObj = {
-                post: {
-                    id: obj.dataValues.id,
-                    content: obj.dataValues.content,
-                    upvotes: obj.dataValues.upvotes,                
-                    authorName: obj.dataValues.authorName,
-                    createdAt: obj.dataValues.createdAt,               
-                }
-            }
-        }
-        else if (obj.dataValues.type == 'comment')
+        if (obj.dataValues.type == "comment")
         {
             finalObj = {
                 comment: {
@@ -40,6 +28,18 @@ const controller = async (req, res) => {
                 }
             }
         }
+        else
+        {
+            finalObj = {
+                post: {
+                    id: obj.dataValues.id,
+                    content: obj.dataValues.content,
+                    upvotes: obj.dataValues.upvotes,                
+                    authorName: obj.dataValues.authorName,
+                    createdAt: obj.dataValues.createdAt,               
+                }
+            }
+        }       
         res.status(StatusCodes.OK).json(finalObj);       
     }
     catch(e)

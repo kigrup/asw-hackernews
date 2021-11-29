@@ -5,10 +5,20 @@ const vote = async (fromBrowser, req, res) => {
     else const { id, how } = await req.params;
     if (id == undefined) {
         if (fromBrowser) res.send("Null id in query");
+        else {
+            res.status(StatusCodes.BAD_REQUEST).json({
+                error: "Invalid user ID",
+            });
+        }
         return;
     }
     if (how == undefined) {
         if (fromBrowser) res.send('Null "how" parameter in query');
+        else {
+            res.status(StatusCodes.BAD_REQUEST).json({
+                error: "Invalid how parameter",
+            });
+        }
         return;
     }
     // Find contribution that user wants to like
@@ -23,6 +33,11 @@ const vote = async (fromBrowser, req, res) => {
 
     if (contribution == undefined) {
         if (fromBrowser) res.send("Invalid id in query");
+        else {
+            res.status(StatusCodes.BAD_REQUEST).json({
+                error: "Invalid user ID",
+            });
+        }
         return;
     }
     let userId;
@@ -79,6 +94,11 @@ const vote = async (fromBrowser, req, res) => {
                     res.redirect("back");
                 }
             }
+            else {
+                res.status(StatusCodes.BAD_REQUEST).json({
+                    error: "Invalid vote: item was already upvoted or you can't unvote a post you didn't upvote before",
+                });
+            }
             return;
         }
         await contribution.save();
@@ -96,6 +116,7 @@ const vote = async (fromBrowser, req, res) => {
             res.redirect("back");
         }
     }
+    
 };
 
 module.exports = {vote};
