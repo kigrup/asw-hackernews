@@ -1,12 +1,26 @@
 const db = require("../../db/db");
 const { StatusCodes } = require('http-status-codes');
 
-const controller = async (req, res) => {
+const userLogic = require('../../controllerLogic/user.js').user;
 
+const userEdit = async (req, res) => {
+
+    await userLogic(false, req, res);
     
-    // CONTENIDO DE PLANTILLA:
-    // BORRAR ESTO CUANDO SE HAYA IMPLEMENTADO!!
-    res.status(StatusCodes.NOT_IMPLEMENTED).send();;
+    let obj = await db.users.findOne({
+        where: {
+            id: req.params.id,
+        },
+    });
+
+    let finalObj = {
+        user: {
+            about: obj.dataValues.userProfile.about,
+            
+        }
+    };
+
+    res.status(StatusCodes.OK).json(finalObj);
 }
 
 module.exports = controller;

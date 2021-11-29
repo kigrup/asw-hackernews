@@ -4,16 +4,22 @@ const { StatusCodes } = require('http-status-codes');
 const userLogic = require('../../controllerLogic/user.js').user;
 
 const controller = async (req, res) => {
-    let obj = await userLogic(false, req, res);
+    await userLogic(false, req, res);
+    
+    let obj = await db.users.findOne({
+        where: {
+            id: req.params.id,
+        },
+    });
 
     let finalObj = {
         user: {
-            username: obj.renderObject.userProfile.username,
-            id: obj.renderObject.userProfile.id,
-            email: obj.renderObject.userProfile.email,
-            about: obj.renderObject.userProfile.about,
-            karma: obj.renderObject.userProfile.karma,
-            createdAt: obj.renderObject.userProfile.createdAt
+            username: obj.dataValues.userProfile.username,
+            id: obj.dataValues.userProfile.id,
+            email: obj.dataValues.userProfile.email,
+            about: obj.dataValues.userProfile.about,
+            karma: obj.dataValues.userProfile.karma,
+            createdAt: obj.dataValues.userProfile.createdAt
         }
     };
 
