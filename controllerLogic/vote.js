@@ -1,13 +1,14 @@
 const db = require("../db/db");
 
 const vote = async (fromBrowser, req, res) => {
-    const { id, how } = await req.query;
+    if (fromBrowser) const { id, how } = await req.query;
+    else const { id, how } = await req.params;
     if (id == undefined) {
-        res.send("Null id in query");
+        if (fromBrowser) res.send("Null id in query");
         return;
     }
     if (how == undefined) {
-        res.send('Null "how" parameter in query');
+        if (fromBrowser) res.send('Null "how" parameter in query');
         return;
     }
     // Find contribution that user wants to like
@@ -21,14 +22,16 @@ const vote = async (fromBrowser, req, res) => {
     //console.log(`voting contribution ${require('util').inspect(contribution, false, 7, false)}`);
 
     if (contribution == undefined) {
-        res.send("Invalid id in query");
+        if (fromBrowser) res.send("Invalid id in query");
         return;
     }
-
+    let userId;
+    if (fromBrowser) userId = req.user.id;
+    else userId = req.header('X-API-KEY');
     // Get user and all of its liked contributions
     const fullUser = await db.users.findOne({
         where: {
-            id: req.user.id,
+            id: userId,
         },
         include: [
             {
@@ -64,12 +67,17 @@ const vote = async (fromBrowser, req, res) => {
             await fullUser.setLiked(likedContributions);
             contribution.upvotes = contribution.upvotes - 1;
             author.karma = author.karma - 1;
-        } else {
+        } 
+        else 
+        {
             console.log(`invalid vote`);
-            if (req.session.prevUrl) {
-                res.redirect(req.session.prevUrl);
-            } else {
-                res.redirect("back");
+            if (fromBrowser) 
+            {
+                if (req.session.prevUrl) {
+                    res.redirect(req.session.prevUrl);
+                } else {
+                    res.redirect("back");
+                }
             }
             return;
         }
@@ -80,10 +88,13 @@ const vote = async (fromBrowser, req, res) => {
     console.log(
         `voted successfully. votes count: ${likedContributions.length}`
     );
-    if (req.session.prevUrl) {
-        res.redirect(req.session.prevUrl);
-    } else {
-        res.redirect("back");
+    if(fromBrowser)
+    {
+        if (req.session.prevUrl) {
+            res.redirect(req.session.prevUrl);
+        } else {
+            res.redirect("back");
+        }
     }
 };
 
