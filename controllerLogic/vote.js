@@ -2,7 +2,7 @@ const db = require("../db/db");
 
 const vote = async (fromBrowser, req, res) => {
     if (fromBrowser) const { id, how } = await req.query;
-    else const { id, how } = await req.params;
+    else const { id = req.query.itemId, how = req.body.how };
     if (id == undefined) {
         if (fromBrowser) res.send("Null id in query");
         else {

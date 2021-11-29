@@ -6,11 +6,11 @@ const voteLogic = require("../../controllerLogic/vote.js").vote;
 const controller = async (req, res) => {
     try
     {
-        voteLogic(true, req, res);
-
+        voteLogic(false, req, res);
+        
         const obj = await db.contributions.findOne({
             where: {
-                id: id,
+                id: req.params.itemId,
             },
             //include: [db.users]
         });
