@@ -12,6 +12,7 @@ const controller = async (req, res) => {
     let finalObj = {
         item: {
             id: obj.post.id,
+            title: obj.post.title,
             type: obj.post.type,
             content: obj.post.content,
             upvotes: obj.post.upvotes,
