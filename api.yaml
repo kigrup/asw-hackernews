@@ -484,18 +484,18 @@ components:
               type: integer
               format: int64
               example: 1
+            type:
+              type: string
+              example: 'comment' 
             content:
               type: string
-              example: 'This is a comment!'
+              example: 'This is a comment!'                      
+            author:
+              type: string
+              example: "raul.plesa"
             upvotes:
               type: integer
               example: 381
-            authorId:
-              type: string
-              example: "101908718141570741187"
-            authorName:
-              type: string
-              example: "raul.plesa"
             createdAt:
               type: string
               example: '2021-11-14T20:11:58.057Z'
