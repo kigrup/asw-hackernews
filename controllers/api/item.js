@@ -34,6 +34,7 @@ const controller = async (req, res) => {
         for (let i = 0; i < originArray.length; i++) {
             let comment = {
                 id: originArray[i].id,
+                title: originArray[i].title,
                 content: originArray[i].content,
                 upvotes: originArray[i].upvotes,
                 authorId: originArray[i].author,
