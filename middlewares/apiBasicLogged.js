@@ -1,7 +1,7 @@
 const { StatusCodes } = require('http-status-codes');
 
-const apiSelfLogged = async (req, res, next) => {
-    if(req.params.userId == undefined){
+const apiBasicLogged = async (req, res, next) => {
+    if(req.header("X-API-KEY") == undefined){
         res.status(StatusCodes.UNAUTHORIZED).send()
     }
     else {
@@ -9,4 +9,4 @@ const apiSelfLogged = async (req, res, next) => {
     }
 };
 
-module.exports = apiSelfLogged;
+module.exports = apiBasicLogged;

@@ -1,13 +1,13 @@
 const db = require("../../db/db");
-const { StatusCodes } = require('http-status-codes');
+const { StatusCodes } = require("http-status-codes");
 
 const voteLogic = require("../../controllerLogic/vote.js").vote;
 
 const controller = async (req, res) => {
-    try
-    {
-        voteLogic(false, req, res);
-        
+    try {
+        console.log("received vote request");
+        let obj = await voteLogic(false, req, res);
+        /*
         const obj = await db.contributions.findOne({
             where: {
                 id: req.params.itemId,
@@ -40,15 +40,16 @@ const controller = async (req, res) => {
                 }
             }
         }       
-        res.status(StatusCodes.OK).json(finalObj);       
-    }
-    catch(e)
-    {
-        console.log('Error');
+        */
+        if (obj.error != undefined) {
+            return;
+        }
+        res.status(StatusCodes.OK).send();
+    } catch (e) {
+        console.log("Error");
         console.log(e.message);
-        res.status(StatusCodes.NOT_FOUND).json({error: 'Not found'});
+        res.status(StatusCodes.NOT_FOUND).json({ error: "Not found" });
     }
-   
-}
+};
 
 module.exports = controller;

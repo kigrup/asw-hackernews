@@ -16,6 +16,9 @@ const user = async (fromBrowser, req, res) => {
             res.status(StatusCodes.BAD_REQUEST).json({
                 error: "Invalid user ID",
             });
+            return {
+                error: "invalid user id",
+            };
         }
     }
     const user = await db.users.findOne({
@@ -30,6 +33,9 @@ const user = async (fromBrowser, req, res) => {
             res.status(StatusCodes.BAD_REQUEST).json({
                 error: "Invalid user ID",
             });
+            return {
+                error: "invalid user id",
+            };
         }
     }
     let logged = "";
@@ -44,7 +50,7 @@ const user = async (fromBrowser, req, res) => {
             logged = "Logged";
         }
     } else {
-        if (req.header("X-API-HEADER") == id) {
+        if (req.header("X-API-KEY") == id) {
             logged = "Logged";
         }
     }
@@ -58,13 +64,12 @@ const user = async (fromBrowser, req, res) => {
             });
             renderObject.user = loggeduser;
         }
-    }
-    else {
-        if (req.header("X-API-HEADER") != undefined) {
+    } else {
+        if (req.header("X-API-KEY") != undefined) {
             renderObject.loggedIn = true;
             const loggeduser = await db.users.findOne({
                 where: {
-                    id: req.header("X-API-HEADER"),
+                    id: req.header("X-API-KEY"),
                 },
             });
             renderObject.user = loggeduser;
@@ -87,27 +92,52 @@ const modify = async (fromBrowser, req, res) => {
                 },
             });
         }
-    }
-    else {
-        if (req.header("X-API-HEADER") == undefined) {
-            res.status(StatusCodes.UNAUTHORIZED).json({ error: "You're not logged in"});
-            return;
-        } 
-        else if (req.header("X-API-HEADER") != req.params.userId) {
-            res.status(StatusCodes.UNAUTHORIZED).json({ error: "You can only modify your profile"});
-            return;
+    } else {
+        if (about == undefined) {
+            res.status(StatusCodes.BAD_REQUEST).json({
+                error: "No about provided",
+            });
+            return {
+                error: "No about provided",
+            };
+        }
+        if (req.header("X-API-KEY") == undefined) {
+            res.status(StatusCodes.UNAUTHORIZED).json({
+                error: "You're not logged in",
+            });
+            return {
+                error: "not logged",
+            };
+        } else if (req.header("X-API-KEY") != req.params.userId) {
+            res.status(StatusCodes.UNAUTHORIZED).json({
+                error: "You can only modify your profile",
+            });
+            return {
+                error: "you can only modify your profile",
+            };
         } else {
             authorObject = await db.users.findOne({
                 where: {
                     id: req.params.userId,
                 },
             });
+            if (authorObject == undefined) {
+                res.status(StatusCodes.NOT_FOUND).json({
+                    error: "User not found",
+                });
+                return {
+                    error: "user not found",
+                };
+            }
         }
     }
-    if (about !== undefined) {
+    console.log(`about = ${about}`);
+    if (about != undefined) {
         authorObject.about = about;
         authorObject.save();
+        console.log(`saved authorObject with about = ${about}`);
     }
+    return {};
 };
 
 module.exports = { user, modify };

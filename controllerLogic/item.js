@@ -6,8 +6,14 @@ const item = async (fromBrowser, req, res) => {
     if (fromBrowser) id = req.query.id;
     else id = req.params.itemId;
     if (id === undefined || !id || id < 1) {
-        if (fromBrowser) res.send("Invalid id in query");
-        else res.status(StatusCodes.BAD_REQUEST).json({error: "Invalid id"});
+        if (fromBrowser) {
+            res.send("Invalid id in query");
+            return;
+        } else {
+            return {
+                error: 'Id invalid'
+            }
+        }
     }
     // Get first comment
     const post = await db.contributions.findOne({
@@ -21,9 +27,15 @@ const item = async (fromBrowser, req, res) => {
 
     //console.log(require('util').inspect(post, false, 3, false));
     if (post == undefined) {
-        if (fromBrowser) res.send("Item not found");
-        else res.status(StatusCodes.BAD_REQUEST).json({error: "Item not found"});
-        return;
+        if (fromBrowser) {
+            res.send("Item not found");
+            return;
+        }
+        else {
+            return {
+                error: 'Item not found'
+            }
+        }
     }
 
     let comments = await db.contributions.findAll({
@@ -43,7 +55,9 @@ const item = async (fromBrowser, req, res) => {
             });
             commentsObject[i] = child;
             if (child.dataValues.contributions !== undefined) {
-                await populateComments(commentsObject[i].dataValues.contributions);
+                await populateComments(
+                    commentsObject[i].dataValues.contributions
+                );
             }
         }
     };
@@ -51,9 +65,9 @@ const item = async (fromBrowser, req, res) => {
 
     let loggedUser;
     let userId;
-    if (req.user || req.header('X-API-KEY') != undefined) {
+    if (req.user || req.header("X-API-KEY") != undefined) {
         if (fromBrowser) userId = req.user.id;
-        else userId = req.header('X-API-KEY');
+        else userId = req.header("X-API-KEY");
         loggedUser = await db.users.findOne({
             where: {
                 id: userId,
@@ -69,7 +83,8 @@ const item = async (fromBrowser, req, res) => {
             for (let i = 0; i < commentsObject.length; i++) {
                 for (let l = 0; l < user.liked.length; l++) {
                     if (
-                        commentsObject[i].dataValues.id == user.liked[l].dataValues.id
+                        commentsObject[i].dataValues.id ==
+                        user.liked[l].dataValues.id
                     ) {
                         commentsObject[i].dataValues.isLiked = true;
                         commentsObject[i].isLiked = true;
@@ -82,7 +97,10 @@ const item = async (fromBrowser, req, res) => {
                         post.isLiked = true;
                     }
                 }
-                await setIsLiked(user, commentsObject[i].dataValues.contributions);
+                await setIsLiked(
+                    user,
+                    commentsObject[i].dataValues.contributions
+                );
             }
         };
         await setIsLiked(loggedUser, comments);
@@ -112,7 +130,7 @@ const item = async (fromBrowser, req, res) => {
         user: {},
         rootPost: rootPost,
     };
-    if (req.user || req.header('X-API-KEY') != undefined) {
+    if (req.user || req.header("X-API-KEY") != undefined) {
         dataObject.loggedIn = true;
         dataObject.user = loggedUser;
     }
@@ -120,23 +138,50 @@ const item = async (fromBrowser, req, res) => {
 };
 
 const comment = async (fromBrowser, req, res) => {
-    if (!req.user && req.header('X-API-KEY') == undefined) 
-    {
-        if (fromBrowser)
-        {
-            res.redirect("/login");           
+    if (req.user == undefined && req.header("X-API-KEY") == undefined) {
+        if (fromBrowser) {
+            res.redirect("/login");
+        } else {
+            res.status(StatusCodes.UNAUTHORIZED).json({
+                error: "Not logged in",
+            });
         }
-        else res.status(StatusCodes.UNAUTHORIZED).json({error: "Not logged in"});
         return;
     }
-    const {id, content} = req.body;  
+    let id, content;
+    if (fromBrowser){
+        id = req.body.id;
+    } else {
+        id = req.params.itemId;
+    }
+    console.log(require('util').inspect(req.body, false, 5, false));
+    content = req.body.content;
     console.log(`starting comment id: ${id} content: ${content}`);
-    if (id === undefined || !id) {        
-        if (fromBrowser) res.send("Id undefined in body");
-        else res.status(StatusCodes.BAD_REQUEST).json({error: "Id not defined in body"});
-    } else if (content === undefined || !content) {
-        if (fromBrowser) res.send("Message undefined in body");
-        else res.status(StatusCodes.BAD_REQUEST).json({error: "Message not defined in body"});
+    if (id == undefined) {
+        if (fromBrowser) {
+            res.send("Id undefined in body");
+            return;
+        } else {
+            res.status(StatusCodes.BAD_REQUEST).json({
+                error: "Id invalid",
+            });
+            return {
+                error: "Id undefined"
+            };
+        }
+    } else if (content == undefined) {
+        if (fromBrowser) {
+            res.send("Message undefined in body");
+            return;
+        } else {
+            res.status(StatusCodes.BAD_REQUEST).json({
+                error: "Message not defined in body",
+            });
+            return {
+                error: "Message undefined"
+            };
+        }
+        
     }
     const contribution = await db.contributions.findOne({
         where: {
@@ -144,8 +189,11 @@ const comment = async (fromBrowser, req, res) => {
         },
     });
     let userId;
-    if (fromBrowser) userId = req.user.id;
-    else userId = req.header('X-API-KEY');
+    if (fromBrowser) {
+        userId = req.user.id;
+    } else {
+        userId = req.header("X-API-KEY");
+    }
     //console.log(`commenting onto: ${require('util').inspect(contribution, false, 3, false)}`);
     //console.log(`with user: ${require('util').inspect(req.user, false, 5, false)}`);
     const authorObject = await db.users.findOne({
@@ -181,6 +229,7 @@ const comment = async (fromBrowser, req, res) => {
         deep: contribution.deep + 1,
         root: root,
     });
+    reply.idd = id;
     return reply;
 };
 

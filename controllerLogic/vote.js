@@ -1,14 +1,25 @@
 const db = require("../db/db");
+const { StatusCodes } = require('http-status-codes');
 
 const vote = async (fromBrowser, req, res) => {
-    if (fromBrowser) const { id, how } = await req.query;
-    else const { id = req.query.itemId, how = req.body.how };
+    let id, how;
+    if (fromBrowser) {
+        id = await req.query.id;
+        how = await req.query.how;
+    }
+    else {
+        id = req.params.itemId;
+        how = req.query.how;
+    }
     if (id == undefined) {
         if (fromBrowser) res.send("Null id in query");
         else {
             res.status(StatusCodes.BAD_REQUEST).json({
                 error: "Invalid user ID",
             });
+            return {
+                error: 'invalid user id'
+            }
         }
         return;
     }
@@ -18,6 +29,9 @@ const vote = async (fromBrowser, req, res) => {
             res.status(StatusCodes.BAD_REQUEST).json({
                 error: "Invalid how parameter",
             });
+            return {
+                error: 'invalid how parameter'
+            }
         }
         return;
     }
@@ -37,12 +51,19 @@ const vote = async (fromBrowser, req, res) => {
             res.status(StatusCodes.BAD_REQUEST).json({
                 error: "Invalid user ID",
             });
+            return {
+                error: 'invalid user id'
+            }
         }
         return;
     }
     let userId;
-    if (fromBrowser) userId = req.user.id;
-    else userId = req.header('X-API-KEY');
+    if (fromBrowser) {
+        userId = req.user.id;
+    }
+    else {
+        userId = req.header('X-API-KEY');
+    }
     // Get user and all of its liked contributions
     const fullUser = await db.users.findOne({
         where: {
@@ -90,16 +111,23 @@ const vote = async (fromBrowser, req, res) => {
             {
                 if (req.session.prevUrl) {
                     res.redirect(req.session.prevUrl);
+                    return;
                 } else {
                     res.redirect("back");
+                    return;
                 }
             }
             else {
-                res.status(StatusCodes.BAD_REQUEST).json({
-                    error: "Invalid vote: item was already upvoted or you can't unvote a post you didn't upvote before",
-                });
+                if (how == "up" || how == "un") {
+                    return {};
+                }
+                else {
+                    res.status(StatusCodes.BAD_REQUEST).send();
+                    return {
+                        error: 'invalid how parameter'
+                    }
+                }
             }
-            return;
         }
         await contribution.save();
         await fullUser.save();
@@ -112,11 +140,15 @@ const vote = async (fromBrowser, req, res) => {
     {
         if (req.session.prevUrl) {
             res.redirect(req.session.prevUrl);
+            return;
         } else {
             res.redirect("back");
+            return;
         }
     }
-    
+    return {
+
+    };
 };
 
 module.exports = {vote};

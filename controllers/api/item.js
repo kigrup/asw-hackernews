@@ -5,7 +5,10 @@ const itemLogic = require("../../controllerLogic/item.js").item;
 
 const controller = async (req, res) => {
     const obj = await itemLogic(false, req, res);
-
+    if (obj.error != undefined) {
+        res.status(obj.error == 'Id invalid' ? StatusCodes.BAD_REQUEST : StatusCodes.NOT_FOUND).json(obj.error);
+        return;
+    }
     let finalObj = {
         item: {
             id: obj.post.id,

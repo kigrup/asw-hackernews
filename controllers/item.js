@@ -17,9 +17,9 @@ const item = async (req, res) => {
 
 const comment = async (req, res) => {
     try {
-        await commentLogic(true, req,res);
+        let o = await commentLogic(true, req,res);
         //console.log(`commented: ${require('util').inspect(reply, false, 3, false)}`);
-        res.redirect(`/item?id=${id}`);
+        res.redirect(`/item?id=${o.idd}`);
     } catch (e) {
         console.log('Error on /item/comment');
         console.log(e.message);

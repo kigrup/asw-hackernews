@@ -5,7 +5,9 @@ const userLogic = require('../../controllerLogic/user.js').user;
 
 const controller = async (req, res) => {
     let obj = await userLogic(false, req, res);
-
+    if (obj.error != undefined) {
+        return;
+    }
     let finalObj = {
         user: {
             username: obj.renderObject.userProfile.username,

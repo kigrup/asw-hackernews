@@ -5,9 +5,13 @@ const Constants = require('../utils/Constants');
 
 const post = async (fromBrowser, req, res) => {
     let userId;
-    if (req.user || req.header('X-API-KEY') != undefined) {
-        if (fromBrowser) userId = req.user.id;
-        else userId = req.header('X-API-KEY')
+    if (req.user != undefined || req.header('X-API-KEY') != undefined) {
+        if (fromBrowser) {
+            userId = req.user.id;
+        }
+        else {
+            userId = req.header('X-API-KEY');
+        }
     }
     let { title, url, text } = req.body;
     if (url == undefined) {
@@ -18,7 +22,9 @@ const post = async (fromBrowser, req, res) => {
         {
             res.redirect("/submit?invalidTitle=true");
         }
-        else res.status(StatusCodes.BAD_REQUEST).json({error: ' msj del error '});
+        else {
+            res.status(StatusCodes.BAD_REQUEST).json({error: 'invalid title'});
+        }
         return;
     }
     var contentType, content;
@@ -50,9 +56,14 @@ const post = async (fromBrowser, req, res) => {
             },
         });
         if (fromBrowser) {
+            console.log(`redirecting to ${`/item?id=${postCreated.id}`}`);
             res.redirect(`/item?id=${postCreated.id}`);
+            return;
         }
-        return;
+        else {
+            postCreated.status = 'retrieved';
+            return postCreated;
+        }
     }
     const post = await db.contributions.create({
         type: contentType,
@@ -73,7 +84,16 @@ const post = async (fromBrowser, req, res) => {
         });
         post.comments = 1;
         post.save();
+        if (fromBrowser) {
+            res.redirect(`/item?id=${post.id}`);
+            return;
+        }
     }
+    if (fromBrowser) {
+        res.redirect('/newest');
+        return;
+    }
+    post.status = 'created';
     return post;
 };
 

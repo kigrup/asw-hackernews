@@ -7,6 +7,9 @@ const controller = async (req, res) => {
     try
     {
         let dataObject = await commentLogic (false,req,res);
+        if (dataObject.error != undefined) {
+            return;
+        }
         let finalObject = {
             comment: {
                 id: dataObject.dataValues.id,
