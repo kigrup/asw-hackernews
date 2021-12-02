@@ -8,7 +8,7 @@ const post = async (req, res) => {
         if (req.body != undefined) {
             if (req.body.url != undefined) {
                 let link = req.body.url;
-                if (!link.startsWith('http://') || !link.startsWith('https://')) {
+                if (!link.startsWith('http://') && !link.startsWith('https://')) {
                     res.status(StatusCodes.BAD_REQUEST).json({error: 'Invalid url'});
                     return;
                 }
